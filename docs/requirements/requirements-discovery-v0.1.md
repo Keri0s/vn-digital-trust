@@ -1,7 +1,10 @@
 # VN Digital Trust — Requirements Discovery v0.1
 
-**Status:** Discovery draft  
+**Status:** Working requirements baseline for prototype v0.1; regulatory content and user need remain subject to validation.
+
 **Scope:** One deployment for one Vietnamese SME; self-assessment is the primary journey.
+
+**Basis:** [Project Charter](D:/Projects/vn-digital-trust/docs/research/project-charter.md), [Problem Discovery](D:/Projects/vn-digital-trust/docs/research/problem-discovery-v0.1.md), [Hypotheses](D:/Projects/vn-digital-trust/docs/research/hypotheses.md), [Assumptions Log](D:/Projects/vn-digital-trust/docs/research/assumptions-log.md), and subsequent project decisions.
 
 ## 1. Scope assumptions
 
@@ -11,6 +14,9 @@
 - **Decision model:** Structured facts and versioned, deterministic rules identify *potentially applicable* requirements. Curated mappings connect requirements to controls. Evidence and explicit criteria drive preliminary control assessments.
 - **Positioning:** The product supports readiness and decisions. It does not issue legal opinions, certify compliance, or conclude that an organization has violated the law.
 - **AI:** Any later AI capability may assist with explanation or drafting; it has no decision authority in v0.1.
+- **Evidence status:** SME preference for self-assessment is a design assumption for the prototype, not a validated market finding (H4, A-007). The prototype must permit comparison with consultant-assisted work.
+- **Regulatory coverage:** Demonstrations use a selected, bounded set of example requirements, rules, controls and mappings. Each legal pathway must be reviewed and its scope recorded before it is presented as a reviewed example (W-003, A-003, A-004). Unreviewed content remains marked as draft.
+- **Unknown context:** Missing, uncertain or uncovered context requires review. It must not silently become NOT_APPLICABLE or a legal conclusion.
 
 ## 2. Actors
 
@@ -37,7 +43,7 @@ Roles describe permissions, not separate tenants. One person may hold more than 
 
 ## 4. Functional requirements
 
-Priorities: **MUST** = v0.1 baseline; **SHOULD** = desired if feasible; **COULD** = future-friendly capability.
+Priorities describe the **planned prototype**, not evidence that a feature is legally required or wanted by representative users: **MUST** = baseline capability; **SHOULD** = desired if feasible; **COULD** = future option. Requirement IDs remain stable for use-case traceability.
 
 ### A. Authentication and authorization
 
@@ -112,6 +118,8 @@ Questionnaire answers establish facts; a “yes” answer about a control does n
 | FR-APP-003 | MUST | Identify requirements as *potentially applicable based on available context*. |
 | FR-APP-004 | MUST | Explain each result with the triggering facts, rule ID, and rule version. |
 | FR-APP-005 | SHOULD | Allow an authorized reviewer to review applicability results. |
+| FR-APP-006 | MUST | Return a distinct NEEDS_REVIEW/UNKNOWN result with reasons when inputs are missing, uncertain or outside the reviewed rule coverage; do not infer NOT_APPLICABLE. |
+| FR-APP-007 | MUST | Run only versioned rules from the selected content set and expose each rule's source, coverage boundary and review status. Draft rules must be identified as draft. |
 
 ### I. Regulatory Requirement Repository
 
@@ -121,6 +129,7 @@ Questionnaire answers establish facts; a “yes” answer about a control does n
 | FR-REQ-002 | MUST | Keep legal source, article/clause, effective date, status, and version references. |
 | FR-REQ-003 | MUST | Support active, superseded, transitional, and inactive lifecycle states or equivalents. |
 | FR-REQ-004 | MUST | Preserve the requirement version used in historical assessments. |
+| FR-REQ-005 | MUST | Record the selected legal content set's source, scope, version, review status, reviewer/role and review date where available; do not present unreviewed material as legally validated. |
 
 ### J. Controls
 
@@ -130,6 +139,7 @@ Questionnaire answers establish facts; a “yes” answer about a control does n
 | FR-CTL-002 | MUST | Support many-to-many requirement ↔ control mappings. |
 | FR-CTL-003 | MUST | Define each control's objective, expected implementation, evidence expectations, and assessment criteria. |
 | FR-CTL-004 | COULD | Map a control to additional frameworks in a future release. |
+| FR-CTL-005 | MUST | Version controls, requirement-control mappings, evidence expectations and assessment criteria, including mapping rationale, so historical results remain interpretable. |
 
 ### K. Evidence
 
@@ -141,7 +151,7 @@ Questionnaire answers establish facts; a “yes” answer about a control does n
 | FR-EVD-004 | MUST | Allow one evidence item to support multiple controls or requirements. |
 | FR-EVD-005 | MUST | Track unverified, verified, rejected, and expired states or equivalents. |
 | FR-EVD-006 | MUST | Detect expected evidence that has not been provided. |
-| FR-EVD-007 | SHOULD | Retain earlier versions when evidence is replaced. |
+| FR-EVD-007 | MUST | Retain each evidence revision used by an assessment when evidence is replaced, so historical results still point to the submitted version. |
 
 ### L. Assessment
 
@@ -154,6 +164,7 @@ Questionnaire answers establish facts; a “yes” answer about a control does n
 | FR-ASMT-005 | MUST | Mark automated rule-based results as preliminary where human review may be needed. |
 | FR-ASMT-006 | SHOULD | Permit an authorized reviewer to override a result with justification. |
 | FR-ASMT-007 | MUST | Audit any override with old and new results, reviewer, time, and reason. |
+| FR-ASMT-008 | MUST | Preserve a reference or snapshot of the facts, questionnaire, rules, requirements, controls, mappings, criteria and evidence versions used for each assessment. Later updates must not rewrite prior results. |
 
 ### M. Readiness Gap
 
@@ -173,6 +184,8 @@ Questionnaire answers establish facts; a “yes” answer about a control does n
 | FR-REM-003 | MUST | Support open, in progress, ready for retest, closed, and accepted risk states or equivalents. |
 | FR-REM-004 | MUST | Permit retesting after remediation and new evidence. |
 | FR-REM-005 | MUST | Retain prior assessment and remediation history after closure. |
+| FR-REM-006 | MUST | Show a curated remediation recommendation for a supported gap, including action, reason and evidence expected at retest; state when no reviewed recommendation exists. |
+| FR-REM-007 | MUST | Allow only an authorized role to record risk acceptance with decision maker, time and reason. Accepted risk must not change an unsatisfied control to SATISFIED. |
 
 ### O. Reporting
 
@@ -183,6 +196,7 @@ Questionnaire answers establish facts; a “yes” answer about a control does n
 | FR-RPT-003 | SHOULD | Provide a management-oriented executive summary. |
 | FR-RPT-004 | MUST | State that the report is a readiness assessment, not definitive legal certification. |
 | FR-RPT-005 | MUST | Trace findings to controls, requirements, evidence, and assessment reasoning. |
+| FR-RPT-006 | MUST | Disclose the reviewed content set, coverage limits, unresolved/unknown results and whether a human reviewer participated. |
 
 ### P. Technical Evidence
 
@@ -213,16 +227,22 @@ Questionnaire answers establish facts; a “yes” answer about a control does n
 | NFR-MNT-001 | Allow regulatory content and control mappings to be maintained without rewriting application source code. |
 | NFR-TST-001 | Make applicability and assessment rules testable with fixed inputs and expected outputs. |
 | NFR-DEP-001 | Keep prototype deployment lightweight enough for a resource-constrained development environment (approximately 16 GB RAM). |
+| NFR-VAL-001 | Support repeatable tests using a synthetic SME and reviewed expected outcomes; record observed results and limitations. |
+| NFR-VAL-002 | Make it possible to compare prototype assessment effort and traceability with a manual spreadsheet/document baseline without assuming a performance threshold in advance. |
 
-## 6. Deferred to v0.2+
+## 6. Outside prototype v0.1
 
-- Multi-tenant SaaS onboarding and billing.
-- Fully automatic legal interpretation or AI compliance decisions.
+These are exclusions from the prototype, **not delivery commitments for v0.2+**.
+
+- Multi-tenant SaaS onboarding, billing and a consultant dashboard spanning multiple SME deployments.
+- Fully automatic legal interpretation, legal approval or AI compliance decisions.
 - Real-time SIEM ingestion, full SOC, XDR/EDR, and automated penetration testing.
 - Enterprise-scale discovery and production-scale cloud scanning.
 - Automated government submission.
-- Investment scoring and FDI recommendations.
-- Additional framework mappings and automated technical integrations beyond the v0.1 baseline.
+- Full ISO/IEC 27001 certification platform and enterprise GRC replacement.
+- Critical-infrastructure or government-system compliance platform.
+- Full FDI compliance platform, investment scoring and FDI recommendations.
+- Complete AI threat-detection platform, additional framework mappings and automated technical integrations beyond the selected v0.1 examples.
 
 ## 7. Core design rules
 
@@ -234,8 +254,42 @@ Questionnaire answers establish facts; a “yes” answer about a control does n
 6. Treat insufficient evidence separately from a failed control.
 7. Permit justified human review and keep an audit trail.
 8. Limit AI to assistance; humans and deterministic rules retain decision authority.
+9. Expose unknown, unreviewed and out-of-coverage contexts instead of interpreting silence as non-applicability.
 
-## 8. Final v0.1 flow
+## 8. Requirement provenance
+
+The following links show why a **group** exists. They do not claim that each field, status name or interaction detail has been validated with a real SME.
+
+| Requirement group | Basis | Remaining validation |
+| --- | --- | --- |
+| AUTH, ORG | Single-tenant and RBAC project decisions; Charter §6–8 organization context | Test permissions and onboarding with users. |
+| SYS, AST, DATA, VND | Charter §6–8; Problem Discovery §9, §11 | Check data-entry effort and missing-information patterns (H3). |
+| QST, APP, REQ | Charter §7–8, §10; Assumptions A-003/A-004/W-003; Hypothesis H1 | Review selected legal pathways, rule inputs and expected outputs. |
+| CTL, EVD, ASMT, TECH | Charter §6–8, §10; Problem Discovery §10; W-004/W-005 | Review mapping rationale and distinguish evidence gaps from control failures. |
+| GAP, REM, RPT, AUD | Charter §6–8, §12; Problem Discovery §9–11 | Observe task completion, retest and report interpretation. |
+| Self-assessment primary, consultant optional | Project decision; H4/A-007 remain unvalidated | Compare self-service and consultant-assisted completion. |
+
+The content reviewer who checks legal sources/rules/mappings is a separate responsibility from the optional consultant who reviews an SME's assessment. The prototype may load a reviewed content set through configuration; a full legal-content approval UI is not required.
+
+## 9. Prototype acceptance and research evaluation
+
+Use the **synthetic** ABC Trading scenario from Problem Discovery §13. Its input facts are test data, not evidence about a real SME. Legal/applicability expected results must be defined and reviewed separately before being used as reference answers.
+
+1. Complete the path from organization context and inventories through questionnaire, applicability, control mapping, evidence, gap, remediation and report.
+2. Compare rule results with expected outputs for the selected reviewed scenarios, including a missing-fact and an out-of-coverage case.
+3. Trace a finding from requirement to control, expected/provided evidence, assessment reasoning, gap and remediation.
+4. Show that missing evidence yields INSUFFICIENT_EVIDENCE/EVIDENCE_GAP while evidence of unmet criteria can yield NOT_SATISFIED/CONTROL_GAP.
+5. Repeat an assessment with identical facts and content versions to check consistent outputs; change inputs or versions to check preserved history.
+6. Observe time, handoffs and corrections in a manual spreadsheet/document exercise and a prototype exercise. Record method, results and limitations without inventing an accuracy or time-saving target.
+7. Test both SME self-service and consultant-assisted use when participants become available; log observed difficulty and revise H4/A-007 only with evidence.
+
+## 10. Open research decisions
+
+- Select and review the first legal content set, its rule coverage and expected outputs. Until this is complete, rule examples remain drafts and cannot support a claim of legally correct applicability.
+- Validate whether target SME users can complete the questionnaire and inventory without consultant help (H4, H3).
+- Test whether recurring evidence tracking adds value beyond a point-in-time assessment before expanding lifecycle automation (H5/A-008).
+
+## 11. Final v0.1 flow
 
 ```text
 Installation → Initial setup (organization profile + admin account)

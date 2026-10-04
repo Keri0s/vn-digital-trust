@@ -1,0 +1,36 @@
+@startuml
+' VN Digital Trust v0.1 - curated regulatory and control content
+left to right direction
+hide methods
+skinparam classAttributeIconSize 0
+
+package "Gói nội dung có phiên bản" {
+  class ContentSetVersion {
+    id
+    version
+    coverage
+    review_status
+  }
+  class LegalSourceVersion
+  class RequirementVersion
+  class ApplicabilityRuleVersion
+  class ControlVersion
+  class RequirementControlMappingVersion
+  class AssessmentCriterionVersion
+  class EvidenceExpectationVersion
+  class RemediationGuidanceVersion
+}
+
+ContentSetVersion "1" o-- "1..*" ApplicabilityRuleVersion
+ContentSetVersion "1" o-- "1..*" RequirementVersion
+ContentSetVersion "1" o-- "1..*" ControlVersion
+ContentSetVersion "1" o-- "0..*" RequirementControlMappingVersion
+LegalSourceVersion "1" -- "0..*" RequirementVersion : trích dẫn
+ApplicabilityRuleVersion "0..*" --> "1" RequirementVersion : đánh giá khả năng áp dụng
+RequirementVersion "1" <-- "0..*" RequirementControlMappingVersion
+RequirementControlMappingVersion "0..*" --> "1" ControlVersion
+ControlVersion "1" *-- "0..*" AssessmentCriterionVersion
+ControlVersion "1" *-- "0..*" EvidenceExpectationVersion
+ControlVersion "1" -- "0..*" RemediationGuidanceVersion
+
+@enduml

@@ -1,0 +1,58 @@
+@startuml
+' VN Digital Trust v0.1 - point-in-time assessment and follow-up
+left to right direction
+hide methods
+skinparam classAttributeIconSize 0
+
+package "Assessment và kết quả" {
+  class Assessment
+  class ContextSnapshot
+  class AnswerSet
+  class ContentSetVersion
+  class ApplicabilityResult
+  class ControlResult
+  class ReviewDecision
+}
+
+package "Tham chiếu nội dung cố định" {
+  class ApplicabilityRuleVersion
+  class RequirementVersion
+  class ControlVersion
+  class AssessmentCriterionVersion
+  class EvidenceExpectationVersion
+}
+
+package "Evidence và xử lý gap" {
+  class EvidenceItem
+  class EvidenceRevision
+  class EvidenceSupport
+  class Gap
+  class RemediationTask
+  class RiskAcceptance
+  class AuditEvent
+}
+
+Assessment "1" *-- "1" ContextSnapshot
+Assessment "1" --> "1" AnswerSet : dùng version đã nộp
+Assessment "1" --> "1" ContentSetVersion : cố định version
+Assessment "1" *-- "0..*" ApplicabilityResult
+Assessment "1" *-- "0..*" ControlResult
+ApplicabilityResult "0..*" --> "1" ApplicabilityRuleVersion
+ApplicabilityResult "0..*" --> "1" RequirementVersion
+ControlResult "0..*" --> "1" ControlVersion
+ControlResult "0..*" --> "1..*" AssessmentCriterionVersion
+
+EvidenceItem "1" *-- "1..*" EvidenceRevision
+EvidenceRevision "1" -- "0..*" EvidenceSupport
+EvidenceSupport "0..*" --> "1" ControlVersion
+EvidenceSupport "0..*" --> "0..1" EvidenceExpectationVersion
+ControlResult "0..*" --> "0..*" EvidenceSupport : trích dẫn bản đã dùng
+ControlResult "1" -- "0..*" Gap : tạo
+Gap "1" -- "0..*" RemediationTask
+Gap "1" -- "0..*" RiskAcceptance
+ApplicabilityResult "0..1" -- "0..*" ReviewDecision
+ControlResult "0..1" -- "0..*" ReviewDecision
+AuditEvent ..> ReviewDecision : ghi thay đổi
+AuditEvent ..> RemediationTask : ghi thao tác
+
+@enduml

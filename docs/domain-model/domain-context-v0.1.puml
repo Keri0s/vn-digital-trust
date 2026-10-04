@@ -1,0 +1,45 @@
+@startuml
+' VN Digital Trust v0.1 - organization context
+left to right direction
+hide methods
+skinparam classAttributeIconSize 0
+
+package "Một SME trong một deployment" {
+  class Organization
+  class User
+  class RoleAssignment
+  class Role
+  class InformationSystem
+  class Asset
+  class DataAsset
+  class ProcessingActivity
+  class Vendor
+}
+
+package "Questionnaire và context đầu vào" {
+  class QuestionnaireVersion
+  class AnswerSet
+  class Answer
+  class ContextSnapshot
+}
+
+Organization "1" -- "0..*" User
+User "1" -- "0..*" RoleAssignment
+RoleAssignment "0..*" --> "1" Role
+Organization "1" -- "0..*" InformationSystem
+Organization "1" -- "0..*" Asset
+Organization "1" -- "0..*" DataAsset
+Organization "1" -- "0..*" ProcessingActivity
+Organization "1" -- "0..*" Vendor
+
+InformationSystem "0..*" -- "0..*" Asset : được hỗ trợ bởi
+ProcessingActivity "0..*" -- "0..*" InformationSystem : diễn ra trên
+ProcessingActivity "0..*" -- "0..*" DataAsset : xử lý
+ProcessingActivity "0..*" -- "0..*" Vendor : có thể liên quan
+
+QuestionnaireVersion "1" -- "0..*" AnswerSet
+AnswerSet "1" *-- "0..*" Answer
+ContextSnapshot ..> Organization : chụp facts tại thời điểm đánh giá
+ContextSnapshot ..> AnswerSet : dùng câu trả lời
+
+@enduml

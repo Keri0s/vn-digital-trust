@@ -1,0 +1,53 @@
+@startuml
+' VN Digital Trust v0.1 - use case overview
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Quản trị tổ chức" as Admin
+actor "IT / Security" as IT
+actor "Compliance / Privacy" as Compliance
+actor "Management" as Management
+actor "Consultant / Reviewer\n(tùy chọn)" as Reviewer
+actor "Người duy trì\nnội dung mẫu" as Curator
+
+rectangle "VN Digital Trust v0.1\n1 deployment = 1 SME" {
+  usecase "UC-01\nThiết lập tổ chức" as UC01
+  usecase "UC-02\nQuản lý tài khoản\nvà quyền" as UC02
+  usecase "UC-03\nGhi nhận bối cảnh\ntổ chức" as UC03
+  usecase "UC-04\nTrả lời questionnaire" as UC04
+  usecase "UC-05\nXác định requirement\ncó khả năng áp dụng" as UC05
+  usecase "UC-06\nGhi nhận và kiểm tra\nevidence" as UC06
+  usecase "UC-07\nĐánh giá control\nsơ bộ" as UC07
+  usecase "UC-08\nReview và điều chỉnh\nkết quả" as UC08
+  usecase "UC-09\nXác định gap và\nlập remediation" as UC09
+  usecase "UC-10\nCập nhật evidence\nvà đánh giá lại" as UC10
+  usecase "UC-11\nXem và xuất\nreadiness report" as UC11
+}
+
+rectangle "Chuẩn bị nội dung trước khi chạy prototype" {
+  usecase "UC-12\nDuy trì rule và\nmapping mẫu" as UC12
+}
+
+Admin -- UC01
+Admin -- UC02
+IT -- UC03
+IT -- UC06
+IT -- UC07
+IT -- UC09
+IT -- UC10
+Compliance -- UC03
+Compliance -- UC04
+Compliance -- UC05
+Compliance -- UC06
+Compliance -- UC07
+Compliance -- UC09
+Management -- UC11
+Management -- UC09
+Reviewer -- UC08
+Reviewer -- UC06
+Curator -- UC12
+
+UC12 ..> UC05 : cung cấp rule đã rà soát
+UC12 ..> UC07 : cung cấp control và criteria
+
+@enduml

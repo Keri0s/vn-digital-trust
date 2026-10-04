@@ -1,0 +1,47 @@
+@startuml
+' VN Digital Trust v0.1 - core assessment flow
+start
+:Initial setup - cấu hình tổ chức và tài khoản admin;
+:Người dùng đăng nhập theo vai trò;
+:Ghi nhận systems, assets, data processing và vendors;
+:Trả lời questionnaire có nhánh;
+
+if (Dữ kiện đủ và nằm trong phạm vi rule mẫu?) then (Có)
+  :Chạy rule xác định requirement có khả năng áp dụng;
+  :Hiển thị lý do, nguồn và version;
+else (Không)
+  :Đánh dấu CẦN_XEM_XÉT và nêu dữ kiện còn thiếu;
+  :Xuất report với trạng thái chưa đủ cơ sở;
+  stop
+endif
+
+:Hiển thị control và expected evidence;
+:Người dùng cung cấp evidence;
+:Đánh giá control sơ bộ theo criteria và evidence;
+
+if (Có consultant reviewer?) then (Có)
+  :Review evidence và kết quả;
+  :Ghi lý do nếu điều chỉnh;
+else (Không)
+  :Giữ trạng thái tự đánh giá;
+endif
+
+if (Thiếu evidence?) then (Có)
+  :Tạo EVIDENCE_GAP;
+else (Không)
+  if (Control không đạt?) then (Có)
+    :Tạo CONTROL_GAP;
+  else (Không)
+    :Ghi kết quả theo criteria;
+  endif
+endif
+
+if (Có gap cần xử lý?) then (Có)
+  :Ưu tiên gap và tạo remediation task;
+  :Nộp evidence mới và retest khi remediation hoàn tất;
+else (Không)
+  :Ghi nhận kết quả hiện tại;
+endif
+:Xuất readiness report có traceability và giới hạn diễn giải pháp lý;
+stop
+@enduml
