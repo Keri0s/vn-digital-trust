@@ -1,0 +1,37 @@
+@startuml
+' VN Digital Trust - technical-first use cases v0.1
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Quản trị tổ chức" as Admin
+actor "IT / Security" as IT
+actor "Risk Owner / Management" as Management
+actor "Consultant / Reviewer\n(tùy chọn)" as Reviewer
+
+rectangle "VN Digital Trust v0.1\n1 deployment = 1 SME" {
+  usecase "TUC-01\nThiết lập tổ chức\nvà quyền" as TUC01
+  usecase "TUC-02\nGhi nhận hệ thống,\ntài sản và bối cảnh" as TUC02
+  usecase "TUC-03\nMô tả tình huống\nrủi ro" as TUC03
+  usecase "TUC-04\nĐánh giá và xếp\nmức rủi ro" as TUC04
+  usecase "TUC-05\nGắn control và\nthu thập evidence" as TUC05
+  usecase "TUC-06\nĐánh giá control\nvà review" as TUC06
+  usecase "TUC-07\nXử lý gap/rủi ro\nvà đánh giá lại" as TUC07
+  usecase "TUC-08\nXem báo cáo\nvà lịch sử" as TUC08
+}
+
+Admin -- TUC01
+IT -- TUC02
+IT -- TUC03
+IT -- TUC04
+IT -- TUC05
+IT -- TUC06
+IT -- TUC07
+Management -- TUC02
+Management -- TUC03
+Management -- TUC04
+Management -- TUC07
+Management -- TUC08
+Reviewer -- TUC04
+Reviewer -- TUC06
+
+@enduml

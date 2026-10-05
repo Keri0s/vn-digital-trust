@@ -1,0 +1,81 @@
+@startuml
+' VN Digital Trust - technical-first conceptual domain v0.1
+left to right direction
+hide methods
+skinparam classAttributeIconSize 0
+
+package "Tổ chức và bối cảnh" {
+  class Organization
+  class User
+  class RoleAssignment
+  class InformationSystem
+  class Asset
+  class DataAsset
+  class Vendor
+  class ContextSnapshot
+}
+
+package "Rủi ro" {
+  class RiskScenario
+  class RiskMethodVersion
+  class RiskAssessment
+  class RiskEvaluation
+}
+
+package "Control và bằng chứng" {
+  class ControlDefinitionVersion
+  class RiskControlLink
+  class ControlImplementation
+  class EvidenceExpectationVersion
+  class EvidenceItem
+  class EvidenceRevision
+  class EvidenceLink
+  class ControlAssessment
+}
+
+package "Xử lý và lịch sử" {
+  class Gap
+  class TreatmentDecision
+  class TreatmentTask
+  class ReviewDecision
+  class AuditEvent
+}
+
+Organization "1" -- "0..*" User
+User "1" -- "0..*" RoleAssignment
+Organization "1" -- "0..*" InformationSystem
+Organization "1" -- "0..*" Asset
+InformationSystem "0..*" -- "0..*" Asset
+InformationSystem "0..*" -- "0..*" DataAsset
+InformationSystem "0..*" -- "0..*" Vendor
+
+RiskScenario "0..*" --> "0..*" InformationSystem
+RiskScenario "0..*" --> "0..*" Asset
+RiskAssessment "1" *-- "1" ContextSnapshot
+RiskAssessment "1" *-- "0..*" RiskEvaluation
+RiskEvaluation "0..*" --> "1" RiskScenario
+RiskEvaluation "0..*" --> "1" RiskMethodVersion
+
+RiskScenario "1" -- "0..*" RiskControlLink
+RiskControlLink "0..*" --> "1" ControlDefinitionVersion
+ControlDefinitionVersion "1" -- "0..*" ControlImplementation
+ControlImplementation "0..*" --> "0..1" Asset
+ControlImplementation "0..*" --> "0..1" InformationSystem
+ControlDefinitionVersion "1" -- "0..*" EvidenceExpectationVersion
+EvidenceItem "1" *-- "1..*" EvidenceRevision
+EvidenceRevision "1" -- "0..*" EvidenceLink
+EvidenceLink "0..*" --> "1" ControlImplementation
+RiskAssessment "1" *-- "0..*" ControlAssessment
+ControlAssessment "0..*" --> "0..1" ControlImplementation
+ControlAssessment "0..*" --> "1" ControlDefinitionVersion
+ControlAssessment "0..*" --> "0..*" EvidenceRevision
+
+ControlAssessment "1" -- "0..*" Gap
+Gap "1" -- "0..*" TreatmentTask
+RiskScenario "1" -- "0..*" TreatmentDecision
+RiskEvaluation "0..1" -- "0..*" ReviewDecision
+ControlAssessment "0..1" -- "0..*" ReviewDecision
+AuditEvent ..> ReviewDecision
+AuditEvent ..> TreatmentDecision
+
+@enduml
