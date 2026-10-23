@@ -10,10 +10,10 @@ Bản requirements đi đúng hướng của research: SME, applicability theo c
 
 ## 2. Nguồn đã đọc
 
-- [Project Charter v0.1](D:/Projects/vn-digital-trust/docs/research/project-charter.md) — nguồn chính cho scope.
-- [Problem Discovery v0.1](D:/Projects/vn-digital-trust/docs/research/problem-discovery-v0.1.md) — bối cảnh và hướng giải pháp.
-- [Hypotheses Register](D:/Projects/vn-digital-trust/docs/research/hypotheses.md) — các giả thuyết chưa được kiểm chứng.
-- [Assumptions Log](D:/Projects/vn-digital-trust/docs/research/assumptions-log.md) — giới hạn khi dùng assumption để xây prototype.
+- [Project Charter v0.1](../research/project-charter.md) — nguồn chính cho scope.
+- [Problem Discovery v0.1](../research/problem-discovery-v0.1.md) — bối cảnh và hướng giải pháp.
+- [Hypotheses Register](../research/hypotheses.md) — các giả thuyết chưa được kiểm chứng.
+- [Assumptions Log](../research/assumptions-log.md) — giới hạn khi dùng assumption để xây prototype.
 - Bản requirements được tạo trong cuộc trò chuyện, cùng các quyết định mới của người dùng về single-tenant, RBAC, self-assessment và reviewer tùy chọn.
 
 ## 3. Những phần đã liên kết tốt

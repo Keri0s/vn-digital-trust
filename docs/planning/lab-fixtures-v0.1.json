@@ -1,0 +1,487 @@
+{
+  "schema_version": "0.1",
+  "purpose": "Design fixtures only; no accounts provisioned and no tests executed.",
+  "fixture_clock": "2026-10-09T09:00:00+07:00",
+  "authentication_profiles": [
+    {
+      "id": "AUTH-CRM-01",
+      "application": "CRM",
+      "target_asset_id": "AST-CRM",
+      "control_id": "AC-DEMO-01",
+      "decision_date": "2026-10-09",
+      "decision_status": "SELECTED_BY_USER",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "primary_factor": "PASSWORD",
+      "additional_factor": "WEBAUTHN",
+      "user_verification": "required",
+      "totp_fallback_enabled": false,
+      "passwordless_enabled": false,
+      "business_access_requires_both_factors": true,
+      "authenticator_hardware_protection": "NOT_VERIFIED",
+      "enrollment_and_recovery_criteria": "DEFINED_IN_CE-01_v0.1",
+      "enrollment_and_recovery_criteria_refs": [
+        "CE-01:C04",
+        "CE-01:C05"
+      ],
+      "runtime_thresholds_status": "TO_SET_BEFORE_LAB",
+      "runtime_thresholds_scope": [
+        "challenge_ttl",
+        "attempt_limits",
+        "session_timeout",
+        "notification_and_recovery_policy"
+      ],
+      "criteria_status_updated_on": "2026-10-12"
+    }
+  ],
+  "organization": {
+    "id": "ORG-ABC",
+    "name": "ABC Trading — giả lập",
+    "deployment_model": "single_tenant"
+  },
+  "branches": [
+    {
+      "id": "BR-HCM",
+      "organization_id": "ORG-ABC",
+      "label": "Trụ sở HCM — giả lập"
+    },
+    {
+      "id": "BR-DN",
+      "organization_id": "ORG-ABC",
+      "label": "Chi nhánh Đà Nẵng — giả lập"
+    }
+  ],
+  "roles": [
+    {
+      "id": "VDT_ADMIN",
+      "application": "VDT",
+      "permissions": [
+        "organization.manage",
+        "users.manage",
+        "roles.assign"
+      ],
+      "scope": "organization"
+    },
+    {
+      "id": "VDT_SECURITY",
+      "application": "VDT",
+      "permissions": [
+        "inventory.manage",
+        "risk.propose",
+        "control.manage",
+        "evidence.submit",
+        "assessment.run",
+        "treatment.update"
+      ],
+      "scope": "organization"
+    },
+    {
+      "id": "VDT_RISK_OWNER",
+      "application": "VDT",
+      "permissions": [
+        "risk.impact_review",
+        "risk.accept",
+        "treatment.approve",
+        "report.read"
+      ],
+      "scope": "organization"
+    },
+    {
+      "id": "VDT_REVIEWER",
+      "application": "VDT",
+      "permissions": [
+        "assessment.review",
+        "evidence.read_assigned",
+        "evidence.request"
+      ],
+      "scope": "assigned_assessments"
+    },
+    {
+      "id": "CRM_ADMIN",
+      "application": "CRM",
+      "permissions": [
+        "accounts.manage",
+        "roles.assign",
+        "auth.manage"
+      ],
+      "scope": "organization"
+    },
+    {
+      "id": "CRM_SALES",
+      "application": "CRM",
+      "permissions": [
+        "customer.read",
+        "customer.update"
+      ],
+      "scope": "assigned_customers"
+    },
+    {
+      "id": "CRM_MANAGER",
+      "application": "CRM",
+      "permissions": [
+        "customer.read",
+        "customer.update",
+        "export.request"
+      ],
+      "scope": "own_branch"
+    },
+    {
+      "id": "CRM_READONLY",
+      "application": "CRM",
+      "permissions": [
+        "customer.read"
+      ],
+      "scope": "assigned_customers"
+    }
+  ],
+  "users": [
+    {
+      "id": "U001",
+      "organization_id": "ORG-ABC",
+      "application": "VDT",
+      "username": "vdt.admin",
+      "label": "Quản trị VN Digital Trust",
+      "email": "vdt.admin@abc-trading.example",
+      "branch_id": "BR-HCM",
+      "role_ids": [
+        "VDT_ADMIN"
+      ],
+      "state": "ACTIVE",
+      "mfa_fixture_state": "ENROLLED_SIMULATED"
+    },
+    {
+      "id": "U002",
+      "organization_id": "ORG-ABC",
+      "application": "VDT",
+      "username": "vdt.security",
+      "label": "Nhân sự IT/Security",
+      "email": "vdt.security@abc-trading.example",
+      "branch_id": "BR-HCM",
+      "role_ids": [
+        "VDT_SECURITY"
+      ],
+      "state": "ACTIVE",
+      "mfa_fixture_state": "ENROLLED_SIMULATED"
+    },
+    {
+      "id": "U003",
+      "organization_id": "ORG-ABC",
+      "application": "VDT",
+      "username": "vdt.owner",
+      "label": "Chủ sở hữu rủi ro CRM",
+      "email": "vdt.owner@abc-trading.example",
+      "branch_id": "BR-HCM",
+      "role_ids": [
+        "VDT_RISK_OWNER"
+      ],
+      "state": "ACTIVE",
+      "mfa_fixture_state": "ENROLLED_SIMULATED"
+    },
+    {
+      "id": "U004",
+      "organization_id": "ORG-ABC",
+      "application": "VDT",
+      "username": "vdt.reviewer",
+      "label": "Consultant được mời",
+      "email": "vdt.reviewer@abc-trading.example",
+      "branch_id": null,
+      "role_ids": [
+        "VDT_REVIEWER"
+      ],
+      "state": "ACTIVE",
+      "mfa_fixture_state": "ENROLLED_SIMULATED",
+      "assigned_assessment_ids": [
+        "ASM-DEMO-01"
+      ],
+      "access_expires_at": "2026-10-31T17:00:00+07:00"
+    },
+    {
+      "id": "U101",
+      "organization_id": "ORG-ABC",
+      "application": "CRM",
+      "username": "crm.admin",
+      "label": "Quản trị CRM",
+      "email": "crm.admin@abc-trading.example",
+      "branch_id": "BR-HCM",
+      "role_ids": [
+        "CRM_ADMIN"
+      ],
+      "state": "ACTIVE",
+      "mfa_fixture_state": "ENROLLED_SIMULATED"
+    },
+    {
+      "id": "U102",
+      "organization_id": "ORG-ABC",
+      "application": "CRM",
+      "username": "crm.sales.hcm",
+      "label": "Nhân viên kinh doanh HCM",
+      "email": "crm.sales.hcm@abc-trading.example",
+      "branch_id": "BR-HCM",
+      "role_ids": [
+        "CRM_SALES"
+      ],
+      "state": "ACTIVE",
+      "mfa_fixture_state": "ENROLLED_SIMULATED"
+    },
+    {
+      "id": "U103",
+      "organization_id": "ORG-ABC",
+      "application": "CRM",
+      "username": "crm.sales.dn",
+      "label": "Nhân viên kinh doanh Đà Nẵng",
+      "email": "crm.sales.dn@abc-trading.example",
+      "branch_id": "BR-DN",
+      "role_ids": [
+        "CRM_SALES"
+      ],
+      "state": "ACTIVE",
+      "mfa_fixture_state": "ENROLLED_SIMULATED"
+    },
+    {
+      "id": "U104",
+      "organization_id": "ORG-ABC",
+      "application": "CRM",
+      "username": "crm.manager.hcm",
+      "label": "Trưởng nhóm HCM",
+      "email": "crm.manager.hcm@abc-trading.example",
+      "branch_id": "BR-HCM",
+      "role_ids": [
+        "CRM_MANAGER"
+      ],
+      "state": "ACTIVE",
+      "mfa_fixture_state": "ENROLLED_SIMULATED"
+    },
+    {
+      "id": "U105",
+      "organization_id": "ORG-ABC",
+      "application": "CRM",
+      "username": "crm.new",
+      "label": "Nhân viên mới chưa đăng ký MFA",
+      "email": "crm.new@abc-trading.example",
+      "branch_id": "BR-HCM",
+      "role_ids": [
+        "CRM_SALES"
+      ],
+      "state": "ACTIVE",
+      "mfa_fixture_state": "UNENROLLED"
+    },
+    {
+      "id": "U106",
+      "organization_id": "ORG-ABC",
+      "application": "CRM",
+      "username": "crm.pending",
+      "label": "Tài khoản chờ phê duyệt",
+      "email": "crm.pending@abc-trading.example",
+      "branch_id": "BR-HCM",
+      "role_ids": [
+        "CRM_SALES"
+      ],
+      "state": "PENDING",
+      "mfa_fixture_state": "UNENROLLED"
+    },
+    {
+      "id": "U107",
+      "organization_id": "ORG-ABC",
+      "application": "CRM",
+      "username": "crm.disabled",
+      "label": "Tài khoản đã thu hồi",
+      "email": "crm.disabled@abc-trading.example",
+      "branch_id": "BR-HCM",
+      "role_ids": [
+        "CRM_SALES"
+      ],
+      "state": "DISABLED",
+      "mfa_fixture_state": "ENROLLED_SIMULATED"
+    },
+    {
+      "id": "U108",
+      "organization_id": "ORG-ABC",
+      "application": "CRM",
+      "username": "crm.temporary",
+      "label": "Tài khoản tạm hết hạn",
+      "email": "crm.temporary@abc-trading.example",
+      "branch_id": "BR-DN",
+      "role_ids": [
+        "CRM_READONLY"
+      ],
+      "state": "EXPIRED",
+      "mfa_fixture_state": "ENROLLED_SIMULATED",
+      "access_expires_at": "2026-10-08T17:00:00+07:00"
+    }
+  ],
+  "assets": [
+    {
+      "id": "AST-CLIENT",
+      "organization_id": "ORG-ABC",
+      "label": "Máy khách kiểm thử",
+      "type": "endpoint",
+      "zone": "CLIENT_ZONE",
+      "owner_user_id": "U002",
+      "state": "PLANNED",
+      "synthetic": true
+    },
+    {
+      "id": "AST-VPN",
+      "organization_id": "ORG-ABC",
+      "label": "Cổng VPN",
+      "type": "network_gateway",
+      "zone": "GATEWAY_ZONE",
+      "owner_user_id": "U002",
+      "state": "PLANNED",
+      "synthetic": true
+    },
+    {
+      "id": "AST-CRM",
+      "organization_id": "ORG-ABC",
+      "label": "CRM web",
+      "type": "application",
+      "zone": "SERVICE_ZONE",
+      "owner_user_id": "U002",
+      "state": "PLANNED",
+      "synthetic": true
+    },
+    {
+      "id": "AST-DB",
+      "organization_id": "ORG-ABC",
+      "label": "Kho dữ liệu CRM",
+      "type": "database",
+      "zone": "DATA_ZONE",
+      "owner_user_id": "U002",
+      "state": "PLANNED",
+      "synthetic": true
+    },
+    {
+      "id": "AST-VDT",
+      "organization_id": "ORG-ABC",
+      "label": "VN Digital Trust",
+      "type": "application",
+      "zone": "SERVICE_ZONE",
+      "owner_user_id": "U002",
+      "state": "PLANNED",
+      "synthetic": true
+    },
+    {
+      "id": "AST-EVIDENCE",
+      "organization_id": "ORG-ABC",
+      "label": "Kho evidence",
+      "type": "storage",
+      "zone": "DATA_ZONE",
+      "owner_user_id": "U002",
+      "state": "PLANNED",
+      "synthetic": true
+    },
+    {
+      "id": "AST-RECEIVER",
+      "organization_id": "ORG-ABC",
+      "label": "Điểm nhận dữ liệu thử nghiệm",
+      "type": "lab_receiver",
+      "zone": "RECEIVER_ZONE",
+      "owner_user_id": "U002",
+      "state": "PLANNED",
+      "synthetic": true
+    }
+  ],
+  "customers": [
+    {
+      "id": "CUS-001",
+      "organization_id": "ORG-ABC",
+      "label": "Khách hàng giả lập 01",
+      "email": "customer01@customer.example",
+      "branch_id": "BR-HCM",
+      "assigned_user_id": "U102",
+      "classification": "INTERNAL_DEMO",
+      "synthetic": true
+    },
+    {
+      "id": "CUS-002",
+      "organization_id": "ORG-ABC",
+      "label": "Khách hàng giả lập 02",
+      "email": "customer02@customer.example",
+      "branch_id": "BR-HCM",
+      "assigned_user_id": "U102",
+      "classification": "INTERNAL_DEMO",
+      "synthetic": true
+    },
+    {
+      "id": "CUS-003",
+      "organization_id": "ORG-ABC",
+      "label": "Khách hàng giả lập 03",
+      "email": "customer03@customer.example",
+      "branch_id": "BR-HCM",
+      "assigned_user_id": "U102",
+      "classification": "INTERNAL_DEMO",
+      "synthetic": true
+    },
+    {
+      "id": "CUS-004",
+      "organization_id": "ORG-ABC",
+      "label": "Khách hàng giả lập 04",
+      "email": "customer04@customer.example",
+      "branch_id": "BR-DN",
+      "assigned_user_id": "U103",
+      "classification": "INTERNAL_DEMO",
+      "synthetic": true
+    },
+    {
+      "id": "CUS-005",
+      "organization_id": "ORG-ABC",
+      "label": "Khách hàng giả lập 05",
+      "email": "customer05@customer.example",
+      "branch_id": "BR-DN",
+      "assigned_user_id": "U103",
+      "classification": "INTERNAL_DEMO",
+      "synthetic": true
+    },
+    {
+      "id": "CUS-006",
+      "organization_id": "ORG-ABC",
+      "label": "Khách hàng giả lập 06",
+      "email": "customer06@customer.example",
+      "branch_id": "BR-DN",
+      "assigned_user_id": "U103",
+      "classification": "INTERNAL_DEMO",
+      "synthetic": true
+    }
+  ],
+  "assessments": [
+    {
+      "id": "ASM-DEMO-01",
+      "organization_id": "ORG-ABC",
+      "system_asset_id": "AST-CRM",
+      "status": "PLANNED"
+    }
+  ],
+  "risk_scenarios": [
+    {
+      "id": "SC-01",
+      "target_asset_id": "AST-CRM",
+      "owner_user_id": "U003",
+      "test_subject_user_id": "U102",
+      "control_id": "AC-DEMO-01",
+      "tactic_reference": "TA0001",
+      "technique_candidate": "T1078",
+      "risk_level": null
+    },
+    {
+      "id": "SC-02",
+      "target_asset_id": "AST-CRM",
+      "owner_user_id": "U003",
+      "data_ids": [
+        "CUS-001",
+        "CUS-002",
+        "CUS-003"
+      ],
+      "receiver_asset_id": "AST-RECEIVER",
+      "tactic_reference": "TA0010",
+      "technique_candidate": null,
+      "risk_level": null
+    }
+  ],
+  "evidence": [],
+  "notes": [
+    "MFA states are fixtures, not verified enrollment.",
+    "No passwords, private keys, OTP seeds, recovery codes or real personal data.",
+    "Use fixture_clock for expiration tests instead of the execution clock.",
+    "Assigned scope and account state must both be enforced; a role alone grants no cross-branch access.",
+    "Expiry/session tests must derive a fresh fixture, not mutate the baseline used by prior assessments."
+  ]
+}

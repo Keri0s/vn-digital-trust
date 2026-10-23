@@ -1,0 +1,82 @@
+@startuml
+title Evidence revision and retest\nDesign v0.2-r1 | 2026-10-17
+skinparam defaultFontName Arial
+skinparam defaultFontSize 14
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+hide footbox
+autonumber
+actor "IT/Security" as IT
+actor "Risk Owner" as RO
+actor "Reviewer\n(internal or optional consultant)" as Reviewer
+participant "VN Digital Trust" as App
+database "Assessment history" as Hist
+IT -> App: Submit new evidence revision\n(scope, source, time)
+App -> App: Check current RBAC and scope
+alt submission denied / expired
+  App -> Hist: Record denied action in audit
+  App --> IT: Denied; no evidence change
+else submission authorized
+  App -> Hist: Append EvidenceRevision UNVERIFIED\nPreserve prior revision
+  alt internal self-assessment
+    IT -> App: Submit verify/reject decision\nwith source checks and reason
+  else assigned reviewer available (optional)
+    Reviewer -> App: Submit verify/reject decision\nwith source checks and reason
+  end
+  App -> App: Check evidence.verify + read scope\nand current access expiry for verifier
+  note right of App
+    Evidence reads are separately authorized
+    before content is shown to either actor.
+    Recheck permission when saving a decision.
+  end note
+  alt verifier unauthorized / expired
+    App -> Hist: Audit denial; evidence stays UNVERIFIED
+  else verifier authorized
+    App -> Hist: Append verification decision\n(actor, time, scope, reason, provenance)
+  end
+  IT -> App: Request retest
+  App -> App: Check current assessment.run permission\nand context / criteria / profile versions
+  alt retest unauthorized / expired
+    App -> Hist: Audit denial; no assessment change
+    App --> IT: Denied
+  else retest authorized
+    App -> Hist: Append new context + evidence references
+    App -> App: TUC-06: assess evidence and test execution
+    alt any criteria failure verified
+      App -> Hist: Append NOT_SATISFIED / PARTIALLY_SATISFIED\nCONTROL_GAP; retain other EVIDENCE_GAPs
+    else no verified failure
+      alt all criteria verified satisfied
+        App -> Hist: Append SATISFIED with criteria and evidence
+      else unusable evidence / INCONCLUSIVE / incomplete criteria
+        App -> Hist: Append INSUFFICIENT_EVIDENCE\nKeep EVIDENCE_GAP open
+      end
+    end
+    App -> App: TUC-04: confirm G coverage AND strength per path\nUnknown/disputed paths stay UNKNOWN
+    RO -> App: Confirm impact inputs with source and authority
+    App -> App: Validate context/domain; calculate R25/bounds\nInvalid input: score/range null, NEEDS_REVIEW
+    App -> Hist: Append RiskEvaluation snapshot\nscore_determined separate from status
+    opt optional review / disagreement
+      Reviewer -> App: Submit finding and reason
+      App -> App: Recheck assessment.review, scope and expiry
+      alt review authorized
+        App -> Hist: Append review finding; preserve prior snapshot\nUnresolved dispute: new snapshot NEEDS_REVIEW
+      else review denied
+        App -> Hist: Audit denial; no result change
+      end
+    end
+    App -> App: Compare equivalent snapshots only\nElse NOT_COMPARABLE
+    App --> RO: R / impact_progress / gap_progress\nverified_worsening + before/after impact summaries
+    opt operational priority / treatment / acceptance
+      RO -> App: Decide with scope and reason
+      App -> App: Recheck decision-specific authority
+      App -> Hist: Append authorized decision (else audit denial)\nPreserve raw control results and gaps
+    end
+    opt gap/task closure requested
+      IT -> App: Request closure against task criteria
+      App -> App: Check closure authority + verified criteria\nEvidence VERIFIED alone is insufficient
+      App -> Hist: Append authorized closure or keep open\nNo closure from score reduction alone
+    end
+    App --> IT: Report old/new snapshots and unresolved issues\nRead permission checked for each evidence link
+  end
+end
+@enduml

@@ -1,0 +1,50 @@
+@startuml
+title VN Digital Trust v0.1 - container and trust boundaries
+left to right direction
+skinparam componentStyle rectangle
+actor "SME user / optional reviewer" as User
+rectangle "VN Digital Trust deployment (one SME, two branches)" #EAF4FF {
+  component "UI + report viewer" as UI
+  component "Auth/session + policy gate" as Gate
+  component "Inventory + scenario" as Context
+  component "Control + evidence intake" as Intake
+  component "Verification + control assessment" as Assess
+  component "Risk engine + review + treatment" as Risk
+  component "Snapshot / report / audit" as History
+  database "Transactional metadata\nversions + decisions" as Meta
+  folder "Protected evidence bytes\nrevisions" as Store
+}
+rectangle "External CRM / identity CRM" #FFF1DE {
+  component "CRM + WebAuthn verifier" as CRM
+}
+rectangle "External controlled lab" #FFF1DE {
+  component "Test runner / synthetic receiver" as Lab
+}
+User --> UI : authenticated actions
+UI --> Gate : every read/write/export
+Gate --> Context
+Gate --> Intake
+Gate --> Assess
+Gate --> Risk
+Gate --> History
+Context --> Meta
+Intake --> Meta : revision metadata
+Intake --> Store : staged then committed bytes
+Assess --> Meta : decisions + snapshots
+Risk --> Meta : snapshots + decisions
+History --> Meta : as_of / audit
+History --> Store : gated evidence read
+CRM --> User : redacted config / logs
+Lab --> User : test observations
+User --> Intake : submit file / reference
+note bottom of Gate
+Check active identity, permission,
+object scope, assignment and expiry
+at execution and commit.
+VDT role never grants CRM access.
+end note
+note bottom of Lab
+No direct trusted decision feed.
+Runner and receiver remain outside VDT.
+end note
+@enduml

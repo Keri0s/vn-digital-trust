@@ -1,0 +1,92 @@
+{
+  "recorded_at": "2026-10-23T08:13:43.663297+00:00",
+  "scope": "POSTGRESQL_17_FOUNDATION_ONLY",
+  "CRM_FLOW_TC_VALID_G": "NOT_RUN",
+  "checks": [
+    {
+      "check": "PostgreSQL major 17",
+      "passed": true,
+      "detail": "PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit"
+    },
+    {
+      "check": "Domain migration creates 106 tables",
+      "passed": true,
+      "detail": 106
+    },
+    {
+      "check": "Scope history UPDATE denied",
+      "passed": true,
+      "detail": {
+        "sqlstate": "55000"
+      }
+    },
+    {
+      "check": "Scope history DELETE denied",
+      "passed": true,
+      "detail": {
+        "sqlstate": "55000"
+      }
+    },
+    {
+      "check": "Mutable version cannot skip expected increment",
+      "passed": true,
+      "detail": {
+        "sqlstate": "40001"
+      }
+    },
+    {
+      "check": "Mutable exact version increment allowed",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "Snapshot without payload denied at deferred check",
+      "passed": true,
+      "detail": "23514"
+    },
+    {
+      "check": "Snapshot transaction/time stamped by server",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "Snapshot immutable payload UPDATE denied",
+      "passed": true,
+      "detail": {
+        "sqlstate": "55000"
+      }
+    },
+    {
+      "check": "Runtime DB role has no administrative privileges",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "Runtime cannot TRUNCATE immutable history",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "Runtime cannot DELETE immutable history",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "Runtime cannot CREATE in domain schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "Runtime cannot disable history triggers",
+      "passed": true,
+      "detail": "42501"
+    },
+    {
+      "check": "Synthetic checks preserve organization count",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "passed": 15,
+  "failed": 0
+}

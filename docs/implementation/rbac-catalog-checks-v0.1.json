@@ -1,0 +1,100 @@
+{
+  "recorded_at": "2026-10-23T08:24:33.956997+00:00",
+  "scope": "LOCAL_RBAC_CATALOG_ONLY",
+  "seed_sha256": "d292cdc73027ed3f9add1f2fc0fda82ffe6c39bd9c295899688b7f3792bf528d",
+  "counts_before": {
+    "permission": 0,
+    "role": 0,
+    "role_permission": 0
+  },
+  "counts_after": {
+    "permission": 19,
+    "role": 4,
+    "role_permission": 22
+  },
+  "checks": [
+    {
+      "check": "Exact catalog cardinality",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "User-required permission mappings present",
+      "passed": true,
+      "detail": [
+        [
+          "VDT_REVIEWER",
+          "evidence.read_assigned"
+        ],
+        [
+          "VDT_REVIEWER",
+          "evidence.verify"
+        ],
+        [
+          "VDT_RISK_OWNER",
+          "risk.priority_approve"
+        ],
+        [
+          "VDT_SECURITY",
+          "evidence.read_assigned"
+        ],
+        [
+          "VDT_SECURITY",
+          "evidence.verify"
+        ]
+      ]
+    },
+    {
+      "check": "Repeated seed preserves every catalog row and UUID",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "Seed does not create organizations, users, scope or assignments",
+      "passed": true,
+      "detail": {
+        "organization": 0,
+        "app_user": 0,
+        "role_assignment": 0,
+        "scope": 0
+      }
+    },
+    {
+      "check": "Existing catalog drift is refused",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "Drift check rolls back without changing real catalog",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "Runtime can read permission catalog",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "Runtime cannot mutate permission",
+      "passed": true,
+      "detail": "42501"
+    },
+    {
+      "check": "Runtime cannot mutate role",
+      "passed": true,
+      "detail": "42501"
+    },
+    {
+      "check": "Runtime cannot mutate role_permission",
+      "passed": true,
+      "detail": "42501"
+    }
+  ],
+  "passed": 10,
+  "failed": 0,
+  "users_provisioned": false,
+  "role_assignments_created": false,
+  "CRM_FLOW_TC_VALID_G": "NOT_RUN",
+  "seed_first_stdout": "{\n  \"accounts_created\": 0,\n  \"expected_counts\": {\n    \"permissions\": 19,\n    \"role_permissions\": 22,\n    \"roles\": 4\n  },\n  \"inserted\": {\n    \"permissions\": 19,\n    \"role_permissions\": 22,\n    \"roles\": 4\n  },\n  \"required_permissions\": [\n    \"evidence.read_assigned\",\n    \"evidence.verify\",\n    \"risk.priority_approve\"\n  ],\n  \"role_assignments_created\": 0,\n  \"role_permission_counts\": {\n    \"VDT_ADMIN\": 3,\n    \"VDT_REVIEWER\": 4,\n    \"VDT_RISK_OWNER\": 6,\n    \"VDT_SECURITY\": 9\n  },\n  \"seed_canonical_sha256\": \"5046d15db86db26dcebbed4754ae5de5b5a80459b8e6158de83c1b2bcdf7c0d5\",\n  \"seed_id\": \"RBAC-05-v0.1\",\n  \"seed_sha256\": \"d292cdc73027ed3f9add1f2fc0fda82ffe6c39bd9c295899688b7f3792bf528d\",\n  \"source_hashes\": {\n    \"FLOW-03-v0.2-r1\": \"820fe1a8722c07ea81a61e4865c9f89457e78f95fbc1ff845528cf6b4708497a\",\n    \"LAB-v0.1\": \"854b6ea530a957ca0bd2830b4ecc15ba11ab0bbe755a2b8f2bdd546dc350aef1\"\n  },\n  \"status\": \"APPLIED\"\n}\n",
+  "seed_second_stdout": "{\n  \"accounts_created\": 0,\n  \"expected_counts\": {\n    \"permissions\": 19,\n    \"role_permissions\": 22,\n    \"roles\": 4\n  },\n  \"inserted\": {\n    \"permissions\": 0,\n    \"role_permissions\": 0,\n    \"roles\": 0\n  },\n  \"required_permissions\": [\n    \"evidence.read_assigned\",\n    \"evidence.verify\",\n    \"risk.priority_approve\"\n  ],\n  \"role_assignments_created\": 0,\n  \"role_permission_counts\": {\n    \"VDT_ADMIN\": 3,\n    \"VDT_REVIEWER\": 4,\n    \"VDT_RISK_OWNER\": 6,\n    \"VDT_SECURITY\": 9\n  },\n  \"seed_canonical_sha256\": \"5046d15db86db26dcebbed4754ae5de5b5a80459b8e6158de83c1b2bcdf7c0d5\",\n  \"seed_id\": \"RBAC-05-v0.1\",\n  \"seed_sha256\": \"d292cdc73027ed3f9add1f2fc0fda82ffe6c39bd9c295899688b7f3792bf528d\",\n  \"source_hashes\": {\n    \"FLOW-03-v0.2-r1\": \"820fe1a8722c07ea81a61e4865c9f89457e78f95fbc1ff845528cf6b4708497a\",\n    \"LAB-v0.1\": \"854b6ea530a957ca0bd2830b4ecc15ba11ab0bbe755a2b8f2bdd546dc350aef1\"\n  },\n  \"status\": \"UNCHANGED\"\n}\n"
+}

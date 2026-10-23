@@ -1,0 +1,15 @@
+{
+  "source": "../design/schema-v0.1.sql",
+  "sha256": "c86939863f92943829b12811366865f88cc7aae18ee0af67baeeca7b000997ce",
+  "changes": [
+    "Outer BEGIN/COMMIT removed; Django migration supplies transaction",
+    "SET search_path changed to SET LOCAL to retain Django public schema outside migration",
+    "Restore public search_path before Django records applied migration inside transaction"
+  ],
+  "status": "EXECUTED_POSTGRESQL_17_11",
+  "sha256_encoding": "RAW_FILE_BYTES",
+  "normalized_text_sha256": "5de2bb60f770a4ecdca593e85a7a043092a123010e2c528c17836d6af9e7f56b",
+  "hash_note": "Initial bootstrap hash used UTF-8 text with newlines normalized. Raw file hash now explicitly recorded; Step 05 delivered bytes match.",
+  "runtime_sql_sha256": "1d780b00287b431a436e51cc1559013bcfd62800a3e2dc2c7b4771f4e5a11b6f",
+  "step05_delivered_ddl_bytes_unchanged": true
+}

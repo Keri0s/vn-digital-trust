@@ -1,0 +1,1321 @@
+{
+  "rule_id": "IMPACT-PROGRESS-v0.1",
+  "score_profile": "CONDITIONAL-BASE-v0.4",
+  "scope": "Synthetic review cases only. Verification/evidence labels are assumptions, not CRM or SME evidence. Expected values are fixed and never rewritten by the verifier.",
+  "impact_order": [
+    "C",
+    "I_integrity",
+    "A",
+    "B"
+  ],
+  "baseline": {
+    "context": {
+      "scenario": "MF-04-SYNTHETIC",
+      "scoring_type": "CURRENT",
+      "method": "RM-01",
+      "profile": "CONDITIONAL-BASE-v0.4",
+      "ordinal_rubric": "IMPACT-v0.4",
+      "event_scope": "SAME_SYNTHETIC_EVENT",
+      "assessment_scope": "SAME_ASSETS_AND_DATA_SCOPE",
+      "preconditions": "SAME_SYNTHETIC_PRECONDITIONS"
+    },
+    "snapshot_id": "SYNTHETIC-BEFORE-MF04",
+    "EFG": [
+      3,
+      4,
+      4
+    ],
+    "impact": [
+      4,
+      4,
+      3,
+      4
+    ],
+    "verified_dimensions": [
+      "C",
+      "I_integrity",
+      "A",
+      "B"
+    ],
+    "evidence_ids": [
+      "SYNTHETIC-BEFORE-C",
+      "SYNTHETIC-BEFORE-INTEGRITY",
+      "SYNTHETIC-BEFORE-A",
+      "SYNTHETIC-BEFORE-B"
+    ]
+  },
+  "case_defaults": {
+    "after_verified_dimensions": [
+      "C",
+      "I_integrity",
+      "A",
+      "B"
+    ],
+    "after_disputed_dimensions": [],
+    "context_overrides": {},
+    "treatment_link_confirmed": true,
+    "remaining_control_gaps": [
+      "SYNTHETIC-OPEN-GAP-NOT-CLOSED-BY-SCORE"
+    ],
+    "assessment_status_before": "EVALUATED",
+    "assessment_status_after": "EVALUATED"
+  },
+  "cases": [
+    {
+      "id": "IP-01",
+      "description": "Only C decreases 4 to 3; max remains 4",
+      "after_impact": [
+        3,
+        4,
+        3,
+        4
+      ],
+      "snapshot_id": "SYNTHETIC-AFTER-IP01",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP01",
+      "reason": "Verified reduction of C within the same scope.",
+      "expected": {
+        "per_dimension": [
+          "DOWN",
+          "SAME",
+          "SAME",
+          "SAME"
+        ],
+        "overall": "IMPROVED",
+        "comparison_review_status": "EVALUATED",
+        "score_after": "12.32",
+        "score_after_range": [
+          "12.32",
+          "12.32"
+        ],
+        "score_change": "SAME",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 2,
+          "max_dimension_count_range": [
+            2,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-02",
+      "description": "Only Integrity decreases 4 to 3; max remains 4",
+      "after_impact": [
+        4,
+        3,
+        3,
+        4
+      ],
+      "snapshot_id": "SYNTHETIC-AFTER-IP02",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP02",
+      "reason": "Verified reduction of Integrity within the same scope.",
+      "expected": {
+        "per_dimension": [
+          "SAME",
+          "DOWN",
+          "SAME",
+          "SAME"
+        ],
+        "overall": "IMPROVED",
+        "comparison_review_status": "EVALUATED",
+        "score_after": "12.32",
+        "score_after_range": [
+          "12.32",
+          "12.32"
+        ],
+        "score_change": "SAME",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 2,
+          "max_dimension_count_range": [
+            2,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-03",
+      "description": "Only B decreases 4 to 3; max remains 4",
+      "after_impact": [
+        4,
+        4,
+        3,
+        3
+      ],
+      "snapshot_id": "SYNTHETIC-AFTER-IP03",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP03",
+      "reason": "Verified reduction of business consequence within the same scope.",
+      "expected": {
+        "per_dimension": [
+          "SAME",
+          "SAME",
+          "SAME",
+          "DOWN"
+        ],
+        "overall": "IMPROVED",
+        "comparison_review_status": "EVALUATED",
+        "score_after": "12.32",
+        "score_after_range": [
+          "12.32",
+          "12.32"
+        ],
+        "score_change": "SAME",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 2,
+          "max_dimension_count_range": [
+            2,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-04",
+      "description": "C and Integrity decrease; B still determines max",
+      "after_impact": [
+        3,
+        3,
+        3,
+        4
+      ],
+      "snapshot_id": "SYNTHETIC-AFTER-IP04",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP04",
+      "reason": "Two verified improvements must remain visible even with unchanged R.",
+      "expected": {
+        "per_dimension": [
+          "DOWN",
+          "DOWN",
+          "SAME",
+          "SAME"
+        ],
+        "overall": "IMPROVED",
+        "comparison_review_status": "EVALUATED",
+        "score_after": "12.32",
+        "score_after_range": [
+          "12.32",
+          "12.32"
+        ],
+        "score_change": "SAME",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 1,
+          "max_dimension_count_range": [
+            1,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-05",
+      "description": "All three dimensions at 4 decrease to 3",
+      "after_impact": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "snapshot_id": "SYNTHETIC-AFTER-IP05",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP05",
+      "reason": "Max now decreases from 4 to 3 with E/F/G unchanged.",
+      "expected": {
+        "per_dimension": [
+          "DOWN",
+          "DOWN",
+          "SAME",
+          "DOWN"
+        ],
+        "overall": "IMPROVED",
+        "comparison_review_status": "EVALUATED",
+        "score_after": "9.24",
+        "score_after_range": [
+          "9.24",
+          "9.24"
+        ],
+        "score_change": "DOWN",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 3,
+          "I_total_range": [
+            3,
+            3
+          ],
+          "max_dimension_count": 4,
+          "max_dimension_count_range": [
+            4,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-06",
+      "description": "C improves while Availability worsens",
+      "after_impact": [
+        3,
+        4,
+        4,
+        4
+      ],
+      "snapshot_id": "SYNTHETIC-AFTER-IP06",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP06",
+      "reason": "Mixed changes must not be collapsed into a net improvement.",
+      "expected": {
+        "per_dimension": [
+          "DOWN",
+          "SAME",
+          "UP",
+          "SAME"
+        ],
+        "overall": "MIXED",
+        "comparison_review_status": "EVALUATED",
+        "score_after": "12.32",
+        "score_after_range": [
+          "12.32",
+          "12.32"
+        ],
+        "score_change": "SAME",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": true,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-07",
+      "description": "C improves but B is UNKNOWN",
+      "after_impact": [
+        3,
+        4,
+        3,
+        null
+      ],
+      "after_verified_dimensions": [
+        "C",
+        "I_integrity",
+        "A"
+      ],
+      "snapshot_id": "SYNTHETIC-AFTER-IP07",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP07",
+      "reason": "Retain verified C improvement while overall progress is incomplete.",
+      "expected": {
+        "per_dimension": [
+          "DOWN",
+          "SAME",
+          "SAME",
+          "NOT_COMPARABLE"
+        ],
+        "overall": "INCOMPLETE",
+        "comparison_review_status": "NEEDS_REVIEW",
+        "score_after": null,
+        "score_after_range": [
+          "12.32",
+          "15.4"
+        ],
+        "score_change": "NOT_COMPARABLE",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": null,
+          "I_total_range": [
+            4,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            2
+          ]
+        }
+      },
+      "assessment_status_after": "NEEDS_REVIEW"
+    },
+    {
+      "id": "IP-08",
+      "description": "Assessment scope changed",
+      "after_impact": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "context_overrides": {
+        "assessment_scope": "DIFFERENT_ASSETS_AND_DATA_SCOPE"
+      },
+      "snapshot_id": "SYNTHETIC-AFTER-IP08",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP08",
+      "reason": "A smaller declared scope is not evidence of treatment improvement in the original scope.",
+      "expected": {
+        "per_dimension": [
+          "NOT_COMPARABLE",
+          "NOT_COMPARABLE",
+          "NOT_COMPARABLE",
+          "NOT_COMPARABLE"
+        ],
+        "overall": "NOT_COMPARABLE",
+        "comparison_review_status": "NEEDS_REVIEW",
+        "score_after": "9.24",
+        "score_after_range": [
+          "9.24",
+          "9.24"
+        ],
+        "score_change": "NOT_COMPARABLE",
+        "treatment_attribution": "REVIEW_REQUIRED",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 3,
+          "I_total_range": [
+            3,
+            3
+          ],
+          "max_dimension_count": 4,
+          "max_dimension_count_range": [
+            4,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-09",
+      "description": "CURRENT changed to INHERENT",
+      "after_impact": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "context_overrides": {
+        "scoring_type": "INHERENT"
+      },
+      "snapshot_id": "SYNTHETIC-AFTER-IP09",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP09",
+      "reason": "Cross-type values cannot be used for a treatment comparison.",
+      "expected": {
+        "per_dimension": [
+          "NOT_COMPARABLE",
+          "NOT_COMPARABLE",
+          "NOT_COMPARABLE",
+          "NOT_COMPARABLE"
+        ],
+        "overall": "NOT_COMPARABLE",
+        "comparison_review_status": "NEEDS_REVIEW",
+        "score_after": "9.24",
+        "score_after_range": [
+          "9.24",
+          "9.24"
+        ],
+        "score_change": "NOT_COMPARABLE",
+        "treatment_attribution": "REVIEW_REQUIRED",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 3,
+          "I_total_range": [
+            3,
+            3
+          ],
+          "max_dimension_count": 4,
+          "max_dimension_count_range": [
+            4,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-10",
+      "description": "Complete verified retest with no dimension changes",
+      "after_impact": [
+        4,
+        4,
+        3,
+        4
+      ],
+      "snapshot_id": "SYNTHETIC-AFTER-IP10",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP10",
+      "reason": "UNCHANGED requires verified comparable values in every dimension.",
+      "expected": {
+        "per_dimension": [
+          "SAME",
+          "SAME",
+          "SAME",
+          "SAME"
+        ],
+        "overall": "UNCHANGED",
+        "comparison_review_status": "EVALUATED",
+        "score_after": "12.32",
+        "score_after_range": [
+          "12.32",
+          "12.32"
+        ],
+        "score_change": "SAME",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-11",
+      "description": "Unverified unchanged C is not a verified SAME",
+      "after_impact": [
+        4,
+        4,
+        3,
+        4
+      ],
+      "after_verified_dimensions": [
+        "I_integrity",
+        "A",
+        "B"
+      ],
+      "snapshot_id": "SYNTHETIC-AFTER-IP11",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP11",
+      "reason": "An unconfirmed numerical suggestion remains unknown for computation and comparison.",
+      "expected": {
+        "per_dimension": [
+          "NOT_COMPARABLE",
+          "SAME",
+          "SAME",
+          "SAME"
+        ],
+        "overall": "INCOMPLETE",
+        "comparison_review_status": "NEEDS_REVIEW",
+        "score_after": null,
+        "score_after_range": [
+          "12.32",
+          "15.4"
+        ],
+        "score_change": "NOT_COMPARABLE",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": null,
+          "I_total_range": [
+            4,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            3
+          ]
+        }
+      },
+      "assessment_status_after": "NEEDS_REVIEW"
+    },
+    {
+      "id": "IP-12",
+      "description": "B worsens from 4 to 5",
+      "after_impact": [
+        4,
+        4,
+        3,
+        5
+      ],
+      "snapshot_id": "SYNTHETIC-AFTER-IP12",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP12",
+      "reason": "A fully verified increase is WORSENED.",
+      "expected": {
+        "per_dimension": [
+          "SAME",
+          "SAME",
+          "SAME",
+          "UP"
+        ],
+        "overall": "WORSENED",
+        "comparison_review_status": "EVALUATED",
+        "score_after": "15.4",
+        "score_after_range": [
+          "15.4",
+          "15.4"
+        ],
+        "score_change": "UP",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": true,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 5,
+          "I_total_range": [
+            5,
+            5
+          ],
+          "max_dimension_count": 1,
+          "max_dimension_count_range": [
+            1,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-13",
+      "description": "C improves but reviewers dispute Integrity",
+      "after_impact": [
+        3,
+        3,
+        3,
+        4
+      ],
+      "after_disputed_dimensions": [
+        "I_integrity"
+      ],
+      "snapshot_id": "SYNTHETIC-AFTER-IP13",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP13",
+      "reason": "Unresolved disagreement keeps NEEDS_REVIEW; do not average ratings.",
+      "expected": {
+        "per_dimension": [
+          "DOWN",
+          "NOT_COMPARABLE",
+          "SAME",
+          "SAME"
+        ],
+        "overall": "INCOMPLETE",
+        "comparison_review_status": "NEEDS_REVIEW",
+        "score_after": null,
+        "score_after_range": [
+          "12.32",
+          "15.4"
+        ],
+        "score_change": "NOT_COMPARABLE",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": null,
+          "I_total_range": [
+            4,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            2
+          ]
+        }
+      },
+      "assessment_status_after": "NEEDS_REVIEW"
+    },
+    {
+      "id": "IP-14",
+      "description": "Verified reduction without confirmed treatment linkage",
+      "after_impact": [
+        3,
+        4,
+        3,
+        4
+      ],
+      "treatment_link_confirmed": false,
+      "snapshot_id": "SYNTHETIC-AFTER-IP14",
+      "treatment_evidence_id": null,
+      "reason": "Observed impact improvement alone does not establish treatment causation.",
+      "expected": {
+        "per_dimension": [
+          "DOWN",
+          "SAME",
+          "SAME",
+          "SAME"
+        ],
+        "overall": "IMPROVED",
+        "comparison_review_status": "EVALUATED",
+        "score_after": "12.32",
+        "score_after_range": [
+          "12.32",
+          "12.32"
+        ],
+        "score_change": "SAME",
+        "treatment_attribution": "REVIEW_REQUIRED",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 2,
+          "max_dimension_count_range": [
+            2,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-15",
+      "description": "Verified impact improves while G remains UNKNOWN in both assessments",
+      "after_impact": [
+        3,
+        4,
+        3,
+        4
+      ],
+      "EFG_override": [
+        3,
+        4,
+        null
+      ],
+      "assessment_status_before": "NEEDS_REVIEW",
+      "assessment_status_after": "NEEDS_REVIEW",
+      "snapshot_id": "SYNTHETIC-AFTER-IP15",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP15",
+      "reason": "Impact comparison is complete but does not resolve the original G evidence gap.",
+      "expected": {
+        "per_dimension": [
+          "DOWN",
+          "SAME",
+          "SAME",
+          "SAME"
+        ],
+        "overall": "IMPROVED",
+        "comparison_review_status": "EVALUATED",
+        "score_after": null,
+        "score_after_range": [
+          "6.08",
+          "14.4"
+        ],
+        "score_change": "NOT_COMPARABLE",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 2,
+          "max_dimension_count_range": [
+            2,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-16",
+      "description": "UNKNOWN Integrity becomes known; its numerical improvement is not established",
+      "before_impact_override": [
+        4,
+        null,
+        3,
+        4
+      ],
+      "before_verified_dimensions_override": [
+        "C",
+        "A",
+        "B"
+      ],
+      "after_impact": [
+        3,
+        3,
+        3,
+        4
+      ],
+      "assessment_status_before": "NEEDS_REVIEW",
+      "assessment_status_after": "EVALUATED",
+      "snapshot_id": "SYNTHETIC-AFTER-IP16",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP16",
+      "reason": "C improves with comparable evidence; resolving the Integrity evidence gap does not establish that Integrity improved. Keep the original UNKNOWN snapshot unchanged.",
+      "expected": {
+        "per_dimension": [
+          "DOWN",
+          "NOT_COMPARABLE",
+          "SAME",
+          "SAME"
+        ],
+        "overall": "INCOMPLETE",
+        "comparison_review_status": "NEEDS_REVIEW",
+        "score_after": "12.32",
+        "score_after_range": [
+          "12.32",
+          "12.32"
+        ],
+        "score_change": "NOT_COMPARABLE",
+        "treatment_attribution": "SUPPORTED",
+        "evidence_gap_resolved_dimensions": [
+          "I_integrity"
+        ],
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": null,
+          "I_total_range": [
+            4,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 1,
+          "max_dimension_count_range": [
+            1,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-17",
+      "description": "Verified C worsening remains visible while B is UNKNOWN and overall is INCOMPLETE",
+      "after_impact": [
+        5,
+        4,
+        3,
+        null
+      ],
+      "after_verified_dimensions": [
+        "C",
+        "I_integrity",
+        "A"
+      ],
+      "assessment_status_after": "NEEDS_REVIEW",
+      "snapshot_id": "SYNTHETIC-AFTER-IP17",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP17",
+      "reason": "C is confirmed UP. Its value 5 determines the max and score, but UNKNOWN B can still join that max.",
+      "expected": {
+        "per_dimension": [
+          "UP",
+          "SAME",
+          "SAME",
+          "NOT_COMPARABLE"
+        ],
+        "overall": "INCOMPLETE",
+        "comparison_review_status": "NEEDS_REVIEW",
+        "score_after": "15.4",
+        "score_after_range": [
+          "15.4",
+          "15.4"
+        ],
+        "score_change": "UP",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": true,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 5,
+          "I_total_range": [
+            5,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-18",
+      "description": "Known max 5 absorbs an UNKNOWN before dimension without determining its max count",
+      "before_impact_override": [
+        5,
+        null,
+        3,
+        4
+      ],
+      "before_verified_dimensions_override": [
+        "C",
+        "A",
+        "B"
+      ],
+      "after_impact": [
+        5,
+        4,
+        3,
+        3
+      ],
+      "assessment_status_before": "NEEDS_REVIEW",
+      "snapshot_id": "SYNTHETIC-AFTER-IP18",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP18",
+      "reason": "B improves and R remains 15.4. Resolved Integrity cannot prove absence of worsening relative to its UNKNOWN original value.",
+      "expected": {
+        "per_dimension": [
+          "SAME",
+          "NOT_COMPARABLE",
+          "SAME",
+          "DOWN"
+        ],
+        "overall": "INCOMPLETE",
+        "comparison_review_status": "NEEDS_REVIEW",
+        "score_after": "15.4",
+        "score_after_range": [
+          "15.4",
+          "15.4"
+        ],
+        "score_change": "SAME",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 5,
+          "I_total_range": [
+            5,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            2
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 5,
+          "I_total_range": [
+            5,
+            5
+          ],
+          "max_dimension_count": 1,
+          "max_dimension_count_range": [
+            1,
+            1
+          ]
+        },
+        "evidence_gap_resolved_dimensions": [
+          "I_integrity"
+        ]
+      }
+    },
+    {
+      "id": "IP-19",
+      "description": "Larger C in an incompatible context does not establish verified worsening",
+      "after_impact": [
+        5,
+        4,
+        3,
+        4
+      ],
+      "context_overrides": {
+        "assessment_scope": "DIFFERENT_ASSETS_AND_DATA_SCOPE"
+      },
+      "snapshot_id": "SYNTHETIC-AFTER-IP19",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP19",
+      "reason": "Snapshot summaries remain descriptive, but the cross-scope change is NOT_COMPARABLE and its worsening flag must be null.",
+      "expected": {
+        "per_dimension": [
+          "NOT_COMPARABLE",
+          "NOT_COMPARABLE",
+          "NOT_COMPARABLE",
+          "NOT_COMPARABLE"
+        ],
+        "overall": "NOT_COMPARABLE",
+        "comparison_review_status": "NEEDS_REVIEW",
+        "score_after": "15.4",
+        "score_after_range": [
+          "15.4",
+          "15.4"
+        ],
+        "score_change": "NOT_COMPARABLE",
+        "treatment_attribution": "REVIEW_REQUIRED",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 5,
+          "I_total_range": [
+            5,
+            5
+          ],
+          "max_dimension_count": 1,
+          "max_dimension_count_range": [
+            1,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "IP-20",
+      "description": "An unverified suggestion of C=5 cannot set verified_worsening or saturate the max",
+      "after_impact": [
+        5,
+        4,
+        3,
+        4
+      ],
+      "after_verified_dimensions": [
+        "I_integrity",
+        "A",
+        "B"
+      ],
+      "assessment_status_after": "NEEDS_REVIEW",
+      "snapshot_id": "SYNTHETIC-AFTER-IP20",
+      "treatment_evidence_id": "SYNTHETIC-RETEST-IP20",
+      "reason": "Only verified comparable UP sets the flag; an unconfirmed higher suggestion stays UNKNOWN.",
+      "expected": {
+        "per_dimension": [
+          "NOT_COMPARABLE",
+          "SAME",
+          "SAME",
+          "SAME"
+        ],
+        "overall": "INCOMPLETE",
+        "comparison_review_status": "NEEDS_REVIEW",
+        "score_after": null,
+        "score_after_range": [
+          "12.32",
+          "15.4"
+        ],
+        "score_change": "NOT_COMPARABLE",
+        "treatment_attribution": "SUPPORTED",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": null,
+          "I_total_range": [
+            4,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            3
+          ]
+        }
+      }
+    }
+  ],
+  "weight_pair_cases": [
+    {
+      "E_weight": "0.3",
+      "F_weight": "0.7",
+      "expected_MF03": "12.32",
+      "expected_MF04": "12.64",
+      "expected_numeric_order": "MF03_LT_MF04"
+    },
+    {
+      "E_weight": "0.4",
+      "F_weight": "0.6",
+      "expected_MF03": "12.96",
+      "expected_MF04": "12.32",
+      "expected_numeric_order": "MF03_GT_MF04"
+    },
+    {
+      "E_weight": "0.5",
+      "F_weight": "0.5",
+      "expected_MF03": "13.6",
+      "expected_MF04": "12",
+      "expected_numeric_order": "MF03_GT_MF04"
+    }
+  ],
+  "display_cases": [
+    {
+      "id": "DISPLAY-01",
+      "scope": "Attainable interval in the v0.4 integer domain",
+      "EFG": [
+        1,
+        2,
+        2
+      ],
+      "I_total_range": [
+        3,
+        4
+      ],
+      "expected_exact_range": [
+        "3.72",
+        "4.96"
+      ],
+      "expected_display_range": [
+        "3.7",
+        "5.0"
+      ],
+      "expected_level_range": [
+        "LOW",
+        "LOW"
+      ]
+    },
+    {
+      "id": "DISPLAY-02",
+      "scope": "Formatter-only input; 9.96 is NOT an attainable score on the baseline v0.4 lattice",
+      "R25": 249,
+      "expected_upper_display": "10.0",
+      "expected_raw_level": "MODERATE"
+    }
+  ],
+  "review_disagreement_case": {
+    "description": "Conflicting G ratings with E=F=1; score remains determined but review is unresolved",
+    "EF": [
+      1,
+      1
+    ],
+    "G_candidates": [
+      2,
+      3
+    ],
+    "I_total": 3,
+    "unresolved_reviewer_disagreement": true,
+    "expected_score": "3",
+    "expected_risk_level": "LOW",
+    "expected_status": "NEEDS_REVIEW"
+  },
+  "comparison_review_status_scope": "Comparison of impact dimensions only; never replaces either original assessment status. SUPPORTED attribution applies only to verified comparable dimensions; unresolved dimensions and control gaps remain open.",
+  "fixture_revision": "v0.1-r2",
+  "added_field_semantics": {
+    "verified_worsening": "True means at least one confirmed comparable UP, even when overall is INCOMPLETE. False requires all four dimensions comparable and none UP. Otherwise null. Incompatible context always yields null.",
+    "impact_summary_before_after": "Each snapshot is described independently of cross-snapshot comparability. I_total and max_dimension_count are scalar only when all permitted completions agree; otherwise null. Ranges are exact model bounds, not confidence intervals. A known max of 5 does not determine how many dimensions equal 5. Unverified or disputed dimensions are UNKNOWN.",
+    "scope": "Descriptive fields only. They do not change the score profile, aggregate progress, assessment status, treatment attribution, or priority order."
+  }
+}

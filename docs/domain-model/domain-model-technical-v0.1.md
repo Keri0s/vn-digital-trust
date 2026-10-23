@@ -2,7 +2,7 @@
 
 **Trạng thái:** Mô hình khái niệm cho prototype kỹ thuật, 2026-10-05.
 
-**Nguồn:** [Quyết định phạm vi](D:/Projects/vn-digital-trust/docs/scope/technical-first-scope-v0.1.md), [Technical Requirements](D:/Projects/vn-digital-trust/docs/requirements/requirements-technical-v0.1.md), [Technical Use Cases](D:/Projects/vn-digital-trust/docs/use-cases/use-cases-technical-v0.1.md). [Sơ đồ PlantUML](domain-model-technical-v0.1.puml) thể hiện các quan hệ chính.
+**Nguồn:** [Quyết định phạm vi](../scope/technical-first-scope-v0.1.md), [Technical Requirements](../requirements/requirements-technical-v0.1.md), [Technical Use Cases](../use-cases/use-cases-technical-v0.1.md). [Sơ đồ PlantUML](domain-model-technical-v0.1.puml) thể hiện các quan hệ chính.
 
 Đây là domain model, chưa phải lược đồ database. Một số quan hệ nhiều-nhiều sẽ thành bảng liên kết khi thiết kế lưu trữ.
 

@@ -1,0 +1,48 @@
+@startuml
+title Evidence to decision and retest - architecture v0.1
+actor "IT / Security" as IT
+actor "Risk Owner" as Owner
+actor "Optional Reviewer" as Reviewer
+participant "Policy gate" as Gate
+participant "Evidence + verification" as Evidence
+participant "Assessment + risk" as Assess
+database "Immutable history" as History
+IT -> Gate : submit revision (scope, source, hash)
+Gate -> Gate : active + permission + scope + expiry
+alt denied or expired
+  Gate --> IT : deny; audit
+else authorized
+  Gate -> Evidence : stage/commit new revision
+  Evidence -> History : append revision + audit
+  IT -> Gate : read and verify evidence
+  Gate -> Gate : recheck read + evidence.verify + scope + expiry
+  alt authorized and source/content valid
+    Gate -> Evidence : append verification decision
+  else missing, invalid or denied
+    Gate -> History : append issue/denial where permitted
+  end
+  IT -> Gate : assess control
+  Gate -> Assess : criteria + eligible revision/decision
+  alt verified failure plus unknown criterion
+    Assess -> History : snapshot failure, CONTROL_GAP and EVIDENCE_GAP
+  else only missing / inconclusive
+    Assess -> History : INSUFFICIENT_EVIDENCE + EVIDENCE_GAP
+  else criteria fully proven
+    Assess -> History : SATISFIED snapshot
+  end
+  IT -> Gate : evaluate CURRENT risk
+  Gate -> Assess : control snapshot then per-path G and impact
+  Assess -> History : append score/range + status + provenance
+  opt independent review in assigned scope before expiry
+    Reviewer -> Gate : review or dispute
+    Gate -> History : append separate review decision
+  end
+  Owner -> Gate : approve priority / treatment decision
+  Gate -> History : append scoped decision + audit
+  opt retest after new evidence
+    IT -> Gate : new revision + new assessment
+    Gate -> Assess : compare compatible snapshots
+    Assess -> History : append R, impact, gap progress or NOT_COMPARABLE
+  end
+end
+@enduml

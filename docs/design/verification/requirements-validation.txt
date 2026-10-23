@@ -1,0 +1,5 @@
+# Tooling for static design verification; unrelated to application deployment.
+pglast==8.7
+openapi-spec-validator==0.9.0
+PyYAML==6.0.3
+jsonschema==4.26.0

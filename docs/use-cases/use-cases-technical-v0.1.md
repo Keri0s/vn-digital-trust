@@ -2,7 +2,7 @@
 
 **Trạng thái:** Thiết kế use case cho prototype kỹ thuật, 2026-10-05.
 
-**Nguồn:** [Quyết định phạm vi](D:/Projects/vn-digital-trust/docs/scope/technical-first-scope-v0.1.md) và [Technical Requirements v0.1](D:/Projects/vn-digital-trust/docs/requirements/requirements-technical-v0.1.md). Tài liệu use case pháp lý cũ được giữ để truy vết lịch sử, không dùng làm luồng triển khai v0.1.
+**Nguồn:** [Quyết định phạm vi](../scope/technical-first-scope-v0.1.md) và [Technical Requirements v0.1](../requirements/requirements-technical-v0.1.md). Tài liệu use case pháp lý cũ được giữ để truy vết lịch sử, không dùng làm luồng triển khai v0.1.
 
 ## 1. Actor và bản đồ luồng
 

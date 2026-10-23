@@ -1,0 +1,204 @@
+@startuml
+!pragma layout smetana
+hide circle
+hide methods
+skinparam linetype ortho
+skinparam shadowing false
+skinparam dpi 110
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 12
+skinparam nodesep 30
+skinparam ranksep 45
+skinparam entity {
+ BackgroundColor #F4F8FF
+ BorderColor #345071
+}
+title VN Digital Trust - Step 05\nRisk, decisions, treatment and reporting (v0.1)
+
+entity "risk_evaluation" as risk_evaluation {
+  id [FK]
+  assessment_id [FK]
+  context_snapshot_id [FK]
+  method_version_id [FK]
+  input_valid
+  raw_input
+  status
+  score_determined
+  assessment_mode
+  review_outcome
+  r25_lo
+  r25_hi
+  r25
+  supersedes_id [FK]
+  scenario_snapshot_id [FK]
+}
+entity "risk_factor" as risk_factor {
+  id
+  risk_evaluation_id [FK]
+  confirmed_by [FK]
+  bounds_confirmed_by [FK]
+}
+entity "risk_path" as risk_path {
+  id
+  risk_evaluation_id [FK]
+  applicability_confirmed_by [FK]
+  confirmed_by [FK]
+  bounds_confirmed_by [FK]
+}
+entity "risk_path_control" as risk_path_control {
+  id
+  risk_path_id [FK]
+  control_assessment_id [FK]
+  criterion_result_id [FK]
+}
+entity "impact_factor" as impact_factor {
+  id
+  risk_evaluation_id [FK]
+  confirmed_by [FK]
+  bounds_confirmed_by [FK]
+}
+entity "input_confirmation" as input_confirmation {
+  id [FK]
+  assessment_id [FK]
+  target_snapshot_id [FK]
+}
+entity "impact_confirmation" as impact_confirmation {
+  id [FK]
+  risk_evaluation_id [FK]
+}
+entity "assessment_comparison" as assessment_comparison {
+  id [FK]
+  before_risk_evaluation_id [FK]
+  after_risk_evaluation_id [FK]
+  progress_rule_version_id [FK]
+  treatment_plan_id [FK]
+  assessment_mode
+  attribution_confirmed_by [FK]
+  review_outcome
+}
+entity "review_request" as review_request {
+  id
+  requested_by [FK]
+  reviewer_assignment_id [FK]
+  expires_at
+  version
+}
+entity "review_decision" as review_decision {
+  id [FK]
+  request_id [FK]
+  original_snapshot_id [FK]
+  resulting_snapshot_id [FK]
+}
+entity "adjudication_decision" as adjudication_decision {
+  id [FK]
+  review_decision_id [FK]
+  original_snapshot_id [FK]
+  disputed_snapshot_id [FK]
+  replacement_snapshot_id [FK]
+  resulting_snapshot_id [FK]
+}
+entity "priority_proposal" as priority_proposal {
+  id
+  assessment_id [FK]
+  proposed_by [FK]
+  created_txid
+}
+entity "priority_decision" as priority_decision {
+  id [FK]
+  proposal_id [FK]
+  previous_decision_id [FK]
+}
+entity "gap" as gap {
+  id
+  code
+  assessment_id [FK]
+  scope_id [FK]
+  source_control_assessment_id [FK]
+  source_risk_evaluation_id [FK]
+  criterion_version_id [FK]
+  owner_id [FK]
+  state
+  version
+  closure_decision_id [FK]
+}
+entity "treatment_task" as treatment_task {
+  id
+  plan_id [FK]
+  code
+  owner_id [FK]
+  state
+  version
+  closure_decision_id [FK]
+  scenario_id [FK]
+  scope_id [FK]
+}
+entity "treatment_approval" as treatment_approval {
+  id [FK]
+  task_id [FK]
+}
+entity "retest_request" as retest_request {
+  id
+  task_id [FK]
+  assessment_id [FK]
+  scope_id [FK]
+  baseline_control_assessment_id [FK]
+  baseline_risk_evaluation_id [FK]
+  requested_by [FK]
+  state
+  version
+  context_snapshot_id [FK]
+  created_txid
+}
+entity "retest_result" as retest_result {
+  id [FK]
+  request_id [FK]
+  control_assessment_id [FK]
+  risk_evaluation_id [FK]
+}
+entity "closure_decision" as closure_decision {
+  id [FK]
+  gap_id [FK]
+  task_id [FK]
+  control_assessment_id [FK]
+  retest_result_id [FK]
+}
+entity "closure_criterion" as closure_criterion {
+  id
+  closure_decision_id [FK]
+  criterion_version_id [FK]
+  control_assessment_id [FK]
+}
+entity "report_snapshot" as report_snapshot {
+  id [FK]
+  assessment_id [FK]
+}
+closure_decision ||--o{ closure_criterion : closure_decision_id
+closure_decision |o--o{ gap : closure_decision_id
+closure_decision |o--o{ treatment_task : closure_decision_id
+gap |o--o{ closure_decision : gap_id
+priority_proposal |o--o{ priority_decision : proposal_id
+retest_request ||--o{ retest_result : request_id
+retest_result |o--o{ closure_decision : retest_result_id
+review_decision |o--o{ adjudication_decision : review_decision_id
+review_request ||--o| review_decision : request_id
+risk_evaluation ||--o{ assessment_comparison : after_risk_evaluation_id
+risk_evaluation ||--o{ assessment_comparison : before_risk_evaluation_id
+risk_evaluation |o--o{ gap : source_risk_evaluation_id
+risk_evaluation ||--o{ impact_confirmation : risk_evaluation_id
+risk_evaluation ||--o{ impact_factor : risk_evaluation_id
+risk_evaluation |o--o{ retest_request : baseline_risk_evaluation_id
+risk_evaluation |o--o{ retest_result : risk_evaluation_id
+risk_evaluation ||--o{ risk_factor : risk_evaluation_id
+risk_evaluation ||--o{ risk_path : risk_evaluation_id
+risk_path ||--o{ risk_path_control : risk_path_id
+treatment_task |o--o{ closure_decision : task_id
+treatment_task |o--o{ retest_request : task_id
+treatment_task ||--o{ treatment_approval : task_id
+legend bottom
+  Selected key tables and parent-reference links; cardinality is a reading aid.
+  Lines show declared single-column FKs; full composite FKs and junctions: schema-v0.1.sql.
+  Parent end: mandatory one or optional one. Child end: zero-to-many or zero-to-one.
+  Immutable payload + children are sealed in their creation transaction.
+  STATIC DESIGN ONLY - runtime and CRM/lab tests: NOT_RUN.
+endlegend
+@enduml

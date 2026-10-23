@@ -1,0 +1,269 @@
+{
+  "schema_version": "0.1",
+  "config_id": "CONFIG-05-v0.1",
+  "created_on": "2026-10-20",
+  "timezone_for_display": "Asia/Bangkok",
+  "purpose": "Non-deployable design template. Null values are mandatory unresolved configuration and never defaults. No lab or service is started.",
+  "readiness": {
+    "vdt_deployment": "TO_SET_BEFORE_LAB",
+    "crm_lab": "TO_SET_BEFORE_LAB",
+    "approved_by": null,
+    "approved_at": null
+  },
+  "deployment": {
+    "model": "ONE_SME_ONE_DEPLOYMENT",
+    "organization_id": "ORG-ABC",
+    "os": "Debian 13 amd64",
+    "vm_vcpu": 2,
+    "vm_ram_mib": 6144,
+    "vm_disk_gib_estimate": 60,
+    "public_origin": null,
+    "allowed_hosts": null,
+    "trusted_proxy_addresses": null,
+    "tls_certificate_strategy": null,
+    "ca_trust_evidence_ref": null,
+    "time_sync_source_ref": null,
+    "database_dsn_secret_ref": null,
+    "django_secret_key_ref": null,
+    "evidence_root": null,
+    "backup_target": null,
+    "backup_key_secret_ref": null
+  },
+  "vdt": {
+    "authentication": {
+      "application": "VDT",
+      "credential_method": "LOCAL_USERNAME_PASSWORD",
+      "password_hasher": "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+      "password_work_factor_policy": "PINNED_SUPPORTED_DJANGO_DEFAULT_OR_STRONGER_MEASURED_VALUE",
+      "password_validators_required": true,
+      "seed_passwords_allowed": false,
+      "mfa_runtime_claim": "NOT_IMPLEMENTED_OR_VERIFIED",
+      "session_store": "POSTGRESQL",
+      "session_cookie_name": "__Host-vdt_session",
+      "cookie_secure": true,
+      "cookie_httponly": true,
+      "cookie_samesite": "Lax",
+      "cookie_path": "/",
+      "cookie_domain": null,
+      "csrf_required_for_unsafe_methods": true,
+      "session_idle_timeout_seconds": null,
+      "session_absolute_timeout_seconds": null,
+      "max_attempt_limit": null,
+      "failed_attempt_window_seconds": null,
+      "failed_attempt_lockout_seconds": null,
+      "authentication_method_policy_ref": null,
+      "independent_from_crm": true,
+      "client_clock_override_allowed": false
+    },
+    "authorization": {
+      "deny_by_default": true,
+      "check_current_scope_on_all_reads": true,
+      "recheck_at_commit_export_download": true,
+      "organization_guard_required": true,
+      "expire_at_equal_timestamp": true,
+      "permission_cache_enabled": false,
+      "seed_ref": "rbac-seed-v0.1.json"
+    },
+    "evidence": {
+      "max_file_bytes": 20971520,
+      "max_metadata_bytes": 65536,
+      "max_request_bytes": 22020096,
+      "files_per_request": 1,
+      "max_parallel_uploads_per_principal": 1,
+      "max_parallel_uploads_per_host": 2,
+      "upload_read_timeout_seconds": 120,
+      "scan_timeout_seconds": 60,
+      "allowed_extension_mime_pairs": [
+        {
+          "extensions": [
+            ".txt",
+            ".log"
+          ],
+          "mime": "text/plain",
+          "extra_validation": "UTF-8"
+        },
+        {
+          "extensions": [
+            ".json"
+          ],
+          "mime": "application/json",
+          "extra_validation": "UTF-8 and valid JSON"
+        },
+        {
+          "extensions": [
+            ".csv"
+          ],
+          "mime": "text/csv",
+          "extra_validation": "UTF-8 and CSV parse; detected text/plain accepted only after format validation"
+        },
+        {
+          "extensions": [
+            ".pdf"
+          ],
+          "mime": "application/pdf",
+          "extra_validation": "signature and complete readable non-encrypted document structure; no rendering"
+        },
+        {
+          "extensions": [
+            ".png"
+          ],
+          "mime": "image/png",
+          "extra_validation": "signature and bounded header validation"
+        },
+        {
+          "extensions": [
+            ".jpg",
+            ".jpeg"
+          ],
+          "mime": "image/jpeg",
+          "extra_validation": "signature and bounded header validation"
+        }
+      ],
+      "references_auto_fetch": false,
+      "download_attachment_only": true,
+      "download_cache_control": "private, no-store",
+      "staging_and_objects_same_filesystem": true,
+      "committed_blob_auto_gc_enabled": false,
+      "staging_orphan_grace_seconds": 3600,
+      "max_staging_bytes": 104857600,
+      "minimum_free_disk_bytes": 2147483648
+    },
+    "scanner": {
+      "engine": "ClamAV",
+      "version_line": "1.4 LTS",
+      "patch_version": null,
+      "transport": "LOCAL_UNIX_SOCKET",
+      "socket_path": null,
+      "max_parallel_scans": 1,
+      "signature_max_age_seconds": 86400,
+      "signature_version": null,
+      "freshclam_update_policy_ref": null,
+      "error_timeout_stale_signatures": "FAIL_CLOSED",
+      "encrypted_or_unscannable_content": "REJECT",
+      "clean_verdict_is_business_verification": false,
+      "network_listener_exposed": false,
+      "resource_memory_limit_mib_estimate": 1792
+    },
+    "http": {
+      "application_request_timeout_seconds": 240,
+      "proxy_response_timeout_seconds": 250,
+      "request_header_timeout_seconds": 15,
+      "gunicorn_workers": 2
+    },
+    "database": {
+      "major_version": 17,
+      "total_application_connection_limit": 20,
+      "shared_buffers_mib_estimate": 256,
+      "work_mem_mib_estimate": 4,
+      "statement_timeout_seconds": 10,
+      "lock_timeout_seconds": 3,
+      "bounded_transaction_retries": 3,
+      "separate_migration_owner_required": true
+    },
+    "jobs": {
+      "worker_concurrency": 1,
+      "lease_seconds": 300,
+      "renew_lease_every_seconds": 30,
+      "attempt_limit": 3,
+      "job_deadline_seconds": 240,
+      "fencing_token_required": true,
+      "publish_requires_fresh_authorization": true,
+      "export_artifact_ttl_seconds": 900
+    },
+    "retention": {
+      "domain_history_auto_delete": false,
+      "idempotency_results_retention": "DOSSIER_LIFETIME",
+      "idempotency_key_tombstone_required_after_future_retention": true,
+      "audit_retention_days": null,
+      "backup_interval_seconds": null,
+      "backup_retention_count": null,
+      "backup_rpo_seconds": null,
+      "backup_rto_seconds": null,
+      "backup_operator_identity_ref": null
+    }
+  },
+  "crm_authentication_profile": {
+    "id": "AUTH-CRM-01",
+    "application": "CRM",
+    "target_asset_id": "AST-CRM",
+    "control_id": "AC-DEMO-01",
+    "config_revision": 1,
+    "status": "TO_SET_BEFORE_LAB",
+    "implementation_status": "NOT_IMPLEMENTED",
+    "source_fixture_sha256": "854b6ea530a957ca0bd2830b4ecc15ba11ab0bbe755a2b8f2bdd546dc350aef1",
+    "fixed_requirements": {
+      "primary_factor": "PASSWORD",
+      "additional_factor": "WEBAUTHN",
+      "user_verification": "required",
+      "totp_fallback_enabled": false,
+      "passwordless_enabled": false,
+      "business_access_requires_both_factors": true,
+      "password_only_enrollment_allowed": false,
+      "password_only_recovery_allowed": false,
+      "challenge_single_use": true,
+      "old_credential_revoke_on_recovery": true
+    },
+    "effective_values": {
+      "challenge_ttl_seconds": null,
+      "max_attempt_limit": null,
+      "failed_attempt_window_seconds": null,
+      "failed_attempt_lockout_seconds": null,
+      "session_idle_timeout_seconds": null,
+      "session_absolute_timeout_seconds": null,
+      "reauth_max_age_seconds": null,
+      "revocation_max_delay_seconds": null,
+      "rp_id": null,
+      "allowed_origins": null,
+      "enrollment_bootstrap_policy_ref": null,
+      "credential_addition_policy_ref": null,
+      "recovery_identity_verification_policy_ref": null,
+      "recovery_approver_role_ref": null,
+      "recovery_session_action": null,
+      "notification_policy_ref": null,
+      "notification_delivery_max_seconds": null,
+      "notification_destination_ref": null
+    },
+    "illustrative_examples_not_effective": {
+      "challenge_ttl_seconds": 120,
+      "max_attempt_limit": 5,
+      "session_idle_timeout_seconds": 900,
+      "warning": "Examples from user notes only. Never copy or merge into effective_values automatically."
+    },
+    "approval": {
+      "actor_id": null,
+      "approved_at": null,
+      "reason": null
+    },
+    "canonical_config_sha256": null
+  },
+  "lab_environment": {
+    "crm_product_and_build": null,
+    "crm_base_url": null,
+    "crm_cookie_namespace": null,
+    "network_scope_and_authorization_ref": null,
+    "vpn_precondition_evidence_ref": null,
+    "interactive_login_routes": null,
+    "scope_owner_approval_ref": null,
+    "test_data_manifest_ref": null,
+    "receiver_base_url": null,
+    "receiver_allowed_destinations": null,
+    "export_policy_ref": null,
+    "allowed_egress_protocols": null,
+    "execution_clock": null,
+    "fixture_clock": "2026-10-09T09:00:00+07:00",
+    "fixture_clock_may_override_runtime": false
+  },
+  "readiness_rules": [
+    "Null required values block the relevant deployment/lab preflight; no silent fallback to examples or framework defaults.",
+    "CRM values must be approved and snapshotted before T01-T24; SC-02 additionally requires receiver/export/egress scope.",
+    "VDT configuration does not implement or approve CRM controls; CRM profile is managed assessment configuration only.",
+    "All secrets are external references; do not insert secrets in this file, fixture, evidence or report.",
+    "At build lock exact supported package versions/hashes and scanner signature version; recheck advisories.",
+    "No inference of READY, PASS, evidence verification, risk approval or rubric calibration from parsing this JSON."
+  ],
+  "runtime_test_status": {
+    "FLOW_01_to_10": "NOT_RUN",
+    "TC_01_T01_to_T24": "NOT_RUN",
+    "VALID_G_01": "NOT_RUN"
+  }
+}

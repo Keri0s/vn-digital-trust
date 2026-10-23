@@ -4,7 +4,7 @@
 
 **Scope:** One deployment for one Vietnamese SME; self-assessment is the primary journey.
 
-**Basis:** [Project Charter](D:/Projects/vn-digital-trust/docs/research/project-charter.md), [Problem Discovery](D:/Projects/vn-digital-trust/docs/research/problem-discovery-v0.1.md), [Hypotheses](D:/Projects/vn-digital-trust/docs/research/hypotheses.md), [Assumptions Log](D:/Projects/vn-digital-trust/docs/research/assumptions-log.md), and subsequent project decisions.
+**Basis:** [Project Charter](../research/project-charter.md), [Problem Discovery](../research/problem-discovery-v0.1.md), [Hypotheses](../research/hypotheses.md), [Assumptions Log](../research/assumptions-log.md), and subsequent project decisions.
 
 ## 1. Scope assumptions
 

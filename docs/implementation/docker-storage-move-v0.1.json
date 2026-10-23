@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-23",
+  "mechanism": "NTFS_DIRECTORY_JUNCTION",
+  "moves": [
+    {
+      "Source": "C:\\Users\\trant\\AppData\\Local\\Docker\\wsl\\disk",
+      "Target": "D:\\Projects\\vn-digital-trust\\.runtime\\docker-desktop\\wsl-disk",
+      "Backup": "C:\\Users\\trant\\AppData\\Local\\Docker\\wsl\\disk.pre-step06-move",
+      "File": "docker_data.vhdx",
+      "Bytes": 2799697920,
+      "SHA256Before": "3C98C460DE23FEBB63C5B60E366CD33E93507B3523DC3F27A0496C792AD64245",
+      "SHA256Copied": "3C98C460DE23FEBB63C5B60E366CD33E93507B3523DC3F27A0496C792AD64245",
+      "State": "VERIFIED_ON_D_SOURCE_DISK_COPY_REMOVED"
+    },
+    {
+      "Source": "C:\\Users\\trant\\AppData\\Local\\Docker\\vm-data",
+      "Target": "D:\\Projects\\vn-digital-trust\\.runtime\\docker-desktop\\vm-data",
+      "Backup": "C:\\Users\\trant\\AppData\\Local\\Docker\\vm-data.pre-step06-move",
+      "File": "DockerDesktop.vhdx",
+      "Bytes": 1146093568,
+      "SHA256Before": "F6D44CAEDAB666090E80C7D57835E978E56F45FB3F7D642C8DB37ADCCE7A6813",
+      "SHA256Copied": "F6D44CAEDAB666090E80C7D57835E978E56F45FB3F7D642C8DB37ADCCE7A6813",
+      "State": "VERIFIED_ON_D_SOURCE_DISK_COPY_REMOVED"
+    }
+  ],
+  "space": {
+    "ReleasedFileBytes": 3945791488,
+    "ReleasedGiB": 3.675,
+    "CFreeGiB": 24.247,
+    "DFreeGiB": 83.01
+  },
+  "post_move_database_checks": {
+    "passed": 15,
+    "failed": 0
+  },
+  "image_inventory_unchanged": true,
+  "volume": "vdt-step06_vdt_pgdata",
+  "vmm_runtime_verified": false
+}

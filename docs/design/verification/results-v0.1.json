@@ -1,0 +1,170 @@
+{
+  "validation_scope": "STATIC_DESIGN_ONLY",
+  "runtime_tests": "NOT_RUN",
+  "checks": [
+    {
+      "check": "OpenAPI structural specification",
+      "passed": true,
+      "detail": "3.1.1"
+    },
+    {
+      "check": "Unique operation IDs",
+      "passed": true,
+      "detail": 123
+    },
+    {
+      "check": "Physical API prefix",
+      "passed": true,
+      "detail": 92
+    },
+    {
+      "check": "OpenAPI local references resolve",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "Declared schema examples match contracts",
+      "passed": true,
+      "detail": {
+        "count": 6,
+        "errors": []
+      }
+    },
+    {
+      "check": "DDL transaction closes",
+      "passed": true,
+      "detail": "Design DDL is one transaction"
+    },
+    {
+      "check": "PL/pgSQL function syntax",
+      "passed": true,
+      "detail": {
+        "functions": 10,
+        "note": "syntax only; triggers not executed"
+      }
+    },
+    {
+      "check": "PostgreSQL DDL syntax",
+      "passed": true,
+      "detail": {
+        "statements": 390,
+        "tables": 106,
+        "note": "parser only; not executed in PostgreSQL"
+      }
+    },
+    {
+      "check": "Declared FK target tables/columns exist",
+      "passed": true,
+      "detail": {
+        "foreign_keys": 287,
+        "missing": []
+      }
+    },
+    {
+      "check": "Foreign key targets have declared unique keys",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "Seed exact baseline + FLOW + declared extensions",
+      "passed": true,
+      "detail": {
+        "VDT_ADMIN": [
+          "organization.manage",
+          "roles.assign",
+          "users.manage"
+        ],
+        "VDT_SECURITY": [
+          "assessment.run",
+          "control.manage",
+          "evidence.read_assigned",
+          "evidence.submit",
+          "evidence.verify",
+          "inventory.manage",
+          "report.read",
+          "risk.propose",
+          "treatment.update"
+        ],
+        "VDT_RISK_OWNER": [
+          "assessment.adjudicate",
+          "report.read",
+          "risk.accept",
+          "risk.impact_review",
+          "risk.priority_approve",
+          "treatment.approve"
+        ],
+        "VDT_REVIEWER": [
+          "assessment.review",
+          "evidence.read_assigned",
+          "evidence.request",
+          "evidence.verify"
+        ]
+      }
+    },
+    {
+      "check": "Seed original users/scopes/expiry unchanged",
+      "passed": true,
+      "detail": "VDT users only; no CRM provisioning"
+    },
+    {
+      "check": "Seed provenance hashes",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "API permissions exist in seed catalog",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "Protected domain operations declare permissions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "CRM required fields unset until lab",
+      "passed": true,
+      "detail": [
+        "challenge_ttl_seconds",
+        "max_attempt_limit",
+        "session_idle_timeout_seconds",
+        "rp_id",
+        "allowed_origins"
+      ]
+    },
+    {
+      "check": "CRM examples separated",
+      "passed": true,
+      "detail": "Examples are not runtime defaults"
+    },
+    {
+      "check": "Upload limits consistent with design",
+      "passed": true,
+      "detail": "20MiB /64KiB /21MiB"
+    },
+    {
+      "check": "Runtime results remain NOT_RUN",
+      "passed": true,
+      "detail": {
+        "FLOW_01_to_10": "NOT_RUN",
+        "TC_01_T01_to_T24": "NOT_RUN",
+        "VALID_G_01": "NOT_RUN"
+      }
+    },
+    {
+      "check": "Frozen inputs unchanged",
+      "passed": true,
+      "detail": {
+        "inputs": 8,
+        "changed": []
+      }
+    },
+    {
+      "check": "Local Markdown file links",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "passed": 21,
+  "failed": 0
+}

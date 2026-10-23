@@ -7,7 +7,7 @@
 
 Một **use case** mô tả mục tiêu của một người dùng, các bước người đó và hệ thống thực hiện, kết quả, cùng những tình huống cần xử lý khi luồng chính không diễn ra. Đây chưa phải thiết kế màn hình, API hay cơ sở dữ liệu.
 
-Tài liệu này dựa trên [Requirements Discovery v0.1](D:/Projects/vn-digital-trust/docs/requirements/requirements-discovery-v0.1.md), [bản đối chiếu với research](D:/Projects/vn-digital-trust/docs/requirements/requirements-research-alignment-review.md), `project-charter.md`, `problem-discovery-v0.1.md`, `hypotheses.md`, `assumptions-log.md` trong `D:/Projects/vn-digital-trust/docs/research`, và các quyết định đã chốt trong cuộc trò chuyện.
+Tài liệu này dựa trên [Requirements Discovery v0.1](../requirements/requirements-discovery-v0.1.md), [bản đối chiếu với research](../requirements/requirements-research-alignment-review.md), `project-charter.md`, `problem-discovery-v0.1.md`, `hypotheses.md`, `assumptions-log.md` trong `D:/Projects/vn-digital-trust/docs/research`, và các quyết định đã chốt trong cuộc trò chuyện.
 
 **Các giới hạn cần giữ:**
 

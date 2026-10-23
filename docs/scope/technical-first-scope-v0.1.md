@@ -55,12 +55,12 @@ Ngoài phạm vi v0.1: full SOC/SIEM, phát hiện mối đe dọa theo thời g
 
 Với một SME giả lập, người dùng có thể đi hết luồng từ inventory đến risk register, control/evidence, gap, task, retest và report. Các trường hợp kiểm tra tối thiểu gồm: tài sản thiếu owner; dữ liệu tác động chưa rõ; cùng đầu vào và cùng risk-method version cho cùng kết quả; thiếu bằng chứng khác control thất bại; chấp nhận rủi ro không thay đổi control status; assessment cũ vẫn đọc được sau khi sửa inventory hoặc thay evidence.
 
-Đây là tiêu chí cho prototype, không chứng minh rằng SME thực tế muốn tự đánh giá. Phỏng vấn và thử nghiệm với người dùng vẫn cần để kiểm chứng H3/H4 trong [Hypotheses Register](D:/Projects/vn-digital-trust/docs/research/hypotheses.md).
+Đây là tiêu chí cho prototype, không chứng minh rằng SME thực tế muốn tự đánh giá. Phỏng vấn và thử nghiệm với người dùng vẫn cần để kiểm chứng H3/H4 trong [Hypotheses Register](../research/hypotheses.md).
 
 ## 7. Tài liệu hiện hành
 
-- [Requirements kỹ thuật v0.1](D:/Projects/vn-digital-trust/docs/requirements/requirements-technical-v0.1.md)
-- [Use cases kỹ thuật v0.1](D:/Projects/vn-digital-trust/docs/use-cases/use-cases-technical-v0.1.md)
-- [Domain model kỹ thuật v0.1](D:/Projects/vn-digital-trust/docs/domain-model/domain-model-technical-v0.1.md)
+- [Requirements kỹ thuật v0.1](../requirements/requirements-technical-v0.1.md)
+- [Use cases kỹ thuật v0.1](../use-cases/use-cases-technical-v0.1.md)
+- [Domain model kỹ thuật v0.1](../domain-model/domain-model-technical-v0.1.md)
 
 Các file requirements-discovery-v0.1.md, use-cases-v0.1.md và domain-model-v0.1.md mô tả hướng pháp lý trước quyết định này. Chúng không còn là baseline triển khai kỹ thuật hiện tại.

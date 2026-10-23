@@ -1,0 +1,108 @@
+{
+  "date": "2026-10-23",
+  "purpose": "Prototype dependency lock; separate from CRM/scanner deployment readiness",
+  "packages": [
+    {
+      "name": "asgiref",
+      "version": "3.12.1",
+      "source": "https://pypi.org/pypi/asgiref/3.12.1/json",
+      "artifact_count": 2
+    },
+    {
+      "name": "attrs",
+      "version": "26.1.0",
+      "source": "https://pypi.org/pypi/attrs/26.1.0/json",
+      "artifact_count": 2
+    },
+    {
+      "name": "Django",
+      "version": "5.2.18",
+      "source": "https://pypi.org/pypi/Django/5.2.18/json",
+      "artifact_count": 2
+    },
+    {
+      "name": "djangorestframework",
+      "version": "3.16.1",
+      "source": "https://pypi.org/pypi/djangorestframework/3.16.1/json",
+      "artifact_count": 2
+    },
+    {
+      "name": "gunicorn",
+      "version": "23.0.0",
+      "source": "https://pypi.org/pypi/gunicorn/23.0.0/json",
+      "artifact_count": 2
+    },
+    {
+      "name": "jsonschema",
+      "version": "4.26.0",
+      "source": "https://pypi.org/pypi/jsonschema/4.26.0/json",
+      "artifact_count": 2
+    },
+    {
+      "name": "jsonschema-specifications",
+      "version": "2025.9.1",
+      "source": "https://pypi.org/pypi/jsonschema-specifications/2025.9.1/json",
+      "artifact_count": 2
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "source": "https://pypi.org/pypi/packaging/26.3/json",
+      "artifact_count": 2
+    },
+    {
+      "name": "psycopg",
+      "version": "3.3.6",
+      "source": "https://pypi.org/pypi/psycopg/3.3.6/json",
+      "artifact_count": 2
+    },
+    {
+      "name": "psycopg-binary",
+      "version": "3.3.6",
+      "source": "https://pypi.org/pypi/psycopg-binary/3.3.6/json",
+      "artifact_count": 66
+    },
+    {
+      "name": "pypdf",
+      "version": "6.21.2",
+      "source": "https://pypi.org/pypi/pypdf/6.21.2/json",
+      "artifact_count": 2
+    },
+    {
+      "name": "PyYAML",
+      "version": "6.0.3",
+      "source": "https://pypi.org/pypi/PyYAML/6.0.3/json",
+      "artifact_count": 73
+    },
+    {
+      "name": "referencing",
+      "version": "0.37.0",
+      "source": "https://pypi.org/pypi/referencing/0.37.0/json",
+      "artifact_count": 2
+    },
+    {
+      "name": "rpds-py",
+      "version": "2026.9.1",
+      "source": "https://pypi.org/pypi/rpds-py/2026.9.1/json",
+      "artifact_count": 128
+    },
+    {
+      "name": "sqlparse",
+      "version": "0.6.0",
+      "source": "https://pypi.org/pypi/sqlparse/0.6.0/json",
+      "artifact_count": 2
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "source": "https://pypi.org/pypi/typing_extensions/4.16.0/json",
+      "artifact_count": 2
+    },
+    {
+      "name": "tzdata",
+      "version": "2026.5",
+      "source": "https://pypi.org/pypi/tzdata/2026.5/json",
+      "artifact_count": 2
+    }
+  ]
+}

@@ -1,0 +1,831 @@
+{
+  "result": "PASS",
+  "profile": "CONDITIONAL-BASE-v0.4",
+  "verification_date": "2026-10-12",
+  "scope": "Arithmetic and synthetic design fixtures only; no CRM/lab evidence or human agreement.",
+  "counts": {
+    "fixed_cases": 26,
+    "raw_boundaries": 8,
+    "factor_lattice_combinations": 625,
+    "monotonic_edges": 2000,
+    "bounded_boxes": 50625,
+    "collapsed_boxes": 675,
+    "box_completions": 1500625,
+    "fixture_completions": 3179,
+    "sensitivity_rows": 182,
+    "weight_variants": 3,
+    "result": "PASS"
+  },
+  "additional_checks": {
+    "sensitivity_probes_checked": 229,
+    "gate_change_tuples_E_F_G_I_total": [
+      [
+        5,
+        5,
+        5,
+        1
+      ],
+      [
+        5,
+        5,
+        5,
+        2
+      ]
+    ],
+    "collapsed_boxes_with_unknown_G": 50
+  },
+  "supplemental_checks": {
+    "fixture_revision": "v0.1-r2",
+    "impact_progress_cases": 20,
+    "weight_pair_cases": 3,
+    "display_cases": 2,
+    "review_disagreement_cases": 1,
+    "weight_pair_results": [
+      {
+        "E_weight": "0.3",
+        "F_weight": "0.7",
+        "MF03": "12.32",
+        "MF04": "12.64",
+        "numeric_order": "MF03_LT_MF04"
+      },
+      {
+        "E_weight": "0.4",
+        "F_weight": "0.6",
+        "MF03": "12.96",
+        "MF04": "12.32",
+        "numeric_order": "MF03_GT_MF04"
+      },
+      {
+        "E_weight": "0.5",
+        "F_weight": "0.5",
+        "MF03": "13.6",
+        "MF04": "12",
+        "numeric_order": "MF03_GT_MF04"
+      }
+    ],
+    "impact_progress_results": [
+      {
+        "id": "IP-01",
+        "overall": "IMPROVED",
+        "improved_dimensions": [
+          "C"
+        ],
+        "worsened_dimensions": [],
+        "score_change": "SAME",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 2,
+          "max_dimension_count_range": [
+            2,
+            2
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-02",
+        "overall": "IMPROVED",
+        "improved_dimensions": [
+          "I_integrity"
+        ],
+        "worsened_dimensions": [],
+        "score_change": "SAME",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 2,
+          "max_dimension_count_range": [
+            2,
+            2
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-03",
+        "overall": "IMPROVED",
+        "improved_dimensions": [
+          "B"
+        ],
+        "worsened_dimensions": [],
+        "score_change": "SAME",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 2,
+          "max_dimension_count_range": [
+            2,
+            2
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-04",
+        "overall": "IMPROVED",
+        "improved_dimensions": [
+          "C",
+          "I_integrity"
+        ],
+        "worsened_dimensions": [],
+        "score_change": "SAME",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 1,
+          "max_dimension_count_range": [
+            1,
+            1
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-05",
+        "overall": "IMPROVED",
+        "improved_dimensions": [
+          "C",
+          "I_integrity",
+          "B"
+        ],
+        "worsened_dimensions": [],
+        "score_change": "DOWN",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 3,
+          "I_total_range": [
+            3,
+            3
+          ],
+          "max_dimension_count": 4,
+          "max_dimension_count_range": [
+            4,
+            4
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-06",
+        "overall": "MIXED",
+        "improved_dimensions": [
+          "C"
+        ],
+        "worsened_dimensions": [
+          "A"
+        ],
+        "score_change": "SAME",
+        "verified_worsening": true,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-07",
+        "overall": "INCOMPLETE",
+        "improved_dimensions": [
+          "C"
+        ],
+        "worsened_dimensions": [],
+        "score_change": "NOT_COMPARABLE",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": null,
+          "I_total_range": [
+            4,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            2
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "NEEDS_REVIEW",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-08",
+        "overall": "NOT_COMPARABLE",
+        "improved_dimensions": [],
+        "worsened_dimensions": [],
+        "score_change": "NOT_COMPARABLE",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 3,
+          "I_total_range": [
+            3,
+            3
+          ],
+          "max_dimension_count": 4,
+          "max_dimension_count_range": [
+            4,
+            4
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-09",
+        "overall": "NOT_COMPARABLE",
+        "improved_dimensions": [],
+        "worsened_dimensions": [],
+        "score_change": "NOT_COMPARABLE",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 3,
+          "I_total_range": [
+            3,
+            3
+          ],
+          "max_dimension_count": 4,
+          "max_dimension_count_range": [
+            4,
+            4
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-10",
+        "overall": "UNCHANGED",
+        "improved_dimensions": [],
+        "worsened_dimensions": [],
+        "score_change": "SAME",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-11",
+        "overall": "INCOMPLETE",
+        "improved_dimensions": [],
+        "worsened_dimensions": [],
+        "score_change": "NOT_COMPARABLE",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": null,
+          "I_total_range": [
+            4,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            3
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "NEEDS_REVIEW",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-12",
+        "overall": "WORSENED",
+        "improved_dimensions": [],
+        "worsened_dimensions": [
+          "B"
+        ],
+        "score_change": "UP",
+        "verified_worsening": true,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 5,
+          "I_total_range": [
+            5,
+            5
+          ],
+          "max_dimension_count": 1,
+          "max_dimension_count_range": [
+            1,
+            1
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-13",
+        "overall": "INCOMPLETE",
+        "improved_dimensions": [
+          "C"
+        ],
+        "worsened_dimensions": [],
+        "score_change": "NOT_COMPARABLE",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": null,
+          "I_total_range": [
+            4,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            2
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "NEEDS_REVIEW",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-14",
+        "overall": "IMPROVED",
+        "improved_dimensions": [
+          "C"
+        ],
+        "worsened_dimensions": [],
+        "score_change": "SAME",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 2,
+          "max_dimension_count_range": [
+            2,
+            2
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-15",
+        "overall": "IMPROVED",
+        "improved_dimensions": [
+          "C"
+        ],
+        "worsened_dimensions": [],
+        "score_change": "NOT_COMPARABLE",
+        "verified_worsening": false,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 2,
+          "max_dimension_count_range": [
+            2,
+            2
+          ]
+        },
+        "assessment_status_before_preserved": "NEEDS_REVIEW",
+        "assessment_status_after_preserved": "NEEDS_REVIEW",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-16",
+        "overall": "INCOMPLETE",
+        "improved_dimensions": [
+          "C"
+        ],
+        "worsened_dimensions": [],
+        "score_change": "NOT_COMPARABLE",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": null,
+          "I_total_range": [
+            4,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 1,
+          "max_dimension_count_range": [
+            1,
+            1
+          ]
+        },
+        "assessment_status_before_preserved": "NEEDS_REVIEW",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [
+          "I_integrity"
+        ],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-17",
+        "overall": "INCOMPLETE",
+        "improved_dimensions": [],
+        "worsened_dimensions": [
+          "C"
+        ],
+        "score_change": "UP",
+        "verified_worsening": true,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 5,
+          "I_total_range": [
+            5,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            2
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "NEEDS_REVIEW",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-18",
+        "overall": "INCOMPLETE",
+        "improved_dimensions": [
+          "B"
+        ],
+        "worsened_dimensions": [],
+        "score_change": "SAME",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 5,
+          "I_total_range": [
+            5,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            2
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 5,
+          "I_total_range": [
+            5,
+            5
+          ],
+          "max_dimension_count": 1,
+          "max_dimension_count_range": [
+            1,
+            1
+          ]
+        },
+        "assessment_status_before_preserved": "NEEDS_REVIEW",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [
+          "I_integrity"
+        ],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-19",
+        "overall": "NOT_COMPARABLE",
+        "improved_dimensions": [],
+        "worsened_dimensions": [],
+        "score_change": "NOT_COMPARABLE",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": 5,
+          "I_total_range": [
+            5,
+            5
+          ],
+          "max_dimension_count": 1,
+          "max_dimension_count_range": [
+            1,
+            1
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "EVALUATED",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      },
+      {
+        "id": "IP-20",
+        "overall": "INCOMPLETE",
+        "improved_dimensions": [],
+        "worsened_dimensions": [],
+        "score_change": "NOT_COMPARABLE",
+        "verified_worsening": null,
+        "impact_summary_before": {
+          "I_total": 4,
+          "I_total_range": [
+            4,
+            4
+          ],
+          "max_dimension_count": 3,
+          "max_dimension_count_range": [
+            3,
+            3
+          ]
+        },
+        "impact_summary_after": {
+          "I_total": null,
+          "I_total_range": [
+            4,
+            5
+          ],
+          "max_dimension_count": null,
+          "max_dimension_count_range": [
+            1,
+            3
+          ]
+        },
+        "assessment_status_before_preserved": "EVALUATED",
+        "assessment_status_after_preserved": "NEEDS_REVIEW",
+        "evidence_gap_resolved_dimensions": [],
+        "treatment_attribution_scope": "VERIFIED_COMPARABLE_DIMENSIONS_ONLY"
+      }
+    ]
+  },
+  "sha256": {
+    "risk-method-fixtures-v0.4.json": "deb346599244f3b4bc079ffa3528f40912e644be80a41bee2b87deca669c52d0",
+    "impact-progress-fixtures-v0.1.json": "a2c7672a46a3830a853d0b0ffe77e44bffabb9f7ffda37866159633c49ae40b3",
+    "verify-risk-v0.4.py": "44d8c3fbfdf56542eef599723ced8ebaaad2cb786212f24bfd61e437e098a506"
+  }
+}

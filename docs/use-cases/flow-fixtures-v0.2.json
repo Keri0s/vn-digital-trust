@@ -1,0 +1,107 @@
+{
+  "fixture_id": "FLOW-03-v0.2-r1",
+  "purpose": "Synthetic design walkthrough only; no provisioning, CRM evidence, or runtime test results.",
+  "revision_date": "2026-10-17",
+  "base_fixture": "../planning/lab-fixtures-v0.1.json",
+  "base_sha256": "854b6ea530a957ca0bd2830b4ecc15ba11ab0bbe755a2b8f2bdd546dc350aef1",
+  "application_rule": "Add listed permissions by role ID for these design cases only. Keep all base scopes, users, access expiry and other permissions. Do not modify historical baseline.",
+  "permission_additions": [
+    {
+      "role_id": "VDT_SECURITY",
+      "permissions": [
+        "evidence.read_assigned",
+        "evidence.verify"
+      ],
+      "scope_constraint": "Organization assessments/evidence within assigned operational scope; U002 uses ASM-DEMO-01 in these cases."
+    },
+    {
+      "role_id": "VDT_REVIEWER",
+      "permissions": [
+        "evidence.verify"
+      ],
+      "scope_constraint": "Assigned assessments and linked evidence only; existing access_expires_at applies."
+    },
+    {
+      "role_id": "VDT_RISK_OWNER",
+      "permissions": [
+        "risk.priority_approve"
+      ],
+      "scope_constraint": "Owned/authorized risks in the organization; U003 owns CRM in these cases."
+    }
+  ],
+  "rules": [
+    "Check authentication, active user, role permission, object scope and access expiry on every action.",
+    "evidence.verify does not grant assessment.review, risk.accept, role administration or CRM access.",
+    "Self verification checks actual supplied evidence and records actor/reason/time; it does not create independent review or convert fixture states into evidence.",
+    "Independent review cannot be performed by the same actor as the assessed work. Preserve both original and review findings.",
+    "No consultant is required for the internal self-assessment route. No authorized verifier means evidence remains UNVERIFIED.",
+    "ControlAssessment precedes confirmed CURRENT G; unverified paths stay UNKNOWN. Status remains EVALUATED/NEEDS_REVIEW according to RM-01.",
+    "Risk Owner approves operational priority; reviewer proposals remain separate."
+  ],
+  "cases": [
+    {
+      "id": "FLOW-01",
+      "at": "2026-10-09T09:00:00+07:00",
+      "actor": "U002",
+      "scenario": "SC-01",
+      "action": "verify supplied evidence for ASM-DEMO-01 without consultant",
+      "expected": "Authorized within scope; append verification decision; SELF_ASSESSED, review_outcome=NOT_REQUESTED; VERIFIED only after source/content/validity checks."
+    },
+    {
+      "id": "FLOW-02",
+      "at": "2026-10-09T09:00:00+07:00",
+      "actor": "U004",
+      "action": "verify evidence linked to ASM-DEMO-01",
+      "expected": "Authorized within assigned scope; outside ASM-DEMO-01 denied; verification alone does not mark whole assessment CONFIRMED."
+    },
+    {
+      "id": "FLOW-03",
+      "at": "2026-10-31T17:00:00+07:00",
+      "actor": "U004",
+      "action": "read evidence, verify or review after access expiry",
+      "expected": "Denied at/after expiry; audit; no read or business-state change. U002 remains available through FLOW-01 subject to own current permissions."
+    },
+    {
+      "id": "FLOW-04",
+      "at": "2026-10-09T09:00:00+07:00",
+      "actor": "U003",
+      "action": "approve operational cross-scenario priority",
+      "expected": "Authorized with scope/reason/time; U004 recommendation does not approve it. No decision is actually recorded for MF-03/MF-04."
+    },
+    {
+      "id": "FLOW-05",
+      "scenario": "SC-01",
+      "input": "Missing evidence or failed execution T23",
+      "expected": "INSUFFICIENT_EVIDENCE / EVIDENCE_GAP; unknown G paths and NEEDS_REVIEW; no inferred failure or LOW."
+    },
+    {
+      "id": "FLOW-06",
+      "scenario": "SC-01",
+      "input": "Verified failure on one criterion and unknown evidence on another",
+      "expected": "CONTROL_GAP and EVIDENCE_GAP coexist; record ControlAssessment before G; a determined R does not erase either gap."
+    },
+    {
+      "id": "FLOW-07",
+      "scenario": "SC-02",
+      "input": "Valid read session, transfer path/policy not set; T24 NOT_READY",
+      "expected": "Keep missing context/input issues visible; no new-login MFA reduction of G; no CURRENT result from synthetic data."
+    },
+    {
+      "id": "FLOW-08",
+      "input": "New evidence VERIFIED but retest fails or is INCONCLUSIVE",
+      "expected": "Append new assessments; preserve old evidence/snapshots; keep relevant gap/task open; no automatic closure."
+    },
+    {
+      "id": "FLOW-09",
+      "input": "Same comparison key and verified improvement with all closure criteria met",
+      "expected": "Separate R/impact/gap progress and explicit authorized closure; preserve verified_worsening and max summaries. Different comparison key -> NOT_COMPARABLE."
+    },
+    {
+      "id": "FLOW-10",
+      "input": "Invalid essential context or out-of-domain values",
+      "expected": "NEEDS_REVIEW; score_determined=false; score, range and level null; validation issues retained."
+    }
+  ],
+  "execution_status": "NOT_RUN",
+  "review_kind": "DESIGN_WALKTHROUGH"
+}

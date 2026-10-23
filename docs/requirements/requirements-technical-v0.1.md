@@ -2,7 +2,7 @@
 
 **Trạng thái:** Baseline thiết kế cho prototype, 2026-10-05.
 
-**Phạm vi:** Cybersecurity readiness, asset inventory và risk management cho một SME. [Quyết định phạm vi](D:/Projects/vn-digital-trust/docs/scope/technical-first-scope-v0.1.md) là nguồn ưu tiên cho v0.1; các tài liệu pháp lý trước đây được giữ làm lịch sử discovery.
+**Phạm vi:** Cybersecurity readiness, asset inventory và risk management cho một SME. [Quyết định phạm vi](../scope/technical-first-scope-v0.1.md) là nguồn ưu tiên cho v0.1; các tài liệu pháp lý trước đây được giữ làm lịch sử discovery.
 
 Các mức **MUST / SHOULD / COULD** là ưu tiên xây prototype, không khẳng định nhu cầu đã được SME thực tế xác nhận. Mã TFR tách biệt với mã FR của baseline pháp lý trước đó.
 
@@ -122,7 +122,7 @@ Một phát hiện kỹ thuật hoặc điểm yếu được nhập thủ công
 | Nhóm | Cơ sở | Cần kiểm chứng |
 | --- | --- | --- |
 | Tổ chức/RBAC | Quyết định single-tenant và nhiều người dùng từ discovery trước | Vai trò thực tế và quyền tối thiểu. |
-| Inventory và context | [Project Charter §6–8](D:/Projects/vn-digital-trust/docs/research/project-charter.md); [Problem Discovery §9–13](D:/Projects/vn-digital-trust/docs/research/problem-discovery-v0.1.md) | SME có thể thu thập những thông tin nào, mất bao lâu (H3). |
+| Inventory và context | [Project Charter §6–8](../research/project-charter.md); [Problem Discovery §9–13](../research/problem-discovery-v0.1.md) | SME có thể thu thập những thông tin nào, mất bao lâu (H3). |
 | Risk scenario/evaluation | Quyết định phạm vi kỹ thuật ngày 2026-10-05; charter có hướng risk-based | Phương pháp đánh giá, rubric và mức ưu tiên có được người dùng hiểu, áp dụng nhất quán không. |
 | Control/evidence/gap | Charter §6–10; W-004/W-005 trong Assumptions Log | Tiêu chí đánh giá control và khả năng xác minh evidence trong scenario. |
 | Self-assessment và reviewer | Quyết định thiết kế; H4/A-007 chưa kiểm chứng | Thử self-service và consultant-assisted với người dùng. |

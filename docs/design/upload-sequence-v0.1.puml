@@ -1,0 +1,49 @@
+@startuml
+title VDT v0.1 - Evidence upload: physical path and final gate
+hide footbox
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 200
+actor Browser
+participant "Reverse proxy\nTLS boundary" as Proxy
+participant "VDT Policy gate\nsession + scope + expiry" as Gate
+participant "Evidence intake" as Intake
+participant "Protected filesystem\nquarantine / objects" as Store
+database "PostgreSQL\nmetadata + audit" as DB
+Browser -> Proxy : POST /api/v1/evidence-items/{id}/evidence-revisions\nmultipart + CSRF + Idempotency-Key + If-Match
+Proxy -> Gate : bounded request; trusted forwarding only
+Gate -> DB : current principal, scope, assignment, expiry
+alt denied
+  Gate -> DB : safe denial audit
+  Gate --> Proxy : deny; no evidence content
+  Proxy --> Browser : 401 / 403 / non-disclosing 404
+else allowed initially
+  Gate -> Intake : authorized intent (must recheck before commit)
+  Intake -> Store : bounded stream to quarantine; server SHA-256
+  Intake -> Intake : metadata + MIME + hash + scan validation
+  alt incomplete / unsafe / scanner unavailable
+    Intake -> DB : operation failure + safe audit
+    Intake --> Gate : error; no usable revision
+  else validation passed
+    Intake -> DB : short transaction: immutable revision\n+ storage STAGED + operation
+    Intake -> Store : fsync; atomic rename on same filesystem
+    Intake -> Gate : final commit check
+    Gate -> DB : lock auth guard + item; recheck time/rights/versions
+    alt expired / revoked / version changed
+      Gate -> DB : deny/conflict; keep STAGED for safe recovery
+      Gate --> Intake : do not publish; orphan lifecycle
+    else final gate allowed
+      Intake -> DB : atomic COMMITTED + item head/version\n+ audit + idempotency result
+      DB --> Intake : commit confirmed
+      Intake --> Gate : 201; revision still UNVERIFIED
+    end
+  end
+  Gate --> Proxy : response through reverse proxy
+  Proxy --> Browser : result or retryable error
+end
+note over Intake,DB
+File persistence and DB commit are separate.
+Crash recovery never publishes using stale authorization.
+No assessment consumes a STAGED revision.
+end note
+@enduml

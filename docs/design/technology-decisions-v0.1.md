@@ -1,0 +1,67 @@
+# VN Digital Trust — Lựa chọn công nghệ v0.1
+
+**Ngày:** 2026-10-19; rà soát tiếp 2026-10-20 (Asia/Bangkok). **Phạm vi:** quyết định thiết kế bước 05; chưa cài đặt, chạy ứng dụng, đo tải hoặc chạy lab. Theo [kiến trúc bước 04](../architecture/architecture-technical-v0.1.md) và kế hoạch mục 26–27. Một SME, hai chi nhánh, self-assessment không cần consultant. Công nghệ không thay RM-01 v0.4-r3.
+
+## 1. Stack được chọn và căn cứ
+
+| Quyết định | Lựa chọn cho v0.1 | Lý do và giới hạn |
+| --- | --- | --- |
+| TECH-01 — môi trường tham chiếu | Debian 13 amd64 trong một VM hoặc máy Linux local; dịch vụ systemd | Có sẵn dòng Python 3.13 và PostgreSQL 17, giảm ghép thêm nguồn runtime. Máy Windows hiện tại có thể là host VM; chưa giả định đã có VM, RAM cấp phát hoặc mạng lab. Không cần Kubernetes. [Debian 13 release](https://www.debian.org/News/2025/20250809), [lifecycle](https://www.debian.org/releases/trixie/). |
+| TECH-02 — ứng dụng | Python 3.13; Django 5.2 LTS; Django REST Framework dòng 3.16 tương thích; Gunicorn WSGI | Một codebase/module và một đơn vị phát hành, dùng ORM, migration, validation, session và CSRF. Dòng 5.2 có hỗ trợ bảo mật đến 04/2028, Python 3.13 dự kiến đến 10/2029; DRF 3.16 công bố hỗ trợ cặp này. Chọn bản vá còn hỗ trợ tại lúc build, khóa chính xác trước bước 06. [Django support](https://www.djangoproject.com/download/), [compatibility](https://docs.djangoproject.com/en/5.2/faq/install/), [DRF 3.16](https://www.django-rest-framework.org/community/3.16-announcement/), [Python 3.13 schedule](https://peps.python.org/pep-0719/). |
+| TECH-03 — UI | Django templates, CSS và JavaScript chuẩn; cùng origin với `/api/v1` | Phù hợp form, bảng, report, lịch sử; ít quy trình build và không cần máy chủ SPA thứ hai. UI gọi cùng application service với API; không tự chốt điểm hoặc quyền. Nếu nhu cầu tương tác sau này vượt khả năng này, bổ sung frontend qua API đã version. |
+| TECH-04 — database | PostgreSQL 17, psycopg 3 tương thích Django | FK/CHECK/UNIQUE, transaction, row locks và kiểu JSONB cho snapshot có schema; hỗ trợ cập nhật nhỏ đến 08/11/2029. Cột quan hệ/quyền/điểm cốt lõi dùng typed columns và constraints, không giấu toàn bộ domain trong JSON. [PG version policy](https://www.postgresql.org/support/versioning/), [Django PostgreSQL backend](https://docs.djangoproject.com/en/5.2/ref/databases/#postgresql-notes). |
+| TECH-05 — TLS boundary | Caddy 2 bản stable được hỗ trợ, package chính thức; chỉ proxy tới socket/loopback Gunicorn | Một lối vào HTTPS, host allowlist, size/time limits. LAN dùng CA nội bộ đã được client tin cậy hoặc chứng thư hợp lệ; việc tự sinh cert không chứng minh browser đã tin cậy. Caddy không quyết định quyền nghiệp vụ. [Caddy install](https://caddyserver.com/docs/install), [HTTPS](https://caddyserver.com/docs/automatic-https), [reverse proxy](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy). |
+| TECH-06 — evidence | File system riêng trên cùng host, staging và committed trên cùng filesystem; metadata/hashes trong PostgreSQL | Chi phí vận hành thấp và có thể rename atomically; DB/file không cùng transaction nên bắt buộc lifecycle/reconciliation ở [API contract](api-contract-v0.1.md). Caddy không đọc evidence root; download đi handler kiểm quyền. Backup phải gắn DB với manifest files. |
+| TECH-07 — nền/scan/export | Bảng job bền vững trong PostgreSQL, một worker tuần tự; quét file fail closed | Không cần Redis/Celery ở quy mô đầu. Claim lease, retry có giới hạn, idempotency và fencing ngăn worker cũ phát hành lại. Job lưu actor/authorization revision; kiểm quyền hiện hành lúc publish. Scanner unavailable hoặc timeout thì evidence chưa được commit. Chọn ClamAV 1.4 LTS qua Unix socket local, quét tuần tự, `freshclam` cập nhật signature; bản vá và signature chính xác khóa trước bước 06. Không mở socket TCP ra mạng. [ClamAV scan](https://docs.clamav.net/manual/Usage/Scanning.html), [support policy](https://docs.clamav.net/faq/faq-eol.html). |
+| TECH-08 — session/auth | Tài khoản/mật khẩu VDT local qua Django, PBKDF2-SHA256; session phía server trong DB; cookie Secure/HttpOnly/SameSite; CSRF cho request thay đổi trạng thái | Dùng `PBKDF2PasswordHasher`, salt riêng và work factor của bản Django được khóa hoặc giá trị mạnh hơn đã đo; không tự viết thuật toán và không seed mật khẩu. Thu hồi user/assignment có hiệu lực ở mọi action; expiry theo thời gian máy chủ. Tách session/cookie/database identity của VDT khỏi CRM. `ENROLLED_SIMULATED` trong fixture không xác nhận đã triển khai MFA VDT. Đăng nhập VDT không tạo evidence CRM hay tự chứng minh MFA CRM. [Django passwords](https://docs.djangoproject.com/en/5.2/topics/auth/passwords/), [Django sessions](https://docs.djangoproject.com/en/5.2/topics/http/sessions/). |
+
+Các URL chính thức trong tài liệu được tra ngày **2026-10-19**; Debian, Django, DRF, PostgreSQL và ClamAV được đối chiếu lại ngày **2026-10-20**. Bảng trên chọn dòng phiên bản, không khẳng định một patch cụ thể là mới nhất vào ngày triển khai. Chưa cài stack ứng dụng hoặc dịch vụ lab trong bước thiết kế này. Debian full support công bố đến 09/08/2028, LTS đến 30/06/2030; phạm vi package/architecture ở giai đoạn LTS phải kiểm lại khi đến hạn.
+
+## 2. Phương án cân nhắc
+
+| Phương án | Điểm phù hợp | Đánh đổi với yêu cầu này |
+| --- | --- | --- |
+| Django + DRF + PostgreSQL — chọn | Form nghiệp vụ, auth/session, migration và domain transaction cùng stack | Cần viết policy object-scope và immutable history; framework không tự bảo đảm các bất biến. ORM không thay constraint SQL. |
+| FastAPI + SQLAlchemy/Alembic + PostgreSQL | Contract HTTP rõ, thích hợp dịch vụ API chuyên biệt | Phải ghép thêm session, form/admin, CSRF và conventions; ít lợi ích hiện tại khi sản phẩm chủ yếu là workflow và report. Đây là đánh giá thiết kế, không là đo hiệu năng. |
+| ASP.NET Core + PostgreSQL | Phù hợp nhóm thành thạo C# và vận hành .NET | Là phương án hợp lệ nếu đội triển khai có năng lực .NET sẵn; chưa có thông tin đó. Chọn Python để cùng hệ kiểm tra RM-01 và giảm ngôn ngữ cho prototype. |
+| SQLite | Cài nhẹ, phù hợp thử đơn lẻ | Không chọn làm DB nghiệm thu: phải kiểm chứng concurrent authorization, row locking, jobs và FK/constraints đúng PostgreSQL; dùng SQLite thay sẽ không kiểm chứng cùng cơ chế. |
+| S3-compatible object store | Mở rộng lưu trữ và tách host tốt hơn | Thêm dịch vụ/credential và quy trình backup; chưa cần cho một host, file nhỏ. Storage interface giữ blob key/hash để có thể migration sau, không phát public URL hoặc presigned link vượt expiry quyền. |
+| SPA + dịch vụ API riêng | Hữu ích khi UI phức tạp hơn, offline hoặc đa client | Thêm build/dependency và auth/CSRF/CORS để quản lý. v0.1 chưa có yêu cầu đủ để chọn. |
+
+## 3. Policy gate phải được hiện thực riêng
+
+DRF API views không tự chịu `LoginRequiredMiddleware` của Django. Generic object permissions cũng không tự lọc từng object trong list và không tự kiểm create. Do đó TECH-02 yêu cầu global authentication/deny-by-default, filter queryset theo scope, kiểm object khi detail, kiểm foreign-key targets khi create, và cùng policy service ở web/API/background jobs. Mọi command kiểm lại user active, permission, branch/assessment scope, assignment expiry và version trước commit; không chỉ giấu nút UI. Nguồn: [DRF 3.16 middleware](https://www.django-rest-framework.org/community/3.16-announcement/), [DRF permission limitations](https://www.django-rest-framework.org/api-guide/permissions/).
+
+Upload `multipart/form-data` vẫn đi `Browser → Caddy/TLS → auth + CSRF + Policy gate → evidence intake → staging → scan → commit`. Gate đầu vào dùng identity và IDs trên route trước xử lý body; streaming handler giới hạn bytes trong khi đọc. Proxy/parser có thể nhận hoặc buffer bytes trước kiểm domain nhưng không được biến chúng thành evidence COMMITTED. Kiểm lại quyền và scope sau upload/scan, ngay lúc commit. Cookie/session và dữ liệu tệp không đi qua một lối public riêng. Lưu ý multipart limits không được chỉ dựa vào `Content-Length`; đếm bytes thực tế. [Django file uploads](https://docs.djangoproject.com/en/5.2/topics/http/file-uploads/), [Caddy request_body](https://caddyserver.com/docs/caddyfile/directives/request_body).
+
+Giới hạn thiết kế khởi điểm: một file/tác vụ, file tối đa **20 MiB**, metadata **64 KiB**, tổng multipart **21 MiB**, một upload đồng thời/principal và hai/host, một scan worker. Đây là giới hạn tài nguyên VDT được chọn ở bước 05, không phải ngưỡng CRM đã được SME hiệu chuẩn. Worker/scanner giới hạn thời gian, bộ nhớ và quyền; không thực thi file evidence. File signature/type, checksum, path safety và malware là các gate độc lập; verdict CLEAN không thay thế xác minh nghiệp vụ.
+
+## 4. Deployment và ngân sách tài nguyên
+
+Thiết kế tham chiếu: Caddy listen 443 trên interface dịch vụ; Gunicorn listen Unix socket hoặc loopback; PostgreSQL chỉ local; evidence root không public; worker dùng cùng package ứng dụng với DB role hạn chế. DB migration chạy bằng role riêng có quyền DDL; app không là owner/superuser và không được bypass trigger immutability. Proxy chỉ chuyển header forwarding do chính nó tạo; app chỉ tin proxy đã cấu hình. Health endpoint public nếu cần chỉ trả liveness tối thiểu, không lộ environment hoặc DB state. [Django deployment checklist](https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/).
+
+| Phần | Ngân sách RAM dự kiến | Cách giới hạn |
+| --- | --- | --- |
+| Host Windows + trình duyệt/công cụ | 5–6 GiB | Dành ngoài VM; không mở nhiều VM lab song song trên máy 16 GB. |
+| VM VDT tổng | 6 GiB | Khởi điểm 2 vCPU; dành RAM còn lại cho host/cache. |
+| Trong VM: OS/Caddy | 0,75 GiB | Không desktop environment. |
+| Trong VM: app Gunicorn | 1 GiB | Khởi điểm 2 worker, giới hạn request; tăng theo phép đo. |
+| Trong VM: PostgreSQL | 1,5 GiB | Khởi điểm shared_buffers 256 MiB, work_mem 4 MiB, tổng connection ≤20; đo trước tăng. |
+| Trong VM: worker + scan | 1,75 GiB | Một job nặng/lần, giới hạn RSS và timeout. |
+| Trong VM: cache/dự phòng | 1 GiB | Dành cho I/O file và tải đột biến. |
+
+Các số trên là **ước lượng thiết kế, chưa đo**; tổng VM 6 GiB không là SLA. CRM/VPN/receiver/lab runner không nằm trong ngân sách VDT này. Với một máy 16 GB, chạy các phần lab tuần tự hoặc dùng host khác nếu đo thấy không đủ; không tự ghi kết quả PASS. Giả định dữ liệu ban đầu ≤100.000 snapshot metadata và ≤10 GiB evidence; cần xác nhận thực tế. Đĩa VM dự kiến 60 GiB gồm OS/app, DB, 10 GiB evidence, staging và khoảng trống; backup ở volume/thiết bị khác, không tính bản duy nhất cùng đĩa là backup.
+
+## 5. Backup, restore và lifecycle
+
+Chọn backup có khoảng dừng ghi ngắn ở v0.1: bật maintenance barrier, chặn command mới, drain worker và upload; dừng cleanup; giữ reads đã kiểm quyền nếu phù hợp. Khi không còn transaction ghi, tạo `pg_dump` format custom, chụp manifest của mọi blob COMMITTED được DB tham chiếu gồm revision ID/key/hash/size, rồi sao chép đúng các file đó và cấu hình không chứa secret. File immutable và barrier ngăn GC/commit trong cửa sổ này. `pg_dump` cho snapshot DB nhất quán nhưng không tự bảo đảm tính nhất quán của file system; vì vậy barrier/manifest là một phần bắt buộc. Backup mã hóa, hash manifest, tách quyền và copy ra nơi khác. [PostgreSQL SQL dump](https://www.postgresql.org/docs/17/backup-dump.html).
+
+Restore vào môi trường cô lập: đúng schema/app version, DB trước, files theo manifest, kiểm đủ/hash/tổng số, đối chiếu references và audit chain, đánh dấu missing/corrupt unavailable; không tự tạo evidence VERIFIED. Vô hiệu session/lease/export đang chờ, không phát email/webhook thật, chặn job cũ tự chạy. Kiểm tra một snapshot cũ, một retest, download có quyền và từ chối hết hạn trước mở dịch vụ. RPO/RTO, lịch backup, số bản giữ và quyền operator phải được đặt trong config trước bước 06; chưa tuyên bố thời gian phục hồi đạt yêu cầu.
+
+Dọn staging chỉ khi lease hết, không còn transaction/job active và chưa có COMMITTED reference. Xóa blob committed phải qua retention/legal-hold policy đã chốt và tombstone/audit; v0.1 mặc định không tự GC blob domain. Storage health là vận hành riêng: COMMITTED→INTEGRITY_FAILED khi bytes đã công bố bị mất/hỏng; ORPHANED chỉ dành cho upload STAGED chưa từng công bố. Các sự kiện này không sửa payload/hash/decision snapshot gốc. Files mất/hỏng chặn lần dùng mới và tải nội dung; lịch sử vẫn ghi đã dùng revision nào tại thời điểm đó.
+
+## 6. Khóa phiên bản và gate bước 06
+
+Trước build: resolve patch hiện hành trong các dòng đã chọn, rà advisory chính thức, khóa Python/Django/DRF/psycopg/Gunicorn/scanner cùng transitive dependencies bằng version+hash, ghi package OS, Caddy build, DB major/minor, signature version và nguồn. Không dùng floating `latest` hoặc chỉ range trong bản triển khai. Khóa phiên bản giúp tái lập nhưng không dừng bảo trì: patch bảo mật được thử ở môi trường cô lập, backup trước migrate, ghi manifest release mới; major upgrade là thay đổi riêng.
+
+Các gate phải thực thi ở bước 06: dependency/build compatibility; `check --deploy`; migration/constraints với PostgreSQL thật; negative RBAC/list/create/download/export; revoke/expiry trong giao dịch dài; upload limits và scanner unavailable; crash giữa file promote/DB commit; backup/restore; concurrency/idempotency và worker stale lease; đo RAM/đĩa/tải với upload/report đồng thời. Các gate thiết kế này không đổi trạng thái FLOW-01…10, T01…T24 hoặc VALID-G-01: tất cả vẫn **NOT_RUN**. Cấu hình CRM và lab tiếp tục theo [configuration-v0.1](configuration-v0.1.md).

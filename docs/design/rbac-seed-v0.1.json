@@ -1,0 +1,617 @@
+{
+  "schema_version": "0.1",
+  "seed_id": "RBAC-05-v0.1",
+  "generated_on": "2026-10-20",
+  "timezone": "Asia/Bangkok",
+  "purpose": "Design-only seed projection for VDT. No accounts provisioned, no credentials generated, no CRM entities imported, no runtime tests performed.",
+  "fixture_clock": "2026-10-09T09:00:00+07:00",
+  "source_fixtures": [
+    {
+      "id": "LAB-v0.1",
+      "path": "../planning/lab-fixtures-v0.1.json",
+      "sha256": "854b6ea530a957ca0bd2830b4ecc15ba11ab0bbe755a2b8f2bdd546dc350aef1"
+    },
+    {
+      "id": "FLOW-03-v0.2-r1",
+      "path": "../use-cases/flow-fixtures-v0.2.json",
+      "sha256": "820fe1a8722c07ea81a61e4865c9f89457e78f95fbc1ff845528cf6b4708497a"
+    }
+  ],
+  "merge_algorithm": [
+    "Verify source hashes and FLOW.base_sha256; fail on mismatch.",
+    "Select only baseline roles/users where application == VDT; preserve user fields and role.scope exactly.",
+    "Union permissions by exact role ID from baseline, FLOW permission_additions, then explicit step05 extensions; unknown role or permission is an error.",
+    "Sort effective permission codes lexicographically; keep per-grant provenance.",
+    "Materialize explicit design role assignments as RBAC-05-03; these are not inferred runtime grants.",
+    "Do not create passwords, real MFA enrollment, CRM accounts, evidence, assessments or approval decisions."
+  ],
+  "permission_catalog": [
+    {
+      "code": "assessment.adjudicate",
+      "application": "VDT",
+      "description": "Resolve dispute using authorized independent adjudicator and a new snapshot with linked rationale.",
+      "roles": [
+        "VDT_RISK_OWNER"
+      ]
+    },
+    {
+      "code": "assessment.review",
+      "application": "VDT",
+      "description": "Append an independent review of assigned work by a different actor; preserves original findings.",
+      "roles": [
+        "VDT_REVIEWER"
+      ]
+    },
+    {
+      "code": "assessment.run",
+      "application": "VDT",
+      "description": "Create control/risk/retest snapshots using eligible scoped inputs and frozen rule versions.",
+      "roles": [
+        "VDT_SECURITY"
+      ]
+    },
+    {
+      "code": "control.manage",
+      "application": "VDT",
+      "description": "Maintain scoped control implementations and versioned definitions/criteria; no rewrite of used versions.",
+      "roles": [
+        "VDT_SECURITY"
+      ]
+    },
+    {
+      "code": "evidence.read_assigned",
+      "application": "VDT",
+      "description": "Read metadata/content only when current assignment covers the evidence and linked assessment.",
+      "roles": [
+        "VDT_SECURITY",
+        "VDT_REVIEWER"
+      ]
+    },
+    {
+      "code": "evidence.request",
+      "application": "VDT",
+      "description": "Request additional evidence inside assigned assessments; request does not supply evidence or verify it.",
+      "roles": [
+        "VDT_REVIEWER"
+      ]
+    },
+    {
+      "code": "evidence.submit",
+      "application": "VDT",
+      "description": "Submit a new evidence revision for a scoped evidence item through upload policy and commit recheck.",
+      "roles": [
+        "VDT_SECURITY"
+      ]
+    },
+    {
+      "code": "evidence.verify",
+      "application": "VDT",
+      "description": "Append verification for the exact revision/scope; self verification does not imply independent review.",
+      "roles": [
+        "VDT_SECURITY",
+        "VDT_REVIEWER"
+      ]
+    },
+    {
+      "code": "inventory.manage",
+      "application": "VDT",
+      "description": "Read/create/update scoped VDT inventory; mutable updates require current version.",
+      "roles": [
+        "VDT_SECURITY"
+      ]
+    },
+    {
+      "code": "organization.manage",
+      "application": "VDT",
+      "description": "Maintain organization and branch metadata within explicit organization scope.",
+      "roles": [
+        "VDT_ADMIN"
+      ]
+    },
+    {
+      "code": "report.read",
+      "application": "VDT",
+      "description": "Read/create export of authorized immutable report snapshots; current scope still filters access.",
+      "roles": [
+        "VDT_SECURITY",
+        "VDT_RISK_OWNER"
+      ]
+    },
+    {
+      "code": "risk.accept",
+      "application": "VDT",
+      "description": "Record explicit risk acceptance with rationale/conditions; never changes control result or closes gaps by itself.",
+      "roles": [
+        "VDT_RISK_OWNER"
+      ]
+    },
+    {
+      "code": "risk.impact_review",
+      "application": "VDT",
+      "description": "Review and confirm business impact within owned/authorized risk; preserves provenance.",
+      "roles": [
+        "VDT_RISK_OWNER"
+      ]
+    },
+    {
+      "code": "risk.priority_approve",
+      "application": "VDT",
+      "description": "Approve cross-scenario operational priority for owned/authorized risk with reason and time.",
+      "roles": [
+        "VDT_RISK_OWNER"
+      ]
+    },
+    {
+      "code": "risk.propose",
+      "application": "VDT",
+      "description": "Propose scenario/context/factor inputs; proposal is not approval of priority or acceptance.",
+      "roles": [
+        "VDT_SECURITY"
+      ]
+    },
+    {
+      "code": "roles.assign",
+      "application": "VDT",
+      "description": "Grant/revoke scoped VDT role assignments with expiry and audit; no implied domain evidence access.",
+      "roles": [
+        "VDT_ADMIN"
+      ]
+    },
+    {
+      "code": "treatment.approve",
+      "application": "VDT",
+      "description": "Approve treatment and append gap/task closure decision after checking explicit closure criteria.",
+      "roles": [
+        "VDT_RISK_OWNER"
+      ]
+    },
+    {
+      "code": "treatment.update",
+      "application": "VDT",
+      "description": "Create/update scoped treatment tasks with current version; cannot approve closure.",
+      "roles": [
+        "VDT_SECURITY"
+      ]
+    },
+    {
+      "code": "users.manage",
+      "application": "VDT",
+      "description": "Manage VDT users and disable/revoke them; never provision CRM identities through VDT.",
+      "roles": [
+        "VDT_ADMIN"
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "id": "VDT_ADMIN",
+      "application": "VDT",
+      "permissions": [
+        "organization.manage",
+        "roles.assign",
+        "users.manage"
+      ],
+      "scope": "organization",
+      "permission_sources": {
+        "organization.manage": [
+          "LAB-v0.1"
+        ],
+        "users.manage": [
+          "LAB-v0.1"
+        ],
+        "roles.assign": [
+          "LAB-v0.1"
+        ]
+      }
+    },
+    {
+      "id": "VDT_SECURITY",
+      "application": "VDT",
+      "permissions": [
+        "assessment.run",
+        "control.manage",
+        "evidence.read_assigned",
+        "evidence.submit",
+        "evidence.verify",
+        "inventory.manage",
+        "report.read",
+        "risk.propose",
+        "treatment.update"
+      ],
+      "scope": "organization",
+      "scope_constraint": "Organization assessments/evidence within assigned operational scope; U002 uses ASM-DEMO-01 in these cases.",
+      "permission_sources": {
+        "inventory.manage": [
+          "LAB-v0.1"
+        ],
+        "risk.propose": [
+          "LAB-v0.1"
+        ],
+        "control.manage": [
+          "LAB-v0.1"
+        ],
+        "evidence.submit": [
+          "LAB-v0.1"
+        ],
+        "assessment.run": [
+          "LAB-v0.1"
+        ],
+        "treatment.update": [
+          "LAB-v0.1"
+        ],
+        "evidence.read_assigned": [
+          "FLOW-03-v0.2-r1"
+        ],
+        "evidence.verify": [
+          "FLOW-03-v0.2-r1"
+        ],
+        "report.read": [
+          "RBAC-05-01"
+        ]
+      }
+    },
+    {
+      "id": "VDT_RISK_OWNER",
+      "application": "VDT",
+      "permissions": [
+        "assessment.adjudicate",
+        "report.read",
+        "risk.accept",
+        "risk.impact_review",
+        "risk.priority_approve",
+        "treatment.approve"
+      ],
+      "scope": "organization",
+      "scope_constraint": "Owned/authorized risks in the organization; U003 owns CRM in these cases.",
+      "permission_sources": {
+        "risk.impact_review": [
+          "LAB-v0.1"
+        ],
+        "risk.accept": [
+          "LAB-v0.1"
+        ],
+        "treatment.approve": [
+          "LAB-v0.1"
+        ],
+        "report.read": [
+          "LAB-v0.1"
+        ],
+        "risk.priority_approve": [
+          "FLOW-03-v0.2-r1"
+        ],
+        "assessment.adjudicate": [
+          "RBAC-05-02"
+        ]
+      }
+    },
+    {
+      "id": "VDT_REVIEWER",
+      "application": "VDT",
+      "permissions": [
+        "assessment.review",
+        "evidence.read_assigned",
+        "evidence.request",
+        "evidence.verify"
+      ],
+      "scope": "assigned_assessments",
+      "scope_constraint": "Assigned assessments and linked evidence only; existing access_expires_at applies.",
+      "permission_sources": {
+        "assessment.review": [
+          "LAB-v0.1"
+        ],
+        "evidence.read_assigned": [
+          "LAB-v0.1"
+        ],
+        "evidence.request": [
+          "LAB-v0.1"
+        ],
+        "evidence.verify": [
+          "FLOW-03-v0.2-r1"
+        ]
+      }
+    }
+  ],
+  "users": [
+    {
+      "id": "U001",
+      "organization_id": "ORG-ABC",
+      "application": "VDT",
+      "username": "vdt.admin",
+      "label": "Quản trị VN Digital Trust",
+      "email": "vdt.admin@abc-trading.example",
+      "branch_id": "BR-HCM",
+      "role_ids": [
+        "VDT_ADMIN"
+      ],
+      "state": "ACTIVE",
+      "mfa_fixture_state": "ENROLLED_SIMULATED"
+    },
+    {
+      "id": "U002",
+      "organization_id": "ORG-ABC",
+      "application": "VDT",
+      "username": "vdt.security",
+      "label": "Nhân sự IT/Security",
+      "email": "vdt.security@abc-trading.example",
+      "branch_id": "BR-HCM",
+      "role_ids": [
+        "VDT_SECURITY"
+      ],
+      "state": "ACTIVE",
+      "mfa_fixture_state": "ENROLLED_SIMULATED"
+    },
+    {
+      "id": "U003",
+      "organization_id": "ORG-ABC",
+      "application": "VDT",
+      "username": "vdt.owner",
+      "label": "Chủ sở hữu rủi ro CRM",
+      "email": "vdt.owner@abc-trading.example",
+      "branch_id": "BR-HCM",
+      "role_ids": [
+        "VDT_RISK_OWNER"
+      ],
+      "state": "ACTIVE",
+      "mfa_fixture_state": "ENROLLED_SIMULATED"
+    },
+    {
+      "id": "U004",
+      "organization_id": "ORG-ABC",
+      "application": "VDT",
+      "username": "vdt.reviewer",
+      "label": "Consultant được mời",
+      "email": "vdt.reviewer@abc-trading.example",
+      "branch_id": null,
+      "role_ids": [
+        "VDT_REVIEWER"
+      ],
+      "state": "ACTIVE",
+      "mfa_fixture_state": "ENROLLED_SIMULATED",
+      "assigned_assessment_ids": [
+        "ASM-DEMO-01"
+      ],
+      "access_expires_at": "2026-10-31T17:00:00+07:00"
+    }
+  ],
+  "organization": {
+    "id": "ORG-ABC",
+    "name": "ABC Trading — giả lập",
+    "deployment_model": "single_tenant"
+  },
+  "branches": [
+    {
+      "id": "BR-HCM",
+      "organization_id": "ORG-ABC",
+      "label": "Trụ sở HCM — giả lập"
+    },
+    {
+      "id": "BR-DN",
+      "organization_id": "ORG-ABC",
+      "label": "Chi nhánh Đà Nẵng — giả lập"
+    }
+  ],
+  "role_assignments": [
+    {
+      "id": "RA-U001-VDT_ADMIN",
+      "user_id": "U001",
+      "role_id": "VDT_ADMIN",
+      "scope": "organization",
+      "object_scope": {
+        "organization_id": "ORG-ABC",
+        "branch_ids": [
+          "BR-HCM",
+          "BR-DN"
+        ],
+        "administration_only": true
+      },
+      "valid_from": "2026-10-09T09:00:00+07:00",
+      "access_expires_at": null,
+      "revoked_at": null,
+      "version": 1,
+      "provenance": "RBAC-05-03"
+    },
+    {
+      "id": "RA-U002-VDT_SECURITY",
+      "user_id": "U002",
+      "role_id": "VDT_SECURITY",
+      "scope": "organization",
+      "object_scope": {
+        "organization_id": "ORG-ABC",
+        "branch_ids": [
+          "BR-HCM",
+          "BR-DN"
+        ],
+        "assessment_ids": [
+          "ASM-DEMO-01"
+        ],
+        "asset_ids": [
+          "AST-CRM"
+        ]
+      },
+      "valid_from": "2026-10-09T09:00:00+07:00",
+      "access_expires_at": null,
+      "revoked_at": null,
+      "version": 1,
+      "provenance": "RBAC-05-03"
+    },
+    {
+      "id": "RA-U003-VDT_RISK_OWNER",
+      "user_id": "U003",
+      "role_id": "VDT_RISK_OWNER",
+      "scope": "organization",
+      "object_scope": {
+        "organization_id": "ORG-ABC",
+        "branch_ids": [
+          "BR-HCM",
+          "BR-DN"
+        ],
+        "assessment_ids": [
+          "ASM-DEMO-01"
+        ],
+        "asset_ids": [
+          "AST-CRM"
+        ],
+        "scenario_ids": [
+          "SC-01",
+          "SC-02"
+        ],
+        "ownership_rule": "risk owner U003 or explicit audited delegation"
+      },
+      "valid_from": "2026-10-09T09:00:00+07:00",
+      "access_expires_at": null,
+      "revoked_at": null,
+      "version": 1,
+      "provenance": "RBAC-05-03"
+    },
+    {
+      "id": "RA-U004-VDT_REVIEWER",
+      "user_id": "U004",
+      "role_id": "VDT_REVIEWER",
+      "scope": "assigned_assessments",
+      "object_scope": {
+        "organization_id": "ORG-ABC",
+        "branch_ids": [
+          "BR-HCM",
+          "BR-DN"
+        ],
+        "assessment_ids": [
+          "ASM-DEMO-01"
+        ],
+        "asset_ids": [
+          "AST-CRM"
+        ]
+      },
+      "valid_from": "2026-10-09T09:00:00+07:00",
+      "access_expires_at": "2026-10-31T17:00:00+07:00",
+      "revoked_at": null,
+      "version": 1,
+      "provenance": "RBAC-05-03"
+    }
+  ],
+  "step05_permission_extensions": [
+    {
+      "id": "RBAC-05-01",
+      "role_id": "VDT_SECURITY",
+      "permissions": [
+        "report.read"
+      ],
+      "reason": "TUC-08 needs internal self-assessment reporting in the same explicitly assigned operational scope; no consultant dependency.",
+      "constraints": [
+        "Filter report snapshot and every referenced item by current scope.",
+        "Export/download recheck authorization and expiry; evidence bytes still require evidence.read_assigned."
+      ]
+    },
+    {
+      "id": "RBAC-05-02",
+      "role_id": "VDT_RISK_OWNER",
+      "permissions": [
+        "assessment.adjudicate"
+      ],
+      "reason": "Resolve an assessment dispute by an explicit authorized decision and a new immutable snapshot; do not overwrite either original finding.",
+      "constraints": [
+        "Must be authorized for the assessment and owned or explicitly delegated risk.",
+        "Adjudicator must differ from both original assessor and disputed reviewer.",
+        "If no independent authorized actor exists, retain NEEDS_REVIEW; do not relax identity separation.",
+        "This grant is not assessment.run, evidence.verify, assessment.review, or SME approval of fixture risk priorities."
+      ]
+    }
+  ],
+  "scope_materialization": {
+    "id": "RBAC-05-03",
+    "classification": "EXPLICIT_SYNTHETIC_DESIGN_ASSIGNMENTS",
+    "reason": "Baseline roles carry abstract scope. Materialize two branches and ASM-DEMO-01 for deterministic design cases without converting a user's home branch or generic role into authorization.",
+    "approval_required_before_real_provisioning": true,
+    "rules": [
+      "For U001 only organization/user/role administration; no implied evidence/report read.",
+      "U002 operational grant and U003 ownership grant explicitly cover BR-HCM and BR-DN for AST-CRM/ASM-DEMO-01.",
+      "U004 remains limited to ASM-DEMO-01 and linked evidence; both branches are covered only through that assigned assessment.",
+      "All specified scope dimensions intersect. A matching branch without matching assessment/asset cannot grant access.",
+      "Future assessments/assets/branches are denied until an explicit authorized grant includes them.",
+      "user.branch_id is profile metadata and never alone grants or denies a branch operation.",
+      "Actual deployment must bind fixture symbolic IDs to same-organization seeded DB IDs and validate all referenced records before enabling a grant."
+    ]
+  },
+  "policy_invariants": [
+    "Deny by default; authenticated VDT session AND active user AND permission AND current explicit object scope AND not revoked AND current server time before all applicable expiries.",
+    "Effective expiry is the earliest applicable session, user, assignment and assessment-access expiry; null means no additional limit, not a bypass.",
+    "Independent review and adjudication enforce actor separation; adding another role to the same principal cannot satisfy independence.",
+    "Recheck authorization at command commit, export publication and download; deny at exact expiry and after it.",
+    "Keep baseline fixture_clock for reproducible expiry tests; real service time cannot be overridden by client fixture data.",
+    "Admin role does not imply evidence access, risk approval or review.",
+    "Closure requires treatment.approve plus explicit scope, criteria and decision; evidence VERIFIED, reduced score or risk.accept alone cannot close anything."
+  ],
+  "acceptance_cases": [
+    {
+      "id": "SEED-01",
+      "at": "2026-10-09T09:00:00+07:00",
+      "actor": "U002",
+      "action": "evidence.verify",
+      "target": "ASM-DEMO-01",
+      "expected": "ALLOW only if revision scope and eligibility also match; SELF_ASSESSED",
+      "runtime_status": "NOT_RUN"
+    },
+    {
+      "id": "SEED-02",
+      "at": "2026-10-09T09:00:00+07:00",
+      "actor": "U004",
+      "action": "evidence.verify",
+      "target": "ASM-DEMO-01",
+      "expected": "ALLOW within assignment; independent mode requires distinct actor",
+      "runtime_status": "NOT_RUN"
+    },
+    {
+      "id": "SEED-03",
+      "at": "2026-10-31T17:00:00+07:00",
+      "actor": "U004",
+      "action": "evidence.read_assigned",
+      "target": "ASM-DEMO-01",
+      "expected": "DENY at exact expiry",
+      "runtime_status": "NOT_RUN"
+    },
+    {
+      "id": "SEED-04",
+      "at": "2026-10-09T09:00:00+07:00",
+      "actor": "U004",
+      "action": "risk.priority_approve",
+      "target": "SC-01",
+      "expected": "DENY missing permission",
+      "runtime_status": "NOT_RUN"
+    },
+    {
+      "id": "SEED-05",
+      "at": "2026-10-09T09:00:00+07:00",
+      "actor": "U003",
+      "action": "risk.priority_approve",
+      "target": "SC-01",
+      "expected": "ALLOW within ownership scope; no decision is pre-created",
+      "runtime_status": "NOT_RUN"
+    },
+    {
+      "id": "SEED-06",
+      "at": "2026-10-09T09:00:00+07:00",
+      "actor": "U001",
+      "action": "evidence.read_assigned",
+      "target": "ASM-DEMO-01",
+      "expected": "DENY admin is not evidence reader",
+      "runtime_status": "NOT_RUN"
+    },
+    {
+      "id": "SEED-07",
+      "at": "2026-10-09T09:00:00+07:00",
+      "actor": "U002",
+      "action": "report.read",
+      "target": "ASM-DEMO-01",
+      "expected": "ALLOW within operational scope; referenced content checked separately",
+      "runtime_status": "NOT_RUN"
+    },
+    {
+      "id": "SEED-08",
+      "at": "2026-10-09T09:00:00+07:00",
+      "actor": "U003",
+      "action": "assessment.adjudicate",
+      "target": "ASM-DEMO-01",
+      "expected": "ALLOW only if authorized and different from both assessor and disputed reviewer; otherwise DENY",
+      "runtime_status": "NOT_RUN"
+    }
+  ]
+}

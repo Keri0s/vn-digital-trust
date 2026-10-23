@@ -1,0 +1,154 @@
+@startuml
+!pragma layout smetana
+hide circle
+hide methods
+skinparam linetype ortho
+skinparam shadowing false
+skinparam dpi 110
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 12
+skinparam nodesep 30
+skinparam ranksep 45
+skinparam entity {
+ BackgroundColor #F4F8FF
+ BorderColor #345071
+}
+title VN Digital Trust - Step 05\nEvidence, criteria and control assessment (v0.1)
+
+entity "snapshot_registry" as snapshot_registry {
+  id
+  snapshot_kind
+  scope_id [FK]
+  created_by [FK]
+  content_hash
+  created_txid
+}
+entity "scope" as scope {
+  id
+  organization_id [FK]
+  content_hash
+  created_txid
+}
+entity "evidence_item" as evidence_item {
+  id
+  code
+  owner_id [FK]
+  assessment_id [FK]
+  scope_id [FK]
+  version
+}
+entity "evidence_revision" as evidence_revision {
+  id [FK]
+  evidence_item_id [FK]
+  previous_revision_id [FK]
+}
+entity "evidence_storage" as evidence_storage {
+  id
+  evidence_revision_id [FK]
+  storage_state
+  version
+}
+entity "verification_decision" as verification_decision {
+  id [FK]
+  evidence_revision_id [FK]
+  previous_decision_id [FK]
+  verification_mode
+}
+entity "control_definition_version" as control_definition_version {
+  id
+  code
+  version
+  content_hash
+  created_txid
+}
+entity "control_criterion_version" as control_criterion_version {
+  id
+  control_version_id [FK]
+  code
+  version
+  content_hash
+}
+entity "test_case_version" as test_case_version {
+  id
+  code
+  version
+  content_hash
+  created_txid
+}
+entity "test_execution" as test_execution {
+  id [FK]
+  assessment_id [FK]
+  test_case_version_id [FK]
+  authentication_profile_version_id [FK]
+}
+entity "control_assessment" as control_assessment {
+  id [FK]
+  assessment_id [FK]
+  context_snapshot_id [FK]
+  control_version_id [FK]
+  implementation_id [FK]
+  result
+  status
+  score_determined
+  assessment_mode
+  review_outcome
+  supersedes_id [FK]
+}
+entity "control_assessment_criterion" as control_assessment_criterion {
+  id
+  control_assessment_id [FK]
+  criterion_version_id [FK]
+  scope_id [FK]
+  result
+  raw_input
+}
+entity "criterion_evidence" as criterion_evidence {
+  id
+  criterion_result_id [FK]
+  evidence_revision_id [FK]
+}
+entity "criterion_test_execution" as criterion_test_execution {
+  id
+  criterion_result_id [FK]
+  test_execution_id [FK]
+}
+entity "evidence_request" as evidence_request {
+  id [FK]
+  assessment_id [FK]
+  requested_from_user_id [FK]
+}
+entity "evidence_request_criterion" as evidence_request_criterion {
+  id
+  request_id [FK]
+  criterion_version_id [FK]
+}
+control_assessment ||--o{ control_assessment_criterion : control_assessment_id
+control_assessment_criterion ||--o{ criterion_evidence : criterion_result_id
+control_assessment_criterion ||--o{ criterion_test_execution : criterion_result_id
+control_criterion_version ||--o{ control_assessment_criterion : criterion_version_id
+control_criterion_version ||--o{ evidence_request_criterion : criterion_version_id
+control_definition_version ||--o{ control_assessment : control_version_id
+control_definition_version ||--o{ control_criterion_version : control_version_id
+evidence_item ||--o{ evidence_revision : evidence_item_id
+evidence_request ||--o{ evidence_request_criterion : request_id
+evidence_revision ||--o{ criterion_evidence : evidence_revision_id
+evidence_revision ||--o| evidence_storage : evidence_revision_id
+evidence_revision ||--o{ verification_decision : evidence_revision_id
+scope ||--o{ control_assessment_criterion : scope_id
+scope ||--o{ evidence_item : scope_id
+scope ||--o{ snapshot_registry : scope_id
+snapshot_registry ||--o| control_assessment : id
+snapshot_registry ||--o| evidence_request : id
+snapshot_registry ||--o| evidence_revision : id
+snapshot_registry ||--o| test_execution : id
+snapshot_registry ||--o| verification_decision : id
+test_case_version ||--o{ test_execution : test_case_version_id
+test_execution ||--o{ criterion_test_execution : test_execution_id
+legend bottom
+  Selected key tables and parent-reference links; cardinality is a reading aid.
+  Lines show declared single-column FKs; full composite FKs and junctions: schema-v0.1.sql.
+  Parent end: mandatory one or optional one. Child end: zero-to-many or zero-to-one.
+  Immutable payload + children are sealed in their creation transaction.
+  STATIC DESIGN ONLY - runtime and CRM/lab tests: NOT_RUN.
+endlegend
+@enduml

@@ -1,0 +1,65 @@
+@startuml
+title Assessment -> gap -> treatment -> retest\nDesign v0.2-r1 | 2026-10-17
+skinparam defaultFontName Arial
+skinparam defaultFontSize 14
+skinparam shadowing false
+skinparam activityBackgroundColor #EAF2F8
+skinparam activityBorderColor #334155
+skinparam ArrowColor #334155
+start
+:Check current RBAC and scope for each action;
+if (Authorized now?) then (yes)
+else (no / expired)
+  :Deny action; audit reason;\nno protected read or business change;
+  stop
+endif
+:Capture scenario/context, assessment type,\nprofile/rubric and criteria versions;
+if (Essential context valid?) then (yes)
+else (no)
+  :Save validation issues; status=NEEDS_REVIEW;\nscore_determined=false; score/range/level=null;
+  stop
+endif
+:TUC-05/06: verify evidence scope, freshness, source\nand test execution with evidence.verify permission;
+note right
+  Internal self-assessment is available.
+  Consultant review is optional.
+  Missing/unverified/expired/wrong-scope evidence
+  or INCONCLUSIVE cannot prove control failure.
+end note
+if (Verified failure?) then (yes)
+  :Append NOT_SATISFIED / PARTIALLY_SATISFIED;\nCONTROL_GAP for verified unmet criteria;\nretain EVIDENCE_GAP for other unknown criteria;
+else (no)
+  if (Verified satisfaction of all criteria?) then (yes)
+    :Append SATISFIED with evidence/criteria revisions;
+  else (no)
+    :Append INSUFFICIENT_EVIDENCE + EVIDENCE_GAP;\nor NOT_ASSESSED + pending assessment if unattempted;
+  endif
+endif
+:TUC-04: confirm E/F, impact and G per path\nusing ControlAssessment coverage AND strength;\nunverified paths remain UNKNOWN;
+if (Input/domain valid?) then (yes)
+  :Calculate R25 or bounds from confirmed inputs;\nscore_determined independent of status;\nUNKNOWN/gaps/disputes keep NEEDS_REVIEW;
+else (no)
+  :Save validation issues; status=NEEDS_REVIEW;\nscore_determined=false; score/range/level=null;
+endif
+:Append immutable assessment snapshot;\noptional review records disagreement and both findings;\nchanges require a new snapshot, not an overwrite;
+:Risk Owner confirms operational priority / treatment\nwith authority, scope and reason;\nacceptance preserves control results and gaps;
+if (Treatment / retest requested?) then (yes)
+  :Create/update task with owner, deadline and criteria;\nsubmit NEW evidence revision and request retest;
+  if (Retest evidence verified and usable?) then (yes)
+    :Repeat TUC-06 then TUC-04 with current RBAC;\nappend new ControlAssessment / RiskEvaluation;\ntest may pass, fail or be INCONCLUSIVE;
+    :Compare equivalent scenario/context/profile/rubric\nand same CURRENT or INHERENT type;\notherwise record NOT_COMPARABLE;
+    :Show R, impact_progress and gap_progress separately;\nkeep verified_worsening and impact summaries;\nno causal attribution from score reduction;
+    if (Closure criteria verified and closure authorized?) then (yes)
+      :Append explicit gap/task closure decision;
+    else (no)
+      :Keep relevant gap/task open; record reasons;
+    endif
+  else (no)
+    :Append insufficient-evidence result / NEEDS_REVIEW;\nkeep gap/task open; preserve prior snapshots;
+  endif
+else (no)
+  :Keep assessment, gaps and decisions visible;
+endif
+:TUC-08: report as-of snapshot;\nshow limitations, review provenance and history;
+stop
+@enduml

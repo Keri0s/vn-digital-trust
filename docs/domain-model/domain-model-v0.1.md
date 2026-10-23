@@ -1,7 +1,7 @@
 # VN Digital Trust — Domain Model v0.1
 
 **Status:** Conceptual model for the v0.1 prototype, 2026-10-03.  
-**Inputs:** [Requirements Discovery v0.1](D:/Projects/vn-digital-trust/docs/requirements/requirements-discovery-v0.1.md), [Use Cases v0.1](D:/Projects/vn-digital-trust/docs/use-cases/use-cases-v0.1.md), [Project Charter](D:/Projects/vn-digital-trust/docs/research/project-charter.md), [Assumptions Log](D:/Projects/vn-digital-trust/docs/research/assumptions-log.md).
+**Inputs:** [Requirements Discovery v0.1](../requirements/requirements-discovery-v0.1.md), [Use Cases v0.1](../use-cases/use-cases-v0.1.md), [Project Charter](../research/project-charter.md), [Assumptions Log](../research/assumptions-log.md).
 
 This is a **business/domain model**, not a database schema. Names, cardinalities and invariants describe what the prototype must remember. SQL tables, APIs and screens come later.
 

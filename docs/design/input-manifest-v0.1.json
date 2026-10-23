@@ -1,0 +1,39 @@
+{
+  "captured_on": "2026-10-19",
+  "checked_on": "2026-10-20",
+  "purpose": "Frozen inputs read for step05; planning progress files excluded because updated in this step.",
+  "inputs": [
+    {
+      "path": "../planning/risk-method-v0.4.md",
+      "sha256": "eb86c93a35200f443b980aad4d2eb36e649f53d64710095109defb14805962e1"
+    },
+    {
+      "path": "../planning/lab-fixtures-v0.1.json",
+      "sha256": "854b6ea530a957ca0bd2830b4ecc15ba11ab0bbe755a2b8f2bdd546dc350aef1"
+    },
+    {
+      "path": "../planning/control-evidence-v0.1.md",
+      "sha256": "61eeed403dff7d575c43116a381addc34245edcf5b290f46408c5ef7e8e2e862"
+    },
+    {
+      "path": "../planning/control-test-cases-v0.1.md",
+      "sha256": "4877c5f96c093104eb945dbc3ad30e4c94e0990191254ebd3ae4d5a1b39d6f2e"
+    },
+    {
+      "path": "../domain-model/domain-model-technical-v0.1.md",
+      "sha256": "3027f0b117d54cb4ee823e0ec903279cd6c79817a3690af9b50ddd30229bbbc6"
+    },
+    {
+      "path": "../use-cases/use-cases-technical-v0.2.md",
+      "sha256": "7a7c7de6c764548c7c5fa35c855d98a8484afd9191f463faa7b4bc93a5feced7"
+    },
+    {
+      "path": "../use-cases/flow-fixtures-v0.2.json",
+      "sha256": "820fe1a8722c07ea81a61e4865c9f89457e78f95fbc1ff845528cf6b4708497a"
+    },
+    {
+      "path": "../architecture/architecture-technical-v0.1.md",
+      "sha256": "28c78dfc2422a975c8ce80fbbaf6a3529f6415cccb73fc5df10e0400a5a983d4"
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+@startuml
+!pragma layout smetana
+hide circle
+hide methods
+skinparam linetype ortho
+skinparam shadowing false
+skinparam dpi 110
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 12
+skinparam nodesep 30
+skinparam ranksep 45
+skinparam entity {
+ BackgroundColor #F4F8FF
+ BorderColor #345071
+}
+title VN Digital Trust - Step 05\nContext, scope and access (v0.1)
+
+entity "organization" as organization {
+  id
+  code
+  version
+}
+entity "branch" as branch {
+  id
+  organization_id [FK]
+  code
+  version
+}
+entity "app_user" as app_user {
+  id
+  organization_id [FK]
+  code
+  status
+  version
+}
+entity "role" as role {
+  id
+  code
+}
+entity "permission" as permission {
+  id
+  code
+}
+entity "role_permission" as role_permission {
+  id
+  role_id [FK]
+  permission_id [FK]
+}
+entity "role_assignment" as role_assignment {
+  id
+  user_id [FK]
+  role_id [FK]
+  scope_id [FK]
+  access_expires_at
+  granted_by [FK]
+  version
+}
+entity "scope" as scope {
+  id
+  organization_id [FK]
+  content_hash
+  created_txid
+}
+entity "scope_branch" as scope_branch {
+  id
+  scope_id [FK]
+  branch_id [FK]
+}
+entity "scope_object" as scope_object {
+  id
+  scope_id [FK]
+  system_id [FK]
+  asset_id [FK]
+  data_asset_id [FK]
+  scenario_id [FK]
+  assessment_id [FK]
+}
+entity "information_system" as information_system {
+  id
+  code
+  owner_id [FK]
+  version
+}
+entity "risk_scenario" as risk_scenario {
+  id
+  code
+  owner_id [FK]
+  status
+  version
+  context_snapshot_id [FK]
+}
+entity "assessment" as assessment {
+  id
+  code
+  owner_id [FK]
+  scenario_id [FK]
+  version
+}
+entity "assessment_scenario" as assessment_scenario {
+  id
+  assessment_id [FK]
+  scenario_id [FK]
+}
+entity "context_snapshot" as context_snapshot {
+  id [FK]
+  assessment_id [FK]
+  scenario_id [FK]
+}
+entity "scenario_snapshot" as scenario_snapshot {
+  id [FK]
+  scenario_id [FK]
+  context_snapshot_id [FK]
+  code
+  owner_id [FK]
+}
+entity "authentication_profile_version" as authentication_profile_version {
+  id [FK]
+  code
+  system_id [FK]
+  approved_by [FK]
+}
+entity "authorization_guard" as authorization_guard {
+  id
+  organization_id [FK]
+  version
+}
+app_user ||--o{ assessment : owner_id
+app_user |o--o{ authentication_profile_version : approved_by
+app_user |o--o{ information_system : owner_id
+app_user |o--o{ risk_scenario : owner_id
+app_user ||--o{ role_assignment : granted_by
+app_user ||--o{ role_assignment : user_id
+app_user |o--o{ scenario_snapshot : owner_id
+assessment ||--o{ assessment_scenario : assessment_id
+assessment |o--o{ context_snapshot : assessment_id
+assessment |o--o{ scope_object : assessment_id
+branch ||--o{ scope_branch : branch_id
+context_snapshot |o--o{ risk_scenario : context_snapshot_id
+context_snapshot ||--o{ scenario_snapshot : context_snapshot_id
+information_system ||--o{ authentication_profile_version : system_id
+information_system |o--o{ scope_object : system_id
+organization ||--o{ app_user : organization_id
+organization ||--o| authorization_guard : organization_id
+organization ||--o{ branch : organization_id
+organization ||--o{ scope : organization_id
+permission ||--o{ role_permission : permission_id
+risk_scenario |o--o{ assessment : scenario_id
+risk_scenario ||--o{ assessment_scenario : scenario_id
+risk_scenario |o--o{ context_snapshot : scenario_id
+risk_scenario ||--o{ scenario_snapshot : scenario_id
+risk_scenario |o--o{ scope_object : scenario_id
+role ||--o{ role_assignment : role_id
+role ||--o{ role_permission : role_id
+scope ||--o{ role_assignment : scope_id
+scope ||--o{ scope_branch : scope_id
+scope ||--o{ scope_object : scope_id
+legend bottom
+  Selected key tables and parent-reference links; cardinality is a reading aid.
+  Lines show declared single-column FKs; full composite FKs and junctions: schema-v0.1.sql.
+  Parent end: mandatory one or optional one. Child end: zero-to-many or zero-to-one.
+  Immutable payload + children are sealed in their creation transaction.
+  STATIC DESIGN ONLY - runtime and CRM/lab tests: NOT_RUN.
+endlegend
+@enduml

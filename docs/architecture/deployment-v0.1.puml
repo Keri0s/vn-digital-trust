@@ -1,0 +1,36 @@
+@startuml
+title VN Digital Trust v0.1 - logical deployment on ~16 GB host
+left to right direction
+node "User device" as Client {
+  artifact "Browser" as Browser
+}
+node "Local host / VM (~16 GB RAM)" as Host {
+  node "TLS boundary" as TLS {
+    artifact "Reverse proxy" as Proxy
+  }
+  node "VDT application process" as App {
+    artifact "UI + policy + domain modules" as Modules
+    artifact "Sequential background work" as Jobs
+  }
+  database "Transactional metadata store" as DB
+  folder "Protected evidence storage" as Evidence
+  folder "Consistent backup set" as Backup
+}
+cloud "External CRM + CRM identity" as CRM
+cloud "Controlled lab runner + receiver" as Lab
+Browser --> Proxy : protected connection
+Proxy --> Modules : authenticated request
+Modules --> DB : versioned metadata / audit
+Modules --> Evidence : gated revision bytes
+Jobs --> DB : recheck rights + version
+DB --> Backup : coordinated snapshot
+Evidence --> Backup : coordinated copy
+CRM --> Browser : observed CRM behavior
+Lab --> Browser : synthetic test output
+Browser --> Modules : manual upload / reference
+note bottom of Host
+One SME, two branches in one deployment.
+No required broker, cluster or AI server.
+Stack, sizing limits and restore test follow later.
+end note
+@enduml
