@@ -1,0 +1,77 @@
+{
+  "recorded_at": "2026-10-26 03:39:05 UTC",
+  "scope": "MANUAL_BROWSER_QA_DISPOSABLE_LOCAL_DATABASE",
+  "url": "https://localhost:8444",
+  "synthetic_accounts_only": true,
+  "checks": [
+    {
+      "check": "HTTPS login with existing synthetic credentials",
+      "passed": true
+    },
+    {
+      "check": "Administration navigation and account/catalog loading",
+      "passed": true
+    },
+    {
+      "check": "Create a synthetic user profile",
+      "passed": true
+    },
+    {
+      "check": "Edit a synthetic user profile",
+      "passed": true
+    },
+    {
+      "check": "Grant Security role with an explicit branch and expiry",
+      "passed": true
+    },
+    {
+      "check": "Revoke the synthetic role assignment",
+      "passed": true
+    },
+    {
+      "check": "Disable the synthetic user profile",
+      "passed": true
+    },
+    {
+      "check": "Audit pagination extends from 50 to 100 visible rows",
+      "passed": true
+    },
+    {
+      "check": "Current user's disable control and credential reset are unavailable",
+      "passed": true
+    },
+    {
+      "check": "Desktop viewport 1280px has no document overflow",
+      "passed": true
+    },
+    {
+      "check": "Mobile viewport 390px has no document overflow after correction",
+      "passed": true
+    },
+    {
+      "check": "Logout returns to the login form",
+      "passed": true
+    }
+  ],
+  "passed": 12,
+  "failed": 0,
+  "viewport_evidence": [
+    {
+      "width": 1280,
+      "document_width": 1265
+    },
+    {
+      "width": 390,
+      "document_width": 375
+    }
+  ],
+  "credential_entry_for_reset_or_change": "NOT_AUTOMATED_IN_BROWSER; COVERED_BY_ISOLATED_API_TESTS",
+  "screenshots": [
+    "access-preview-desktop-v0.1.png",
+    "access-preview-mobile-v0.1.png"
+  ],
+  "temporary_credentials_removed": true,
+  "test_environment_removed": true,
+  "real_operator_credentials_used": false,
+  "CRM_FLOW_TC_VALID_G": "NOT_RUN"
+}

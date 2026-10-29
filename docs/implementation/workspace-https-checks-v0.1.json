@@ -1,0 +1,53 @@
+{
+    "recorded_at":  "2026-10-27T04:48:43.7965485+00:00",
+    "scope":  "DEPLOYED_WORKSPACE_HTTPS_ANONYMOUS_AND_ASSET_MATCH",
+    "tls_validation":  "WINDOWS_TRUST_STORE",
+    "checks":  [
+                   {
+                       "check":  "Deployed asset matches tested source: workspace.js",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Deployed asset matches tested source: workspace.css",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Deployed asset matches tested source: assessments.js",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Deployed asset matches tested source: assessments.css",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Anonymous workspace request denied: workspace/setup",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Anonymous workspace request denied: systems",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Anonymous workspace request denied: assets",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Anonymous workspace request denied: data-assets",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Anonymous workspace request denied: scenarios",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Anonymous workspace request denied: assessments/00000000-0000-4000-8000-000000000001/dossier",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Anonymous workspace page redirects to login",
+                       "passed":  true
+                   }
+               ],
+    "passed":  11,
+    "failed":  0
+}

@@ -1,0 +1,56 @@
+{
+    "recorded_at":  "2026-10-26T03:36:03.1326189+00:00",
+    "scope":  "REAL_LOCAL_HTTPS_READ_ONLY_ACCESS_BOUNDARIES",
+    "url":  "https://localhost:8443",
+    "tls_validation":  "WINDOWS_TRUST_STORE",
+    "checks":  [
+                   {
+                       "check":  "HTTPS asset auth.css is available",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "HTTPS asset auth.js is available",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "HTTPS asset admin.css is available",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "HTTPS asset admin.js is available",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Home exposes administration navigation and forced-password-change notice",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Anonymous administration page redirects to login",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Anonymous API users is denied",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Anonymous API roles is denied",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Anonymous API permissions is denied",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Anonymous API role-assignments is denied",
+                       "passed":  true
+                   },
+                   {
+                       "check":  "Anonymous API audit-events is denied",
+                       "passed":  true
+                   }
+               ],
+    "passed":  11,
+    "failed":  0,
+    "actual_operator_credentials_used":  false,
+    "CRM_FLOW_TC_VALID_G":  "NOT_RUN"
+}

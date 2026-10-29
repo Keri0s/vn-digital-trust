@@ -1,0 +1,8 @@
+{
+  "profile": "DEVELOPMENT_LOCAL",
+  "idle_timeout_seconds": 1800,
+  "absolute_timeout_seconds": 28800,
+  "max_attempts": 5,
+  "attempt_window_seconds": 900,
+  "lockout_seconds": 900
+}

@@ -18,6 +18,7 @@ class AppUser(AbstractBaseUser):
     status=models.TextField(default='PENDING')
     version=models.BigIntegerField(default=1)
     password=models.TextField(db_column='password_hash')
+    password_change_required=models.BooleanField(default=False)
     last_login=models.DateTimeField(db_column='last_login',null=True)
     email=models.TextField(null=True)
     USERNAME_FIELD='login_name'

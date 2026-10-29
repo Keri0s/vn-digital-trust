@@ -32,6 +32,11 @@ def main():
     result = unittest.TextTestRunner(verbosity=2, resultclass=Result).run(suite)
     source_paths = list((ROOT / 'backend').rglob('*.py')) + list((ROOT / 'tests').rglob('*.py'))
     source_paths += list((ROOT / 'lab/local').glob('*.py'))
+    source_paths += list((ROOT / 'backend/vdt/static').rglob('*.*'))
+    source_paths += list((ROOT / 'backend/vdt/templates').glob('*.html'))
+    source_paths += [ROOT / 'lab/local/vdt-auth-policy.json', ROOT / 'lab/local/Caddyfile',
+                     ROOT / 'lab/local/compose.yaml', ROOT / 'lab/local/compose.auth-test.yaml',
+                     ROOT / 'lab/local/compose.access-test.yaml', ROOT / 'lab/local/Caddyfile.access-test']
     source_paths += [ROOT / 'backend/requirements.lock', ROOT / 'backend/vdt/core/migrations/0001_domain.sql',
                      ROOT / 'docs/design/openapi-v0.1.yaml', ROOT / 'docs/design/config-template-v0.1.json']
     hashes = {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(source_paths)}

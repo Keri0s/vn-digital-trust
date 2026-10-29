@@ -1,0 +1,18 @@
+{
+  "recorded_at": "2026-10-26 03:39:05 UTC",
+  "url": "https://localhost:8443/admin/users",
+  "status": "DEPLOYED_LOCAL",
+  "migration": "core.0003_access_runtime",
+  "migration_model_check": "NO_CHANGES_DETECTED",
+  "django_deploy_warnings": ["security.W005", "security.W021"],
+  "django_warning_reason": "Localhost intentionally excludes HSTS subdomains and preload",
+  "existing_user_count": 1,
+  "existing_assignment_count": 1,
+  "account_and_password_fingerprint_unchanged": true,
+  "existing_users_requiring_temporary_password_change": 0,
+  "backup": ".runtime/backups/vdt-before-access-20261026-final.dump",
+  "backup_restore_tested": false,
+  "docker_bulk_data_location": "D:/Projects/vn-digital-trust/.runtime/docker-desktop",
+  "operator_password_requested_or_reset": false,
+  "step06_status": "IN_PROGRESS"
+}

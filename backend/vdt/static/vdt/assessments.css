@@ -1,0 +1,16 @@
+#assessment-workspace.read-only{grid-template-columns:1fr}
+.assessment-detail{margin:0 0 32px;scroll-margin-top:20px}
+.assessment-detail[hidden]{display:none}
+.assessment-detail .eyebrow{margin-bottom:10px}
+.detail-body{padding:0 24px 24px}
+.assessment-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 30px;margin:0 0 24px}
+.assessment-facts dt{font-size:.72rem;color:var(--muted);margin-bottom:7px}
+.assessment-facts dd{margin:0;font-size:.85rem;line-height:1.6;overflow-wrap:anywhere}
+.consultant-guide{border-top:1px solid var(--line);padding-top:24px;margin:24px 0}
+.consultant-guide h3{font-size:1rem;margin:0 0 14px}
+.consultant-guide ol{padding-left:22px;font-size:.83rem;line-height:1.8}
+.consultant-guide li{padding-left:5px;margin-bottom:10px}
+.assessment-detail .message p{margin:8px 0 0;line-height:1.7}
+.branch-label{display:block}
+.dossier-section{margin:28px 0}.dossier-entry{border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}.dossier-entry h4{margin:0 0 16px;font-size:1rem}.dossier-entry dl{margin:0}.dossier-entry dt{font-size:.72rem;color:var(--muted);margin:14px 0 5px}.dossier-entry dd{margin:0;font-size:.84rem;line-height:1.65;white-space:pre-line;overflow-wrap:anywhere}.dossier-entry details{margin-top:16px;font-size:.83rem;line-height:1.65}.dossier-entry summary{cursor:pointer;font-weight:700}.scenario-link-card{background:#f5f8f6;border:1px solid var(--line);border-radius:16px;padding:20px;margin:24px 0}.scenario-link-card h3{margin-top:0}.dossier-entry .inventory-record{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.dossier-entry .inventory-record p{margin:5px 0;overflow-wrap:anywhere}
+@media(max-width:600px){.assessment-facts{grid-template-columns:1fr;gap:18px}.detail-body{padding:0 20px 20px}.assessment-detail .card-heading{align-items:flex-start}}

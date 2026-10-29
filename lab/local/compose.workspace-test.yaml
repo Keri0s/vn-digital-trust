@@ -1,0 +1,4 @@
+name: vdt-workspace-test
+services:
+  check:
+    command: ["python", "/app/lab/local/verify_workspace.py"]

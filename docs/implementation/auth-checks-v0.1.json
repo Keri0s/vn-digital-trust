@@ -1,0 +1,101 @@
+{
+  "recorded_at": "2026-10-24T04:20:01.893229+00:00",
+  "scope": "DISPOSABLE_POSTGRESQL_DJANGO_AUTH_HTTP",
+  "database_host": "testdb",
+  "http_database_role": "vdt_app",
+  "actual_browser_TLS": "NOT_RUN",
+  "CRM_FLOW_TC_VALID_G": "NOT_RUN",
+  "synthetic_account_only": true,
+  "checks": [
+    {
+      "check": "Bootstrap stores a verifiable password hash without plaintext",
+      "passed": true
+    },
+    {
+      "check": "Bootstrap creates one synthetic admin and two branches",
+      "passed": true
+    },
+    {
+      "check": "Bootstrap does not create business approvals or CRM profiles",
+      "passed": true
+    },
+    {
+      "check": "Bootstrap refuses a second administrator atomically",
+      "passed": true
+    },
+    {
+      "check": "All HTTP requests use a non-superuser vdt_app connection",
+      "passed": true
+    },
+    {
+      "check": "Valid login matches Session DTO, three admin permissions and secure cookie",
+      "passed": true
+    },
+    {
+      "check": "Session GET does not renew idle expiry",
+      "passed": true
+    },
+    {
+      "check": "Wrong, unknown and disabled credentials share one generic denial",
+      "passed": true
+    },
+    {
+      "check": "Login requires CSRF even without an existing session",
+      "passed": true
+    },
+    {
+      "check": "Cross-origin login is denied",
+      "passed": true
+    },
+    {
+      "check": "Proxy secret and one literal source IP are required",
+      "passed": true
+    },
+    {
+      "check": "Authentication gate protects domain API while unfinished operations stay unavailable",
+      "passed": true
+    },
+    {
+      "check": "Idle expiry revokes the database session",
+      "passed": true
+    },
+    {
+      "check": "Absolute expiry is enforced independently of Django cookie expiry",
+      "passed": true
+    },
+    {
+      "check": "Disabling an account invalidates its existing session",
+      "passed": true
+    },
+    {
+      "check": "Role revocation is reflected on the next session read",
+      "passed": true
+    },
+    {
+      "check": "Logout clears the secure cookie and prevents replay",
+      "passed": true
+    },
+    {
+      "check": "Password change verifies current password, rotates session and revokes other sessions",
+      "passed": true
+    },
+    {
+      "check": "Five account failures block the next attempt across source IPs",
+      "passed": true
+    },
+    {
+      "check": "Five source failures block attempts across account names",
+      "passed": true
+    },
+    {
+      "check": "Concurrent login attempts atomically enforce the five-failure account/source limit",
+      "passed": true
+    },
+    {
+      "check": "Audit/history/rate metadata exclude credentials, tokens and raw source IPs",
+      "passed": true
+    }
+  ],
+  "passed": 22,
+  "failed": 0
+}

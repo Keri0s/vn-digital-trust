@@ -1,0 +1,37 @@
+name: vdt-auth-test
+services:
+  testdb:
+    image: postgres:17-trixie@sha256:b8faeff7712663c2773a190181e1246e37e364b887611c04658c28b44e2408fe
+    environment:
+      POSTGRES_DB: vdt_step06
+      POSTGRES_USER: vdt_owner
+      POSTGRES_PASSWORD: ${VDT_DB_OWNER_PASSWORD:?Set test owner secret}
+    tmpfs: ["/var/lib/postgresql/data:size=512m"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vdt_owner -d vdt_step06"]
+      interval: 2s
+      timeout: 2s
+      retries: 25
+    mem_limit: 1024m
+  check:
+    image: vdt-step06-app:local
+    environment:
+      PGHOST: testdb
+      PGPORT: 5432
+      PGDATABASE: vdt_step06
+      PGUSER: vdt_owner
+      PGPASSWORD: ${VDT_DB_OWNER_PASSWORD:?Set test owner secret}
+      VDT_DB_APP_PASSWORD: ${VDT_DB_APP_PASSWORD:?Set test runtime secret}
+      VDT_SECRET_KEY: ${VDT_SECRET_KEY:?Set test Django secret}
+      VDT_AUTH_PROXY_SECRET: ${VDT_AUTH_PROXY_SECRET:?Set test proxy secret}
+      VDT_LOCAL_FOUNDATION_ONLY: "true"
+      VDT_AUTH_INTEGRATION_TEST: "true"
+      VDT_AUTH_POLICY_PATH: /app/lab/local/vdt-auth-policy.json
+      VDT_AUTH_ALLOWED_ORIGINS: https://localhost:8443
+    command: ["python", "/app/lab/local/verify_auth.py", "--output", "/reports/auth-checks.json"]
+    volumes: ["../../.runtime/checks:/reports"]
+    depends_on: {testdb: {condition: service_healthy}}
+    mem_limit: 1024m
+networks:
+  default:
+    internal: true

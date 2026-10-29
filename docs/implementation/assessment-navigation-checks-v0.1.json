@@ -1,0 +1,32 @@
+{
+  "scope": "DISPOSABLE_POSTGRESQL_ASSESSMENT",
+  "passed": 26,
+  "checks": [
+    "Security session exposes assessment navigation without admin permissions",
+    "Security can open the assessment HTML page",
+    "Risk Owner session exposes read navigation only",
+    "Risk Owner can open assessment HTML page",
+    "Admin session retains only administrative permissions",
+    "Admin cannot open business assessment page",
+    "Unassigned Reviewer has no assessment navigation",
+    "Unassigned Reviewer cannot open assessment page",
+    "Admin cannot create assessment",
+    "Security sees only authorized branch in setup",
+    "Cannot create in other branch",
+    "Security creates real scoped assessment",
+    "Same request key replays one assessment",
+    "Admin cannot read assessment detail",
+    "Unassigned reviewer cannot read",
+    "Admin sees assignment selector only",
+    "Admin grants exact Reviewer assignment",
+    "Reviewer reads assigned assessment",
+    "Reviewer session gains navigation after assignment without relogin",
+    "Assigned Reviewer can open assessment HTML page",
+    "Reviewer cannot create assessment",
+    "Revocation removes Reviewer navigation from existing session",
+    "Revocation closes assessment HTML page",
+    "Revocation closes assessment API",
+    "Expiry removes Security navigation from existing session",
+    "Expiry closes assessment HTML page"
+  ]
+}

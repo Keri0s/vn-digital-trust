@@ -1,0 +1,4 @@
+name: vdt-assessment-test
+services:
+  check:
+    command: ["python", "/app/lab/local/verify_assessments.py"]

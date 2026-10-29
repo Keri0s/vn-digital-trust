@@ -1,0 +1,83 @@
+{
+  "recorded_at": "2026-10-27T06:39:34.5050858+00:00",
+  "scope": "MANUAL_BROWSER_QA_DISPOSABLE_WORKSPACE_DATABASE",
+  "url": "https://localhost:8444",
+  "observed_date": "2026-10-27",
+  "synthetic_accounts_only": true,
+  "main_database_mutated_by_qa": false,
+  "tls_warning_bypassed": false,
+  "passed": 16,
+  "failed": 0,
+  "checks": [
+    {
+      "check": "Security sign-in succeeds on trusted HTTPS",
+      "passed": true
+    },
+    {
+      "check": "Security reaches workspace from assessment navigation",
+      "passed": true
+    },
+    {
+      "check": "Create system with sourced KNOWN purpose and reasoned UNKNOWN fields",
+      "passed": true
+    },
+    {
+      "check": "Saved system appears in scoped branch list",
+      "passed": true
+    },
+    {
+      "check": "Create immutable context from selected system",
+      "passed": true
+    },
+    {
+      "check": "Saved context disables editing and enables scenario form",
+      "passed": true
+    },
+    {
+      "check": "Create scenario draft with assumption source",
+      "passed": true
+    },
+    {
+      "check": "Transition draft to ACTIVE with owner and reason",
+      "passed": true
+    },
+    {
+      "check": "Attach scenario to the assigned test assessment and display two pinned scenarios",
+      "passed": true
+    },
+    {
+      "check": "Reviewer sign-in succeeds and only assigned assessment appears",
+      "passed": true
+    },
+    {
+      "check": "Reviewer dossier shows branch name and access expiry",
+      "passed": true
+    },
+    {
+      "check": "Reviewer dossier shows scenario event, consequence, sources and UNKNOWN reasons",
+      "passed": true
+    },
+    {
+      "check": "Reviewer expands frozen inventory and sees saved system properties",
+      "passed": true
+    },
+    {
+      "check": "Pinned original fixture scenario title remains visible after later live edit",
+      "passed": true
+    },
+    {
+      "check": "Reviewer has no create, edit or attach controls and workspace URL redirects",
+      "passed": true
+    },
+    {
+      "check": "No browser warning or error logs during successful workflow",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "workspace-consultant-v0.1.png",
+    "workspace-scenario-v0.1.png"
+  ],
+  "mobile_viewport": "NOT_RUN",
+  "CRM_FLOW_TC_VALID_G": "NOT_RUN"
+}

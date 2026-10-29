@@ -1,0 +1,176 @@
+{
+  "recorded_at": "2026-10-27T13:39:34.5803096+07:00",
+  "status": "DEPLOYED_LOCAL",
+  "url": "https://localhost:8443/workspace",
+  "image": "vdt-step06-app:local",
+  "image_id": "sha256:17345db6927052c9a6d14c314165aa035b4bb5f09710aaca16346a68fcfaa56b",
+  "migration": "core.0004_workspace_runtime",
+  "before": {
+    "tables": {
+      "role": {
+        "count": 4,
+        "fingerprint": "0558fefa6ca4562335c1e2fda25c7419"
+      },
+      "asset": {
+        "count": 0,
+        "fingerprint": "d751713988987e9331980363e24189ce"
+      },
+      "branch": {
+        "count": 2,
+        "fingerprint": "610f699e3b2bc6ad5828668547f9250c"
+      },
+      "app_user": {
+        "count": 4,
+        "fingerprint": "1ef02ab958d7c80bfe0c31570e23690a"
+      },
+      "assessment": {
+        "count": 1,
+        "fingerprint": "203b06e33f4599a02a0b139b5f284c15"
+      },
+      "data_asset": {
+        "count": 0,
+        "fingerprint": "d751713988987e9331980363e24189ce"
+      },
+      "permission": {
+        "count": 19,
+        "fingerprint": "1bffbf722ca005d8a0477093d808becb"
+      },
+      "user_branch": {
+        "count": 3,
+        "fingerprint": "0836703eb03707ae632440e0b4ec0510"
+      },
+      "organization": {
+        "count": 1,
+        "fingerprint": "6df232f0d75ca134c5de12ccf787fbe0"
+      },
+      "risk_scenario": {
+        "count": 0,
+        "fingerprint": "d751713988987e9331980363e24189ce"
+      },
+      "role_assignment": {
+        "count": 4,
+        "fingerprint": "ac25bf81d59d1be2a0debc20080a07e5"
+      },
+      "role_permission": {
+        "count": 22,
+        "fingerprint": "962d2f3ff58ecea71b86463d61b4a3f6"
+      },
+      "snapshot_registry": {
+        "count": 0,
+        "fingerprint": "d751713988987e9331980363e24189ce"
+      },
+      "information_system": {
+        "count": 0,
+        "fingerprint": "d751713988987e9331980363e24189ce"
+      },
+      "assessment_scenario": {
+        "count": 0,
+        "fingerprint": "d751713988987e9331980363e24189ce"
+      }
+    },
+    "migrations": [
+      "0001_initial",
+      "0002_auth_runtime",
+      "0003_access_runtime"
+    ],
+    "recorded_at": "2026-10-27T11:45:28.625961+07:00",
+    "unbound_scenarios": 0
+  },
+  "after": {
+    "tables": {
+      "role": {
+        "count": 4,
+        "fingerprint": "0558fefa6ca4562335c1e2fda25c7419"
+      },
+      "asset": {
+        "count": 0,
+        "fingerprint": "d751713988987e9331980363e24189ce"
+      },
+      "branch": {
+        "count": 2,
+        "fingerprint": "610f699e3b2bc6ad5828668547f9250c"
+      },
+      "app_user": {
+        "count": 4,
+        "fingerprint": "1ef02ab958d7c80bfe0c31570e23690a"
+      },
+      "assessment": {
+        "count": 1,
+        "fingerprint": "203b06e33f4599a02a0b139b5f284c15"
+      },
+      "data_asset": {
+        "count": 0,
+        "fingerprint": "d751713988987e9331980363e24189ce"
+      },
+      "permission": {
+        "count": 19,
+        "fingerprint": "1bffbf722ca005d8a0477093d808becb"
+      },
+      "user_branch": {
+        "count": 3,
+        "fingerprint": "0836703eb03707ae632440e0b4ec0510"
+      },
+      "organization": {
+        "count": 1,
+        "fingerprint": "6df232f0d75ca134c5de12ccf787fbe0"
+      },
+      "risk_scenario": {
+        "count": 0,
+        "fingerprint": "d751713988987e9331980363e24189ce"
+      },
+      "role_assignment": {
+        "count": 4,
+        "fingerprint": "ac25bf81d59d1be2a0debc20080a07e5"
+      },
+      "role_permission": {
+        "count": 22,
+        "fingerprint": "962d2f3ff58ecea71b86463d61b4a3f6"
+      },
+      "snapshot_registry": {
+        "count": 0,
+        "fingerprint": "d751713988987e9331980363e24189ce"
+      },
+      "information_system": {
+        "count": 0,
+        "fingerprint": "d751713988987e9331980363e24189ce"
+      },
+      "assessment_scenario": {
+        "count": 0,
+        "fingerprint": "d751713988987e9331980363e24189ce"
+      }
+    },
+    "migrations": [
+      "0001_initial",
+      "0002_auth_runtime",
+      "0003_access_runtime",
+      "0004_workspace_runtime"
+    ],
+    "recorded_at": "2026-10-27T11:46:41.549857+07:00",
+    "unbound_scenarios": 0
+  },
+  "all_15_table_groups_unchanged": true,
+  "accounts_preserved": 4,
+  "role_assignments_preserved": 4,
+  "assessments_preserved": 1,
+  "sample_business_data_seeded": false,
+  "backup": {
+    "path": ".runtime/backups/vdt-before-workspace-20261027.dump",
+    "bytes": 480396,
+    "sha256": "00621FEB7F09E9E5258B99F5120549B1CEFB132DB263C137119DE33E640A26E9",
+    "pg_restore_archive_list": "PASS",
+    "full_restore_test": "NOT_RUN"
+  },
+  "checks": {
+    "unit": 143,
+    "workspace": 60,
+    "assessment": 39,
+    "authentication": 22,
+    "database": 16,
+    "https_foundation": 12,
+    "https_workspace": 11,
+    "browser": 16
+  },
+  "storage_root": "D:/Projects/vn-digital-trust",
+  "test_cleanup": "COMPLETED: vdt-workspace-test, vdt-assessment-test, vdt-auth-test removed; main lab retained",
+  "CRM_FLOW_TC_VALID_G": "NOT_RUN"
+}

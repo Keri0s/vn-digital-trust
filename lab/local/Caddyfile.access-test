@@ -1,0 +1,20 @@
+{
+    admin off
+    auto_https off
+}
+https://localhost:8444 {
+    tls /trusted-local/caddy/certificates/local/localhost/localhost.crt /trusted-local/caddy/certificates/local/localhost/localhost.key
+    request_body {
+        max_size 64KB
+    }
+    header {
+        -Server
+        Referrer-Policy "same-origin"
+        Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
+    }
+    reverse_proxy browser-app:8000 {
+        header_up X-VDT-Proxy-Secret {$VDT_AUTH_PROXY_SECRET}
+        header_up X-VDT-Client-IP {remote_host}
+        header_up X-Forwarded-Proto https
+    }
+}

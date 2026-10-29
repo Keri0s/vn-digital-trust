@@ -1,0 +1,121 @@
+{
+  "recorded_at": "2026-10-26T03:33:51.797092+00:00",
+  "scope": "DISPOSABLE_POSTGRESQL_ACCESS_ADMINISTRATION_HTTP",
+  "database_host": "testdb",
+  "http_database_role": "vdt_app",
+  "synthetic_account_only": true,
+  "actual_browser_TLS": "NOT_RUN",
+  "CRM_FLOW_TC_VALID_G": "NOT_RUN",
+  "checks": [
+    {
+      "check": "HTTP uses restricted vdt_app database login",
+      "passed": true
+    },
+    {
+      "check": "Organization, branch and role catalogs conform to frozen DTOs",
+      "passed": true
+    },
+    {
+      "check": "Anonymous administration requests return 401",
+      "passed": true
+    },
+    {
+      "check": "User edit replaces branch membership and increments aggregate version",
+      "passed": true
+    },
+    {
+      "check": "Closed JSON validation and CSRF reject malformed writes",
+      "passed": true
+    },
+    {
+      "check": "Idempotency, dependency and If-Match preconditions are required",
+      "passed": true
+    },
+    {
+      "check": "Stale dependencies and aggregate versions cannot overwrite state",
+      "passed": true
+    },
+    {
+      "check": "Idempotent creation replays original result and rejects payload conflict",
+      "passed": true
+    },
+    {
+      "check": "User pagination returns closed Page DTO and advances opaque cursor",
+      "passed": true
+    },
+    {
+      "check": "Temporary passwords force a change without granting implicit rights",
+      "passed": true
+    },
+    {
+      "check": "Administrative credential reset revokes every target session",
+      "passed": true
+    },
+    {
+      "check": "Disabling a user invalidates their active session",
+      "passed": true
+    },
+    {
+      "check": "Scoped Security grants retain selectors without administration privileges",
+      "passed": true
+    },
+    {
+      "check": "Empty, nonexistent and foreign scopes fail closed; Reviewer requires assignments",
+      "passed": true
+    },
+    {
+      "check": "Real object scopes require complete proven intersections across every populated dimension",
+      "passed": true
+    },
+    {
+      "check": "Grant timestamps require timezones and increasing validity bounds",
+      "passed": true
+    },
+    {
+      "check": "Unsupported selected admin scope is rejected without widening or persisting rights",
+      "passed": true
+    },
+    {
+      "check": "Revocation removes access immediately including idempotent replay",
+      "passed": true
+    },
+    {
+      "check": "Expired administrative grants deny existing authenticated sessions",
+      "passed": true
+    },
+    {
+      "check": "Temporary administrators cannot delegate indefinite or overlong access",
+      "passed": true
+    },
+    {
+      "check": "Self-disable, self credential reset and loss of last ready admin are rejected atomically",
+      "passed": true
+    },
+    {
+      "check": "Concurrent edits of one version produce one commit and one 412",
+      "passed": true
+    },
+    {
+      "check": "Concurrent requests sharing an idempotency key create exactly one user",
+      "passed": true
+    },
+    {
+      "check": "Grant revocation and concurrent write serialize; later writes are denied",
+      "passed": true
+    },
+    {
+      "check": "Runtime cannot rewrite immutable entity history",
+      "passed": true
+    },
+    {
+      "check": "Audit pagination shows newest events first without gaps or duplicates",
+      "passed": true
+    },
+    {
+      "check": "Audit/history/idempotency omit credentials and catalogs remain unchanged",
+      "passed": true
+    }
+  ],
+  "passed": 27,
+  "failed": 0
+}

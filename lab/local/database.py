@@ -32,6 +32,7 @@ def migrate(params):
             'GRANT SELECT,INSERT,UPDATE ON ALL TABLES IN SCHEMA vdt TO vdt_app',
             'REVOKE INSERT,UPDATE ON vdt.permission,vdt.role,vdt.role_permission FROM vdt_app',
             'GRANT SELECT,INSERT,UPDATE,DELETE ON public.django_session TO vdt_app',
+            'GRANT DELETE ON vdt.user_branch TO vdt_app',
             'REVOKE ALL ON ALL FUNCTIONS IN SCHEMA vdt FROM PUBLIC',
             'GRANT EXECUTE ON FUNCTION vdt.acquire_authorization_guard(uuid) TO vdt_app',
             'REVOKE CREATE ON SCHEMA public FROM PUBLIC',
@@ -48,13 +49,21 @@ def check(params):
     with psycopg.connect(**params, autocommit=True) as connection:
         record('PostgreSQL major 17', connection.execute('SHOW server_version_num').fetchone()[0].startswith('17'),
                connection.execute('SELECT version()').fetchone()[0])
-        count = connection.execute("SELECT count(*) FROM information_schema.tables WHERE table_schema='vdt' AND table_type='BASE TABLE'").fetchone()[0]
-        record('Domain migration creates 106 tables', count == 106, count)
+        count = connection.execute("SELECT count(*) FROM information_schema.tables WHERE table_schema='vdt' AND table_type='BASE TABLE' AND table_name <> 'auth_rate_bucket'").fetchone()[0]
+        record('Domain migration retains 106 tables', count == 106, count)
+        record('Operational login rate table exists', connection.execute("SELECT to_regclass('vdt.auth_rate_bucket') IS NOT NULL").fetchone()[0])
         original_count = connection.execute('SELECT count(*) FROM vdt.organization').fetchone()[0]
         with connection.transaction():
             org, actor, scope = uuid4(), uuid4(), uuid4()
-            connection.execute('INSERT INTO vdt.organization(id,code,name) VALUES (%s,%s,%s)',
-                               (org, f'SYNTHETIC-{org}', 'Rollback check only'))
+            # The local schema permits one organization. Reuse it inside this
+            # rollback-only transaction once the operator has bootstrapped.
+            existing = connection.execute('SELECT id,version FROM vdt.organization FOR UPDATE').fetchone()
+            if existing:
+                org, original_version = existing
+            else:
+                connection.execute('INSERT INTO vdt.organization(id,code,name) VALUES (%s,%s,%s)',
+                                   (org, f'SYNTHETIC-{org}', 'Rollback check only'))
+                original_version = 1
             connection.execute('INSERT INTO vdt.app_user(id,organization_id,login_name,display_name,status) VALUES (%s,%s,%s,%s,%s)',
                                (actor, org, f'synthetic-{actor}', 'Synthetic', 'PENDING'))
             connection.execute("INSERT INTO vdt.scope(id,organization_id,scope_kind,description,content_hash) VALUES (%s,%s,'ORGANIZATION','Synthetic scope',%s)", (scope, org, '0'*64))
@@ -70,7 +79,7 @@ def check(params):
             denied('Scope history DELETE denied', 'DELETE FROM vdt.scope WHERE id=%s', (scope,), '55000')
             denied('Mutable version cannot skip expected increment', 'UPDATE vdt.organization SET version=version+2 WHERE id=%s', (org,), '40001')
             connection.execute('UPDATE vdt.organization SET version=version+1 WHERE id=%s', (org,))
-            record('Mutable exact version increment allowed', connection.execute('SELECT version FROM vdt.organization WHERE id=%s', (org,)).fetchone()[0] == 2)
+            record('Mutable exact version increment allowed', connection.execute('SELECT version FROM vdt.organization WHERE id=%s', (org,)).fetchone()[0] == original_version + 1)
             sid = uuid4()
             try:
                 with connection.transaction():

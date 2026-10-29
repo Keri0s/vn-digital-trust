@@ -593,3 +593,32 @@ Theo yêu cầu tiếp theo của người dùng vì ổ C sắp đầy, đã ch
 Đã chuẩn bị [phương án CRM local](../implementation/local-crm-lab-plan-v0.1.md): tách danh tính VDT/CRM; VPN là tiền điều kiện SC-01; password + WebAuthn/UV; SC-02 bắt đầu từ phiên đọc hợp lệ và receiver do lab kiểm soát. Có giai đoạn dựng, cấu hình phải chốt, ma trận evidence và trạng thái chưa chạy. Đây là kế hoạch, chưa triển khai CRM/VPN/TLS/receiver.
 
 Tiếp theo: tài khoản/phiên/role assignment thực → Policy gate với DB và recheck commit/stream → Caddy/TLS + scanner/job/upload lifecycle → inventory/context/scenario/control/risk/review/retest/report → lỗi/restore/tài nguyên và CRM lab. Chưa có auth API, upload API, scanner daemon, kiểm cạnh tranh nhiều kết nối hoặc workflow end-to-end. FLOW-01…10, T01–T24 và VALID-G-01 giữ **NOT_RUN**; A/B trống, chưa có CRM evidence/calibration/SME approval; MF-03/MF-04 **NOT_RANKED**. **Bước 06 IN_PROGRESS**, không đóng bước từ kết quả nền.
+
+### 29.4. Đăng nhập VDT local — 2026-10-24
+
+Theo yêu cầu “tạo phần đăng nhập”, đã triển khai UI tiếng Việt và API CSRF/login/session/logout/password; mật khẩu PBKDF2, phiên DB có idle/absolute expiry, giới hạn thử sai theo tài khoản và nguồn, khóa transaction chống mất cập nhật, kiểm lại trạng thái tài khoản/grant và thu hồi phiên khác khi đổi mật khẩu. GET phiên không gia hạn; đổi mật khẩu giữ hạn tuyệt đối. Session DTO chỉ đưa ba quyền quản trị tổ chức hợp lệ; API nghiệp vụ vẫn 401 khi ẩn danh và 503 khi đã xác thực, chưa là Policy gate theo đối tượng.
+
+Đã thêm Caddy 2.11.7 pin digest, HTTPS `https://localhost:8443` chỉ bind loopback; app 8000 không publish. Proxy ghi đè nguồn/proto và secret dùng để xác thực đường request. Người dùng đồng ý cài CA local miễn phí vào kho Windows CurrentUser; TLS được xác minh không bỏ qua certificate validation. Docker data tiếp tục nằm ở D theo mục 29.2.
+
+Migration bổ sung một bảng vận hành `auth_rate_bucket`, giữ nguyên 106 bảng thiết kế. Có lệnh tạo quản trị đầu tiên tương tác, từ chối ghi đè và không có mật khẩu mặc định. **Database lab thật vẫn 0 user** khi bàn giao; operator tự nhập mật khẩu qua PowerShell. Tài khoản tổng hợp chỉ được tạo trong testdb riêng trên tmpfs rồi dọn sau kiểm thử.
+
+**Kết quả:** 143/143 unit; 22/22 tích hợp PostgreSQL auth (HTTP dùng vdt_app, gồm 8 lượt thử đồng thời cho đúng 5×401 + 3×429); 16/16 kiểm tra DB nền; 12/12 HTTPS thực. UI trên trình duyệt tải được, xử lý đăng nhập sai và xóa mật khẩu đúng. Đăng nhập thành công/đổi mật khẩu/đăng xuất qua API được kiểm trong testdb; luồng trình duyệt với tài khoản operator chờ người dùng tạo tài khoản. Model migration không phát sinh thay đổi; deploy check còn W005/W021 về HSTS subdomains/preload, không bật cho localhost.
+
+Hướng dẫn: [đăng nhập local](../implementation/login-v0.1.md), [trạng thái và kết quả](../implementation/README.md). Mốc tiếp: quản lý tài khoản/role assignment qua workflow kiểm quyền, Policy gate theo đối tượng, scanner/job/upload và các luồng nghiệp vụ. CRM/FLOW/T01–T24/VALID-G vẫn NOT_RUN; không thay năm trường AUTH-CRM-01 bằng cấu hình phiên VDT local. **Bước 06 vẫn IN_PROGRESS.**
+
+
+### 29.5. Quản lý người dùng và phân quyền — 2026-10-26
+
+**Căn cứ và phạm vi:** Sau khi người dùng báo cáo đã tạo admin, đăng nhập, đổi mật khẩu và thử sai năm lần bị thông báo tạm khóa 15 phút, người dùng yêu cầu xây dựng phần tiếp theo và nhiều lần yêu cầu tiếp tục. Đã triển khai mốc quản lý người dùng/phân quyền trong Bước 06. Xác nhận của người dùng không được diễn giải thành đã kiểm đăng xuất hoặc tự mở khóa sau khi chờ đủ 15 phút. Tài khoản hiện có và mật khẩu của operator được giữ; không yêu cầu bootstrap lại.
+
+**Đầu ra:** UI tiếng Việt tại `https://localhost:8443/admin/users` với tạo/sửa/khóa tài khoản, mật khẩu tạm buộc đổi trước khi thao tác, cấp/thu hồi vai trò, phạm vi chi nhánh và thời hạn, catalog và nhật ký. ADMIN dùng phạm vi toàn tổ chức; cấp ADMIN với selector bị từ chối. Security/Risk Owner trên UI phải chọn chi nhánh. Reviewer UI chờ dữ liệu đánh giá có thật, giao cụ thể và thời hạn; không tạo đối tượng giả để mở quyền.
+
+API quản trị kiểm phiên/quyền hiện hành dưới authorization guard và kiểm lại trước khi hoàn tất; ghi cần CSRF, idempotency key, reason, dependency versions và If-Match theo thao tác. Thu hồi/hết hạn không để phiên cũ tiếp tục dùng quyền; reset credential thu hồi tất cả phiên, cờ yêu cầu đổi mật khẩu chặn API quản trị/nghiệp vụ. Chặn tự khóa, tự reset credential và làm mất quản trị viên cuối cùng còn sử dụng được. Quyền cấp tạm thời không được kéo dài quá authority của người cấp. History/audit/idempotency giữ cùng giao dịch, không lưu mật khẩu/token trong kết quả công khai.
+
+Migration vận hành `0003_access_runtime` thêm `app_user.password_change_required` mặc định `false`; Session DTO đóng băng giữ nguyên, dùng header `X-VDT-Password-Change-Required` cho UI. Giữ 106 bảng domain, danh mục 4 role/19 permission/22 liên kết và các đầu vào Bước 05 đóng băng. Docker image/cache/volume tiếp tục lưu ở D theo mục 29.2.
+
+**Kiểm chứng thực tế:** unit **143/143 đạt**; API quản trị trên PostgreSQL tạm **27/27 đạt**; hồi quy auth **22/22 đạt**; browser trên dữ liệu tổng hợp riêng **12/12 kiểm tra thủ công bằng tài khoản tổng hợp đạt**; cập nhật lab thật/giữ tài khoản hiện có **Đạt: giữ nguyên 1 tài khoản/1 lượt cấp quyền và thông tin xác thực; 16/16 database, 12/12 HTTPS auth, 11/11 HTTPS quản trị**. **Trạng thái triển khai: DEPLOYED_LOCAL — https://localhost:8443/admin/users.** Không nâng kiểm tra HTTP trong tiến trình thành kết quả TLS/browser. Bộ tích hợp quản trị chỉ chấp nhận testdb riêng, dùng quyền runtime `vdt_app`; credential browser fixture không được đưa vào báo cáo và phải dọn sau QA.
+
+Hướng dẫn: [quản lý tài khoản và phân quyền](../implementation/access-management-v0.1.md), [trạng thái triển khai](../implementation/README.md), [cách tái lập local](../../lab/local/README.md). Các báo cáo mốc nền/đăng nhập trước đây được giữ nguyên theo ngày ghi nhận.
+
+**Phần tiếp theo:** inventory/context/scenario/assessment có provenance, scope/assignment theo đối tượng, scanner/job/upload qua proxy/gate, rồi evidence/control/risk/review/treatment/retest/report. Chưa hoàn thành CRM local hoặc kiểm restore/tài nguyên/luồng nghiệp vụ. FLOW-01…10, T01–T24, VALID-G-01 giữ **NOT_RUN**; phiếu G A/B trống, MF-03/MF-04 **NOT_RANKED**, chưa có evidence/hiệu chuẩn/phê duyệt SME. Năm trường AUTH-CRM-01 vẫn cần được chốt trước lab CRM. **Bước 06 vẫn IN_PROGRESS.**

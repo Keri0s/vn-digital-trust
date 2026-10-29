@@ -25,9 +25,24 @@ services:
       PGUSER: vdt_app
       PGPASSWORD: ${VDT_DB_APP_PASSWORD:?Set local application secret}
       VDT_SECRET_KEY: ${VDT_SECRET_KEY:?Set local Django secret}
+      VDT_AUTH_PROXY_SECRET: ${VDT_AUTH_PROXY_SECRET:?Run init_environment.py}
+      VDT_AUTH_POLICY_PATH: /app/lab/local/vdt-auth-policy.json
+      VDT_AUTH_ALLOWED_ORIGINS: https://localhost:8443
     expose: ["8000"]
     depends_on: {db: {condition: service_healthy}}
     mem_limit: 1024m
+  proxy:
+    profiles: ["app"]
+    image: caddy:2-alpine@sha256:eb4d35b7452d1ab6171fbdbe8d9275b2301dad6dad92115d91e19fb9b24d510f
+    environment:
+      VDT_AUTH_PROXY_SECRET: ${VDT_AUTH_PROXY_SECRET:?Run init_environment.py}
+    ports: ["127.0.0.1:8443:8443"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - vdt_caddy_data:/data
+      - vdt_caddy_config:/config
+    depends_on: [app]
+    mem_limit: 256m
   admin:
     profiles: ["tools"]
     image: vdt-step06-app:local
@@ -41,6 +56,9 @@ services:
       VDT_DB_APP_PASSWORD: ${VDT_DB_APP_PASSWORD:?Set local application secret}
       VDT_SECRET_KEY: ${VDT_SECRET_KEY:?Set local Django secret}
       VDT_LOCAL_FOUNDATION_ONLY: "true"
+      VDT_AUTH_PROXY_SECRET: ${VDT_AUTH_PROXY_SECRET:?Run init_environment.py}
+      VDT_AUTH_POLICY_PATH: /app/lab/local/vdt-auth-policy.json
+      VDT_AUTH_ALLOWED_ORIGINS: https://localhost:8443
     command: ["python", "/app/lab/local/database.py", "check", "--output", "/reports/database-checks.json"]
     volumes: ["../../.runtime/checks:/reports"]
     depends_on: {db: {condition: service_healthy}}
@@ -56,3 +74,5 @@ services:
     mem_limit: 1024m
 volumes:
   vdt_pgdata:
+  vdt_caddy_data:
+  vdt_caddy_config:

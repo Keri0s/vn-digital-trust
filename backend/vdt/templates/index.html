@@ -1,1 +1,78 @@
-<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VN Digital Trust — Prototype</title><style>body{font:18px system-ui;background:#f3f6fa;color:#17314d;max-width:820px;margin:10vh auto;padding:24px}main{background:white;border:1px solid #d7e2ef;border-radius:16px;padding:40px}small{color:#526a83}h1{font-size:36px}p{line-height:1.6}.state{display:inline-block;padding:7px 12px;background:#fff2d5;border-radius:20px;color:#765400}</style><main><small>VN DIGITAL TRUST · MÔI TRƯỜNG PHÁT TRIỂN</small><h1>Prototype đang được xây dựng</h1><span class="state">Bước 06 · Đang thực hiện</span><p>Phần nền và các quy tắc đánh giá đang được kiểm thử. Các chức năng nhập dữ liệu và đánh giá chưa được mở.</p><p>Chưa có kết quả kiểm thử CRM hoặc xác nhận đánh giá của doanh nghiệp.</p></main></html>
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Đăng nhập môi trường local VN Digital Trust.">
+  <title>Đăng nhập · VN Digital Trust</title>
+  <link rel="stylesheet" href="/static/vdt/auth.css">
+  <script src="/static/vdt/auth.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Đến nội dung chính</a>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="VN Digital Trust, trang chủ">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M16 3 27 7v8c0 6-4.7 10.7-11 14C9.7 25.7 5 21 5 15V7l11-4Z" stroke="currentColor" stroke-width="1.8"/><path d="m10.5 15.5 4 4 7-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span>VN <strong>Digital Trust</strong></span>
+      </a>
+      <span class="environment-badge"><span aria-hidden="true"></span>Lab local</span>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <section id="login-view" class="login-layout" aria-labelledby="login-title">
+        <div class="intro-panel">
+          <p class="eyebrow">KHÔNG GIAN LÀM VIỆC VDT</p>
+          <h1 id="login-title">Bắt đầu từ<br>một phiên an toàn.</h1>
+          <p class="intro-copy">Đăng nhập để kiểm tra tài khoản, quyền truy cập và phiên làm việc của bạn.</p>
+          <div class="intro-note">
+            <span class="note-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <div><strong>Tài khoản VDT riêng biệt</strong><p>Tài khoản này dùng cho VN Digital Trust, độc lập với tài khoản CRM.</p></div>
+          </div>
+          <div class="stage-note"><span class="stage-line" aria-hidden="true"></span><span>Bước 06 · Prototype đang phát triển</span></div>
+        </div>
+
+        <div class="login-card card">
+          <p class="eyebrow card-eyebrow">CHÀO MỪNG BẠN</p>
+          <h2>Đăng nhập</h2>
+          <p class="muted form-intro">Sử dụng tài khoản được cấp trong lab local.</p>
+          <div id="login-message" class="message" role="status" aria-live="polite" tabindex="-1" hidden></div>
+          <form id="login-form" novalidate>
+            <div class="field">
+              <label for="username">Tên đăng nhập</label>
+              <input id="username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required maxlength="150" aria-describedby="username-help">
+              <p id="username-help" class="field-help">Tên đăng nhập do quản trị viên lab cung cấp.</p>
+            </div>
+            <div class="field">
+              <label for="password">Mật khẩu</label>
+              <div class="password-wrap"><input id="password" name="password" type="password" autocomplete="current-password" maxlength="1024" required><button class="password-toggle" type="button" data-password-target="password" aria-label="Hiện mật khẩu" aria-pressed="false">Hiện</button></div>
+            </div>
+            <button id="login-submit" class="button button-primary full-width" type="submit" disabled><span id="login-button-label">Đang kết nối…</span><span class="button-arrow" aria-hidden="true">→</span></button>
+          </form>
+          <button id="connection-retry" type="button" class="button button-secondary full-width" hidden>Kiểm tra lại kết nối</button>
+          <details class="account-help"><summary>Chưa có tài khoản?</summary><p>Quản trị viên cần tạo tài khoản local trước lần đăng nhập đầu tiên. Xem mục tạo tài khoản trong hướng dẫn chạy lab của dự án.</p><p>Không nhập mật khẩu vào cuộc trò chuyện.</p></details>
+        </div>
+      </section>
+
+      <section id="session-view" class="session-layout" aria-labelledby="session-title" hidden>
+        <div class="session-heading"><div><p class="eyebrow">TÀI KHOẢN CỦA BẠN</p><h1 id="session-title" tabindex="-1">Xin chào, <span id="display-name"></span></h1><p class="muted">Bạn đã đăng nhập vào VN Digital Trust.</p></div><button id="logout-button" class="button button-secondary" type="button">Đăng xuất <span aria-hidden="true">↗</span></button></div>
+        <div id="session-message" class="message" role="status" aria-live="polite" tabindex="-1" hidden></div>
+        <div id="temporary-password-notice" class="message notice" role="status" hidden>Bạn đang dùng mật khẩu tạm. Hãy đổi mật khẩu ở bên dưới để tiếp tục sử dụng các chức năng của hệ thống.</div>
+        <p id="admin-navigation" class="form-intro" hidden><a class="button button-primary" href="/admin/users">Quản lý người dùng &amp; phân quyền →</a></p>
+        <p id="assessment-navigation" class="form-intro" hidden><a class="button button-secondary" href="/assessments">Đợt đánh giá →</a></p>
+        <p id="assessment-access-help" class="message notice" hidden></p>
+        <div class="session-grid">
+          <section class="card session-card" aria-labelledby="session-details-title"><div class="section-heading"><span class="section-number" aria-hidden="true">01</span><h2 id="session-details-title">Phiên làm việc</h2></div><dl class="session-details"><div><dt>Hết hạn nếu không hoạt động</dt><dd id="idle-expiry">—</dd></div><div><dt>Thời điểm phải đăng nhập lại</dt><dd id="absolute-expiry">—</dd></div></dl><p class="field-help">Thời gian hiển thị theo múi giờ trên máy của bạn. Trang này không tự gia hạn phiên.</p></section>
+          <section class="card session-card permissions-card" aria-labelledby="permissions-title"><div class="section-heading"><span class="section-number" aria-hidden="true">02</span><h2 id="permissions-title">Quyền truy cập</h2></div><p class="muted compact-copy">Các quyền cho chức năng đang hoạt động được hiển thị trong phiên hiện tại. Mỗi thao tác còn được kiểm tra theo phạm vi được giao.</p><ul id="permissions-list" class="permissions-list"></ul><p id="permissions-empty" class="field-help" hidden>Chưa có quyền cho các chức năng đang hoạt động.</p></section>
+          <section class="card session-card password-card" aria-labelledby="password-title"><div class="section-heading"><span class="section-number" aria-hidden="true">03</span><h2 id="password-title">Đổi mật khẩu</h2></div><p class="muted compact-copy">Chọn mật khẩu riêng cho tài khoản VDT của bạn.</p><div id="password-message" class="message" role="status" aria-live="polite" tabindex="-1" hidden></div><form id="change-password-form" novalidate><div class="field"><label for="current-password">Mật khẩu hiện tại</label><input id="current-password" name="current_password" type="password" autocomplete="current-password" maxlength="1024" required></div><div class="field"><label for="new-password">Mật khẩu mới</label><input id="new-password" name="new_password" type="password" autocomplete="new-password" minlength="12" maxlength="1024" required aria-describedby="new-password-help"><p id="new-password-help" class="field-help">Ít nhất 12 ký tự, không phổ biến, không chỉ gồm số và khác mật khẩu hiện tại.</p></div><div class="field"><label for="confirm-password">Nhập lại mật khẩu mới</label><input id="confirm-password" name="confirm_password" type="password" autocomplete="new-password" minlength="12" maxlength="1024" required></div><button id="password-submit" class="button button-primary" type="submit">Lưu mật khẩu mới <span aria-hidden="true">→</span></button></form></section>
+          <aside class="availability-note"><span class="availability-dot" aria-hidden="true"></span><div><h2>Phạm vi hiện tại</h2><p>Bạn có thể quản lý tài khoản và phiên của mình. Quản trị viên quản lý người dùng và phân quyền. Người được cấp quyền đánh giá có thể tạo đợt theo chi nhánh; các phần nhập bằng chứng và tính toán rủi ro đang được xây dựng.</p></div></aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><span>VN Digital Trust</span><span>Môi trường phát triển · Dữ liệu lab</span></footer>
+  </div>
+  <noscript><div class="noscript-note">Vui lòng bật JavaScript để sử dụng đăng nhập VN Digital Trust.</div></noscript>
+</body>
+</html>

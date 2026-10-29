@@ -1,0 +1,42 @@
+# Overlay compose.auth-test.yaml. The database is disposable tmpfs.
+name: vdt-access-test
+services:
+  check:
+    command: ["python", "/app/lab/local/verify_access.py", "--output", "/reports/access-checks.json"]
+  browser-app:
+    profiles: ["browser-qa"]
+    image: vdt-step06-app:local
+    environment:
+      PGHOST: testdb
+      PGPORT: 5432
+      PGDATABASE: vdt_step06
+      PGUSER: vdt_app
+      PGPASSWORD: ${VDT_DB_APP_PASSWORD:?Set local runtime secret}
+      VDT_SECRET_KEY: ${VDT_SECRET_KEY:?Set local Django secret}
+      VDT_AUTH_PROXY_SECRET: ${VDT_AUTH_PROXY_SECRET:?Set local proxy secret}
+      VDT_AUTH_POLICY_PATH: /app/lab/local/vdt-auth-policy.json
+      VDT_AUTH_ALLOWED_ORIGINS: https://localhost:8444
+      VDT_AUTH_INTEGRATION_TEST: "true"
+    expose: ["8000"]
+    depends_on: {testdb: {condition: service_healthy}}
+    mem_limit: 1024m
+  browser-proxy:
+    profiles: ["browser-qa"]
+    image: caddy:2-alpine@sha256:eb4d35b7452d1ab6171fbdbe8d9275b2301dad6dad92115d91e19fb9b24d510f
+    environment:
+      VDT_AUTH_PROXY_SECRET: ${VDT_AUTH_PROXY_SECRET:?Set local proxy secret}
+    ports: ["127.0.0.1:8444:8444"]
+    networks: [default, browser-ui]
+    volumes:
+      - ./Caddyfile.access-test:/etc/caddy/Caddyfile:ro
+      - local_caddy_certificates:/trusted-local:ro
+    tmpfs: ["/data", "/config"]
+    depends_on: [browser-app]
+    mem_limit: 256m
+volumes:
+  local_caddy_certificates:
+    external: true
+    name: vdt-step06_vdt_caddy_data
+networks:
+  browser-ui:
+    driver: bridge
